@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Patient {
     private Long idPatient;
+    private String name;
     private Integer document;
     private Date birthDate;
     private String email;
@@ -15,8 +16,9 @@ public class Patient {
         // TODO Document why this constructor is empty
     }
 
-    public Patient(Long idPatient, Integer document, Date birthDate, String email, Gender gender) {
+    public Patient(Long idPatient, String name, Integer document, Date birthDate, String email, Gender gender) {
         this.idPatient = idPatient;
+        this.name = name;
         this.document = document;
         this.birthDate = birthDate;
         this.email = email;
@@ -30,6 +32,10 @@ public class Patient {
     public void setIdPatient(Long idPatient) {
         this.idPatient = idPatient;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public Integer getDocument() {
         return document;

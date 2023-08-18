@@ -10,7 +10,7 @@ public class PatientDeleteUseCase {
     }
 
     public void deletePatientById(Long id) {
-            patientDeleteGetway.deleteById(id);
+        patientDeleteGetway.deleteById(id);
     }
 }
 
