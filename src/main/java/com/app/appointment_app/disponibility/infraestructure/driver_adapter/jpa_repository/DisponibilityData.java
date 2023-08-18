@@ -1,9 +1,7 @@
 package com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +17,7 @@ public class DisponibilityData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDisponibility;
     private Date hour;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private DoctorData doctor;
 }

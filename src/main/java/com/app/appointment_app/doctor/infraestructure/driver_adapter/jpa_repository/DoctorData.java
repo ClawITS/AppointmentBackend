@@ -1,12 +1,13 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity(name = "doctors")
 @Data
@@ -18,4 +19,7 @@ public class DoctorData {
     private Long idDoctor;
     private String name;
     private String description;
+    @JsonIgnore
+    @OneToMany(mappedBy ="doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DisponibilityData> disponibilities;
 }
