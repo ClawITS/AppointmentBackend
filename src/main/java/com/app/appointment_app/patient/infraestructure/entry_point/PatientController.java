@@ -1,7 +1,10 @@
 package com.app.appointment_app.patient.infraestructure.entry_point;
 
 import com.app.appointment_app.patient.domain.model.Patient;
-import com.app.appointment_app.patient.domain.usecases.*;
+import com.app.appointment_app.patient.domain.usecases.PatientDeleteUseCase;
+import com.app.appointment_app.patient.domain.usecases.PatientFindAllUseCase;
+import com.app.appointment_app.patient.domain.usecases.PatientFindByIdUseCase;
+import com.app.appointment_app.patient.domain.usecases.PatientSaveUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/patient")
 @RequiredArgsConstructor
 public class PatientController {
-    private PatientSaveUseCase patientSaveUseCase;
-    private PatientFindAllUseCase patientFindAllUseCase;
-    private PatientFindByIdUseCase patientFindByIdUseCase;
-    private PatientDeleteUseCase patientDeleteUseCase;
+    private final PatientSaveUseCase patientSaveUseCase;
+    private final PatientFindAllUseCase patientFindAllUseCase;
+    private final PatientFindByIdUseCase patientFindByIdUseCase;
+    private final PatientDeleteUseCase patientDeleteUseCase;
 
     @GetMapping("/{id}")
     public ResponseEntity<Patient> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(patientFindByIdUseCase.findpatientById(id), HttpStatus.OK);
+        return new ResponseEntity<>(patientFindByIdUseCase.findPatientById(id), HttpStatus.OK);
     }
 
     @PostMapping

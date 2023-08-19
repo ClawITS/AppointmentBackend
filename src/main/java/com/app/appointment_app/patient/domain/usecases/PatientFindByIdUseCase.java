@@ -10,7 +10,7 @@ public class PatientFindByIdUseCase {
         this.patientFindByIdGetway = patientFindByIdGetway;
     }
 
-    public Patient findpatientById(Long id){
+    public Patient findPatientById(Long id){
         return patientFindByIdGetway.findById(id);
     }
 }

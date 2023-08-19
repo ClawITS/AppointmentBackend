@@ -42,7 +42,7 @@ class PatientFindByIdTest {
         patient.setEmail("antonela@example.com");
         patient.setGender(Gender.FEMALE);
 
-        when(patientFindByIdUseCase.findpatientById(patient.getIdPatient())).thenReturn(patient);
+        when(patientFindByIdUseCase.findPatientById(patient.getIdPatient())).thenReturn(patient);
 
         ResponseEntity<Patient> response = patientController.findById(patient.getIdPatient());
 
