@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 public class PatientMapper {
-    public Patient toPatient(PatientData patientData){
-        return new Patient(patientData.getIdPatient(), patientData.getDocument(), patientData.getBirthDate(),
+    public Patient toPatient(PatientData patientData) {
+        return new Patient(patientData.getIdPatient(), patientData.getName(), patientData.getDocument(), patientData.getBirthDate(),
                 patientData.getEmail(), patientData.getGender());
     }
-    public PatientData toData(Patient patient){
-        return new PatientData(patient.getIdPatient(), patient.getDocument(), patient.getBirthDate(),
+
+    public PatientData toData(Patient patient) {
+        return new PatientData(patient.getIdPatient(), patient.getName(), patient.getDocument(), patient.getBirthDate(),
                 patient.getEmail(), patient.getGender());
     }
 }
