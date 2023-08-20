@@ -4,10 +4,11 @@ import com.app.appointment_app.doctor.domain.getways.DoctorDeleteGetway;
 import com.app.appointment_app.doctor.domain.getways.DoctorFindAllGetway;
 import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
 import com.app.appointment_app.doctor.domain.getways.DoctorSaveGetway;
-import com.app.appointment_app.doctor.domain.usecases.DoctorDeleteUseCase;
-import com.app.appointment_app.doctor.domain.usecases.DoctorFindAllUseCase;
-import com.app.appointment_app.doctor.domain.usecases.DoctorFindByIdUseCase;
-import com.app.appointment_app.doctor.domain.usecases.DoctorSaveUseCase;
+
+import com.app.appointment_app.doctor.domain.useCases.DoctorDeleteUseCase;
+import com.app.appointment_app.doctor.domain.useCases.DoctorFindAllUseCase;
+import com.app.appointment_app.doctor.domain.useCases.DoctorFindByIdUseCase;
+import com.app.appointment_app.doctor.domain.useCases.DoctorSaveUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

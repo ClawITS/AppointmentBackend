@@ -20,6 +20,6 @@ public class DoctorData {
     private String name;
     private String description;
     @JsonIgnore
-    @OneToMany(mappedBy ="doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy ="doctor", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<DisponibilityData> disponibilities;
 }
