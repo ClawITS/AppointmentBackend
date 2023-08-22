@@ -2,6 +2,7 @@ package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_reposi
 
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
+import com.app.appointment_app.doctor.domain.getways.DoctorDisponibilityRelationGetway;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DoctorDisponibilityRelation {
+public class DoctorDisponibilityRelation implements DoctorDisponibilityRelationGetway {
     private final DisponibilityMapper disponibilityMapper;
     private final DoctorMapper doctorMapper;
     private final DoctorRepository doctorRepository;
@@ -22,40 +23,25 @@ public class DoctorDisponibilityRelation {
         this.doctorRepository = doctorRepository;
     }
 
-    public Doctor doctorDisponibilityRelation(DoctorData dataDoctor, Doctor doctor){
-        DoctorData dataDoctorSave = ifDoctorExistUpdate(dataDoctor, doctor);
-        if(!doctor.getDisponibilityList().isEmpty()){
-            List<DisponibilityData> listDisponibilitiesData = getDisponibilityToData(doctor);
-            putDoctorIntoDisponibilityData(dataDoctorSave, listDisponibilitiesData);
-            dataDoctorSave.setDisponibilityList(listDisponibilitiesData);
-            return doctorMapper.toDoctor(doctorRepository.save(dataDoctorSave));
-
-        }
-        return doctor;
+    @Override
+    public Doctor disponibilityRelation(Doctor doctor) {
+        DoctorData dataDoctor = doctorMapper.toData(doctor);
+        List<DisponibilityData> listDisponibilitiesData = convertDisponibilitiesToData(doctor);
+        assignDoctorToDisponibilities(dataDoctor, listDisponibilitiesData);
+        dataDoctor.setDisponibilityList(listDisponibilitiesData);
+        return doctorMapper.toDoctor(doctorRepository.save(dataDoctor));
     }
 
-    private void putDoctorIntoDisponibilityData(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
-        listDisponibilitiesData.stream()
-                .forEach(
-                        disponibilityData -> {
-                            disponibilityData.setDoctor(data);
-                            //  disponibilityRepository.save(disponibilityData);
-                        }
-                );
+    private void assignDoctorToDisponibilities(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
+        listDisponibilitiesData.forEach(disponibilityData -> {
+            disponibilityData.setDoctor(data);
+        });
     }
 
-    private List<DisponibilityData> getDisponibilityToData(Doctor doctor) {
-        return doctor.getDisponibilityList().stream()
-                .map(disponibilityMapper::toData).collect(Collectors.toList());
+    private List<DisponibilityData> convertDisponibilitiesToData(Doctor doctor) {
+        return doctor.getDisponibilityList().stream().map(disponibilityMapper::toData)
+                .collect(Collectors.toList());
     }
 
-    private DoctorData ifDoctorExistUpdate(DoctorData dataDoctor, Doctor doctor) {
-        DoctorData data;
-        if(doctor.getIdDoctor()!= null){
-            data = dataDoctor;
-        }else{
-            data = doctorRepository.save(dataDoctor);
-        }
-        return data;
-    }
+
 }
