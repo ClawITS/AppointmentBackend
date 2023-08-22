@@ -32,7 +32,7 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
 
     @Override
     public void deleteById(Long id) {
-        // TODO document why this method is empty
+        doctorRepository.deleteById(id);
     }
 
     @Override

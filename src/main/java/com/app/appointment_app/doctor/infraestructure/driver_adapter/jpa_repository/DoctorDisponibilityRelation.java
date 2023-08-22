@@ -23,38 +23,33 @@ public class DoctorDisponibilityRelation {
     }
 
     public Doctor doctorDisponibilityRelation(DoctorData dataDoctor, Doctor doctor){
-        DoctorData data = new DoctorData();
-        data = getDoctorData(dataDoctor, doctor);
+        DoctorData dataDoctorSave = ifDoctorExistUpdate(dataDoctor, doctor);
         if(!doctor.getDisponibilityList().isEmpty()){
-            List<DisponibilityData> listDisponibilitiesData = getDisponibilityData(doctor);
-            DoctorData finalData = getDoctorData(data, listDisponibilitiesData);
-            finalData.setDisponibilityList(listDisponibilitiesData);
-            DoctorData data1 = doctorRepository.save(finalData);
-            return doctorMapper.toDoctor(data1);
+            List<DisponibilityData> listDisponibilitiesData = getDisponibilityToData(doctor);
+            putDoctorIntoDisponibilityData(dataDoctorSave, listDisponibilitiesData);
+            dataDoctorSave.setDisponibilityList(listDisponibilitiesData);
+            return doctorMapper.toDoctor(doctorRepository.save(dataDoctorSave));
 
         }
         return doctor;
     }
 
-    private DoctorData getDoctorData(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
-        DoctorData finalData = data;
+    private void putDoctorIntoDisponibilityData(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
         listDisponibilitiesData.stream()
                 .forEach(
                         disponibilityData -> {
-                            disponibilityData.setDoctor(finalData);
+                            disponibilityData.setDoctor(data);
                             //  disponibilityRepository.save(disponibilityData);
                         }
                 );
-        return finalData;
     }
 
-    private List<DisponibilityData> getDisponibilityData(Doctor doctor) {
-        List<DisponibilityData> listDisponibilitiesData = doctor.getDisponibilityList().stream()
+    private List<DisponibilityData> getDisponibilityToData(Doctor doctor) {
+        return doctor.getDisponibilityList().stream()
                 .map(disponibilityMapper::toData).collect(Collectors.toList());
-        return listDisponibilitiesData;
     }
 
-    private DoctorData getDoctorData(DoctorData dataDoctor, Doctor doctor) {
+    private DoctorData ifDoctorExistUpdate(DoctorData dataDoctor, Doctor doctor) {
         DoctorData data;
         if(doctor.getIdDoctor()!= null){
             data = dataDoctor;

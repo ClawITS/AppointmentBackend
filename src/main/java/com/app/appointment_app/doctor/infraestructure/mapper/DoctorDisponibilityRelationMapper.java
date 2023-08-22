@@ -2,8 +2,6 @@ package com.app.appointment_app.doctor.infraestructure.mapper;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
-import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

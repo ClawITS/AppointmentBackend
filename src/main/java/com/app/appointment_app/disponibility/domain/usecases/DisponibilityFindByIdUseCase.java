@@ -1,5 +1,4 @@
 package com.app.appointment_app.disponibility.domain.usecases;
-
 import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindByIdGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 
