@@ -16,7 +16,7 @@ public class DoctorSaveUseCase {
         if(!doctor.getDisponibilityList().isEmpty()){
             if(doctor.getIdDoctor()==null){
                 Doctor newDoctor=doctorSaveGetway.saveDoctor(doctor);
-                newDoctor.setDisponibilityList(doctor.getDisponibilityList());
+               newDoctor.setDisponibilityList(doctor.getDisponibilityList());
                return doctorDisponibilityRelation.disponibilityRelation(newDoctor) ;
             }
             return doctorDisponibilityRelation.disponibilityRelation(doctor);

@@ -22,29 +22,26 @@ public class DoctorDisponibilityRelation implements DoctorDisponibilityRelationG
         this.doctorMapper = doctorMapper;
         this.doctorRepository = doctorRepository;
     }
+
     @Override
     public Doctor disponibilityRelation(Doctor doctor) {
         DoctorData dataDoctor = doctorMapper.toData(doctor);
-        List<DisponibilityData> listDisponibilitiesData = getDisponibilityToData(doctor);
-        putDoctorIntoDisponibilityData(dataDoctor, listDisponibilitiesData);
+        List<DisponibilityData> listDisponibilitiesData = convertDisponibilitiesToData(doctor);
+        assignDoctorToDisponibilities(dataDoctor, listDisponibilitiesData);
         dataDoctor.setDisponibilityList(listDisponibilitiesData);
         return doctorMapper.toDoctor(doctorRepository.save(dataDoctor));
     }
 
-    private void putDoctorIntoDisponibilityData(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
-        listDisponibilitiesData.stream()
-                .forEach(
-                        disponibilityData -> {
-                            disponibilityData.setDoctor(data);
-                        }
-                );
+    private void assignDoctorToDisponibilities(DoctorData data, List<DisponibilityData> listDisponibilitiesData) {
+        listDisponibilitiesData.forEach(disponibilityData -> {
+            disponibilityData.setDoctor(data);
+        });
     }
 
-    private List<DisponibilityData> getDisponibilityToData(Doctor doctor) {
-        return doctor.getDisponibilityList().stream()
-                .map(disponibilityMapper::toData).collect(Collectors.toList());
+    private List<DisponibilityData> convertDisponibilitiesToData(Doctor doctor) {
+        return doctor.getDisponibilityList().stream().map(disponibilityMapper::toData)
+                .collect(Collectors.toList());
     }
-
 
 
 }
