@@ -1,4 +1,6 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
+import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
+import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
 import com.app.appointment_app.doctor.domain.getways.DoctorDeleteGetway;
 import com.app.appointment_app.doctor.domain.getways.DoctorFindAllGetway;
 import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
@@ -10,14 +12,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
         DoctorFindByIdGetway {
     private final DoctorRepository doctorRepository;
+    private final DisponibilityRepository disponibilityRepository;
+    private final DisponibilityMapper disponibilityMapper;
+    private final DoctorDisponibilityRelation doctorDisponibilityRelationClass;
     private final DoctorMapper doctorMapper;
 
-    public DoctorGetwayImpl(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
+    public DoctorGetwayImpl(DoctorRepository doctorRepository, DisponibilityRepository disponibilityRepository, DisponibilityMapper disponibilityMapper, DoctorDisponibilityRelation doctorDisponibilityRelationClass, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
+        this.disponibilityRepository = disponibilityRepository;
+        this.disponibilityMapper = disponibilityMapper;
+        this.doctorDisponibilityRelationClass = doctorDisponibilityRelationClass;
         this.doctorMapper = doctorMapper;
     }
 
@@ -41,7 +50,8 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
 
     @Override
     public Doctor saveDoctor(Doctor doctor) {
-        DoctorData data = doctorMapper.toData(doctor);
-        return doctorMapper.toDoctor(doctorRepository.save(data));
+       DoctorData dataDoctor = doctorMapper.toData(doctor);
+
+        return doctorDisponibilityRelationClass.doctorDisponibilityRelation(dataDoctor, doctor);
     }
 }

@@ -10,28 +10,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@NoArgsConstructor
 public class DoctorDisponibilityRelationMapper {
 
+    public List<DisponibilityData> toDisponibilityDataList(List<Disponibility> listDisponibility){
+      return listDisponibility.stream().map(
+                disponibility ->
+                    new DisponibilityData(disponibility.getIdDisponibility(),disponibility.getHour(),
+                            null)
 
-    public Disponibility toDisponibility(DisponibilityData disponibilityData){
+        ).collect(Collectors.toList());
 
-        return new Disponibility(disponibilityData.getIdDisponibility(), disponibilityData.getHour(),
-                null);
     }
+    public List<Disponibility> toDisponibilityList(List<DisponibilityData> listDisponibilityData){
+        return listDisponibilityData.stream().map(
+                disponibilityData ->
+                        new Disponibility(disponibilityData.getIdDisponibility(),disponibilityData.getHour(),
+                                null)
 
-    public DisponibilityData toData(Disponibility disponibility){
-        DoctorData doctorData = new DoctorData(disponibility.getDoctor().getIdDoctor(),
-                disponibility.getDoctor().getName(),disponibility.getDoctor().getDescription(),null);
-        return new DisponibilityData(disponibility.getIdDisponibility(), disponibility.getHour(),
-                doctorData);
-    }
-    public List<Disponibility> doctorDisponibilities(List<DisponibilityData> disponibilityDataList){
+        ).collect(Collectors.toList());
 
-        return disponibilityDataList.stream().map(this::toDisponibility).collect(Collectors.toList());
-    }
-    public List<DisponibilityData> doctorDisponibilitiesData(List<Disponibility> disponibilityList){
-
-        return disponibilityList.stream().map(this::toData).collect(Collectors.toList());
     }
 }

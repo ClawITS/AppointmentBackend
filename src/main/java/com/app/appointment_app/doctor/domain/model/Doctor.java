@@ -2,9 +2,6 @@ package com.app.appointment_app.doctor.domain.model;
 
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,26 +9,16 @@ public class Doctor {
     private Long idDoctor;
     private String name;
     private String description;
-    private List<Disponibility> disponibilities;
+    private List<Disponibility> disponibilityList;
 
     public Doctor() {
     }
 
-    public Doctor(Long idDoctor, String name, String description, List<Disponibility> disponibilities) {
+    public Doctor(Long idDoctor, String name, String description, List<Disponibility> disponibilityList) {
         this.idDoctor = idDoctor;
         this.name = name;
         this.description = description;
-        this.disponibilities = disponibilities;
-    }
-
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "idDoctor=" + idDoctor +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", disponibilities=" + disponibilities +
-                '}';
+        this.disponibilityList = disponibilityList;
     }
 
     public Long getIdDoctor() {
@@ -58,11 +45,21 @@ public class Doctor {
         this.description = description;
     }
 
-    public List<Disponibility> getDisponibilities() {
-        return disponibilities;
+    public List<Disponibility> getDisponibilityList() {
+        return disponibilityList;
     }
 
-    public void setDisponibilities(List<Disponibility> disponibilities) {
-        this.disponibilities = disponibilities;
+    public void setDisponibilityList(List<Disponibility> disponibilityList) {
+        this.disponibilityList = disponibilityList;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "idDoctor=" + idDoctor +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", disponibilityList=" + disponibilityList +
+                '}';
     }
 }

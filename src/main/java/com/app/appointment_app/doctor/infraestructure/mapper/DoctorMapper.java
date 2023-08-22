@@ -20,22 +20,11 @@ public class DoctorMapper {
     public Doctor toDoctor(DoctorData doctorData){
 
         return new Doctor(doctorData.getIdDoctor(),doctorData.getName(),doctorData.getDescription(),
-               doctorData.getDisponibilities().stream().map(
-                       doctorDisponibilityRelationMapper::toDisponibility
-               ).collect(Collectors.toList()));
+                doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList()));
     }
     public DoctorData toData(Doctor doctor){
-        List<Disponibility> listDisponibilities = new ArrayList<>();
-        doctor.getDisponibilities().forEach(
-                disponibility -> {
-                    disponibility.setDoctor(doctor);
-                    listDisponibilities.add(disponibility);
-                }
-        );
         return new DoctorData(doctor.getIdDoctor(),doctor.getName(),doctor.getDescription(),
-                listDisponibilities.stream()
-                        .map(
-                                doctorDisponibilityRelationMapper::toData
-                        ).collect(Collectors.toList()));
+              /*  doctorDisponibilityRelationMapper.toDisponibilityDataList(doctor.getDisponibilityList())*/
+        null);
     }
 }
