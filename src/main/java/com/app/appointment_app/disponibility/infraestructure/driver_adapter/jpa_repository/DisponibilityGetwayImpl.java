@@ -7,19 +7,25 @@ import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGet
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
         DisponibilityFindAllGetway, DisponibilityFindByIdGetway, DisponibilityDeleteByIdGetway {
     private final DisponibilityRepository disponibilityRepository;
     private final DisponibilityMapper disponibilityMapper;
+    private final DoctorRepository doctorRepository;
 
-    public DisponibilityGetwayImpl(DisponibilityRepository disponibilityRepository, DisponibilityMapper disponibilityMapper) {
+    public DisponibilityGetwayImpl(DisponibilityRepository disponibilityRepository, DisponibilityMapper disponibilityMapper, DoctorRepository doctorRepository) {
         this.disponibilityRepository = disponibilityRepository;
         this.disponibilityMapper = disponibilityMapper;
+        this.doctorRepository = doctorRepository;
     }
 
     @Override
@@ -43,7 +49,10 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
 
     @Override
     public Disponibility save(Disponibility disponibility) {
-
-        return null;
+      Optional<DoctorData> doctorData = doctorRepository.findById(disponibility.getDoctor().getIdDoctor());
+       DisponibilityData disponibilityData = disponibilityMapper.toData(disponibility);
+       disponibilityData.setDoctor(doctorData.get());
+       disponibilityRepository.save(disponibilityData);
+        return disponibilityMapper.toDisponibility(disponibilityData);
     }
 }
