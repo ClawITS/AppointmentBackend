@@ -10,11 +10,11 @@ public class PatientMapper {
 
     public Patient toPatient(PatientData patientData) {
         return new Patient(patientData.getIdPatient(), patientData.getName(), patientData.getDocument(), patientData.getBirthDate(),
-                patientData.getEmail(), patientData.getGender());
+                patientData.getEmail(), patientData.getGender(), null);
     }
 
     public PatientData toData(Patient patient) {
         return new PatientData(patient.getIdPatient(), patient.getName(), patient.getDocument(), patient.getBirthDate(),
-                patient.getEmail(), patient.getGender());
+                patient.getEmail(), patient.getGender(), null);
     }
 }

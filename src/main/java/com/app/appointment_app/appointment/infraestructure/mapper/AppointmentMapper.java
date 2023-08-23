@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppointmentMapper {
     public Appointment toAppointment(AppointmentData appointmentData){
-        return new Appointment(appointmentData.getIdAppointment(),appointmentData.getState());
+        return new Appointment(appointmentData.getIdAppointment(),null,null,appointmentData.getState());
     }
 
     public AppointmentData toData(Appointment appointment){
-        return new AppointmentData(appointment.getIdAppointment(),appointment.getState());
+        return new AppointmentData(appointment.getIdAppointment(),null, null, appointment.getState());
     }
 }

@@ -1,17 +1,21 @@
 package com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository;
 
 import com.app.appointment_app.appointment.domain.model.enums.State;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
+import com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository.PatientData;
+import jakarta.persistence.*;
 
-@Entity(name="appointments")
-
+@Entity(name = "appointments")
 public class AppointmentData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAppointment;
+    @OneToOne
+    private DisponibilityData disponibilityData;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private PatientData patientData;
     private State state;
 
     @Override
@@ -22,12 +26,30 @@ public class AppointmentData {
                 '}';
     }
 
-    public AppointmentData(Long idAppointment, State state) {
+    public AppointmentData(Long idAppointment, DisponibilityData disponibilityData, PatientData patientData, State state) {
         this.idAppointment = idAppointment;
+        this.disponibilityData = disponibilityData;
+        this.patientData = patientData;
         this.state = state;
     }
 
     public AppointmentData() {
+    }
+
+    public DisponibilityData getDisponibilityData() {
+        return disponibilityData;
+    }
+
+    public void setDisponibilityData(DisponibilityData disponibilityData) {
+        this.disponibilityData = disponibilityData;
+    }
+
+    public PatientData getPatientData() {
+        return patientData;
+    }
+
+    public void setPatientData(PatientData patientData) {
+        this.patientData = patientData;
     }
 
     public Long getIdAppointment() {
