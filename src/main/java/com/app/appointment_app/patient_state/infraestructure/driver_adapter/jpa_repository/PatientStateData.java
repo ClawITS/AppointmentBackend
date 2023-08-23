@@ -4,17 +4,43 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity(name = "patientStates")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class PatientStateData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPatientState;
     private String description;
+
+    @Override
+    public String toString() {
+        return "PatientStateData{" +
+                "idPatientState=" + idPatientState +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    public PatientStateData(Long idPatientState, String description) {
+        this.idPatientState = idPatientState;
+        this.description = description;
+    }
+
+    public PatientStateData() {
+    }
+
+    public Long getIdPatientState() {
+        return idPatientState;
+    }
+
+    public void setIdPatientState(Long idPatientState) {
+        this.idPatientState = idPatientState;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

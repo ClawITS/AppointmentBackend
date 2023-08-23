@@ -1,12 +1,11 @@
 package com.app.appointment_app.speciality.infraestructure.entry_point;
 
-import com.app.appointment_app.speciality.domain.getways.SpecialityFindByIdGetway;
 import com.app.appointment_app.speciality.domain.model.Speciality;
 import com.app.appointment_app.speciality.domain.usecases.SpecialityDeleteUseCase;
 import com.app.appointment_app.speciality.domain.usecases.SpecialityFindAllUseCase;
 import com.app.appointment_app.speciality.domain.usecases.SpecialityFindByIdUseCase;
 import com.app.appointment_app.speciality.domain.usecases.SpecialitySaveUseCase;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +13,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/specialities")
-@RequiredArgsConstructor
 public class SpecialityController {
     private final SpecialityFindByIdUseCase specialityFindByIdUseCase;
     private final SpecialitySaveUseCase specialitySaveUseCase;
     private final SpecialityFindAllUseCase specialityFindAllUseCase;
     private final SpecialityDeleteUseCase specialityDeleteUseCase;
+
+    public SpecialityController(SpecialityFindByIdUseCase specialityFindByIdUseCase, SpecialitySaveUseCase specialitySaveUseCase, SpecialityFindAllUseCase specialityFindAllUseCase, SpecialityDeleteUseCase specialityDeleteUseCase) {
+        this.specialityFindByIdUseCase = specialityFindByIdUseCase;
+        this.specialitySaveUseCase = specialitySaveUseCase;
+        this.specialityFindAllUseCase = specialityFindAllUseCase;
+        this.specialityDeleteUseCase = specialityDeleteUseCase;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Speciality> findById(@PathVariable Long id){
         return new ResponseEntity<>(specialityFindByIdUseCase.findSpecialityById(id), HttpStatus.OK);

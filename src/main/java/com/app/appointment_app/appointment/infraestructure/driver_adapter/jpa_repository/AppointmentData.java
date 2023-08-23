@@ -5,18 +5,44 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity(name="appointments")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class AppointmentData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAppointment;
     private State state;
 
+    @Override
+    public String toString() {
+        return "AppointmentData{" +
+                "idAppointment=" + idAppointment +
+                ", state=" + state +
+                '}';
+    }
+
+    public AppointmentData(Long idAppointment, State state) {
+        this.idAppointment = idAppointment;
+        this.state = state;
+    }
+
+    public AppointmentData() {
+    }
+
+    public Long getIdAppointment() {
+        return idAppointment;
+    }
+
+    public void setIdAppointment(Long idAppointment) {
+        this.idAppointment = idAppointment;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 }

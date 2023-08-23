@@ -7,7 +7,7 @@ import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGet
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -17,10 +17,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-@RequiredArgsConstructor
 public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway, AppointmentDeleteGetway, AppointmentFindByIdGetway {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+
+    public AppointmentGetwayImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper) {
+        this.appointmentRepository = appointmentRepository;
+        this.appointmentMapper = appointmentMapper;
+    }
 
     @Override
     public void deleteById(Long id) {

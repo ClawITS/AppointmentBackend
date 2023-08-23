@@ -5,7 +5,7 @@ import com.app.appointment_app.patient.domain.usecases.PatientDeleteUseCase;
 import com.app.appointment_app.patient.domain.usecases.PatientFindAllUseCase;
 import com.app.appointment_app.patient.domain.usecases.PatientFindByIdUseCase;
 import com.app.appointment_app.patient.domain.usecases.PatientSaveUseCase;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/patient")
-@RequiredArgsConstructor
 public class PatientController {
     private final PatientSaveUseCase patientSaveUseCase;
     private final PatientFindAllUseCase patientFindAllUseCase;
     private final PatientFindByIdUseCase patientFindByIdUseCase;
     private final PatientDeleteUseCase patientDeleteUseCase;
+
+    public PatientController(PatientSaveUseCase patientSaveUseCase, PatientFindAllUseCase patientFindAllUseCase, PatientFindByIdUseCase patientFindByIdUseCase, PatientDeleteUseCase patientDeleteUseCase) {
+        this.patientSaveUseCase = patientSaveUseCase;
+        this.patientFindAllUseCase = patientFindAllUseCase;
+        this.patientFindByIdUseCase = patientFindByIdUseCase;
+        this.patientDeleteUseCase = patientDeleteUseCase;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Patient> findById(@PathVariable Long id) {
