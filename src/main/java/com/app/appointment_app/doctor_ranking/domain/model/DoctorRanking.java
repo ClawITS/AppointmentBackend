@@ -1,5 +1,7 @@
 package com.app.appointment_app.doctor_ranking.domain.model;
 
+import com.app.appointment_app.doctor.domain.model.Doctor;
+
 public class DoctorRanking {
     private Long idDoctorRanking;
     private String commentary;
@@ -14,7 +16,7 @@ public class DoctorRanking {
                 '}';
     }
 
-    public DoctorRanking(Long idDoctorRanking, String commentary, double rating) {
+    public DoctorRanking(long idDoctorRanking, String commentary, double rating) {
         this.idDoctorRanking = idDoctorRanking;
         this.commentary = commentary;
         this.rating = rating;
