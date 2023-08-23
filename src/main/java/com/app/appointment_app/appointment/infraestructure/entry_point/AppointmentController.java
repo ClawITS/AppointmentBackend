@@ -5,7 +5,6 @@ import com.app.appointment_app.appointment.domain.usecases.AppointmentDeleteUseC
 import com.app.appointment_app.appointment.domain.usecases.AppointmentFindAllUseCase;
 import com.app.appointment_app.appointment.domain.usecases.AppointmentFindByIdUseCase;
 import com.app.appointment_app.appointment.domain.usecases.AppointmentSaveUseCase;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +12,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/appointment")
-@RequiredArgsConstructor
 public class AppointmentController {
     private final AppointmentSaveUseCase appointmentSaveUseCase;
     private final AppointmentFindAllUseCase appointmentFindAllUseCase;
     private final AppointmentFindByIdUseCase appointmentFindByIdUseCase;
     private final AppointmentDeleteUseCase appointmentDeleteUseCase;
+
+    public AppointmentController(AppointmentSaveUseCase appointmentSaveUseCase, AppointmentFindAllUseCase appointmentFindAllUseCase, AppointmentFindByIdUseCase appointmentFindByIdUseCase, AppointmentDeleteUseCase appointmentDeleteUseCase) {
+        this.appointmentSaveUseCase = appointmentSaveUseCase;
+        this.appointmentFindAllUseCase = appointmentFindAllUseCase;
+        this.appointmentFindByIdUseCase = appointmentFindByIdUseCase;
+        this.appointmentDeleteUseCase = appointmentDeleteUseCase;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> findById(@PathVariable Long id) {
