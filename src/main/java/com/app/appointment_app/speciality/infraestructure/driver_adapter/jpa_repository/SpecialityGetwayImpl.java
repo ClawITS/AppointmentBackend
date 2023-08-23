@@ -7,7 +7,6 @@ import com.app.appointment_app.speciality.domain.getways.SpecialitySaveGetway;
 import com.app.appointment_app.speciality.domain.model.Speciality;
 import com.app.appointment_app.speciality.infraestructure.driver_adapter.s3_repository.SpecialityRepository;
 import com.app.appointment_app.speciality.infraestructure.mapper.SpecialityMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -17,11 +16,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-@RequiredArgsConstructor
 public class SpecialityGetwayImpl implements SpecialityFindAllGetway, SpecialitySaveGetway, SpecialityDeleteGetway,
         SpecialityFindByIdGetway {
     private final SpecialityRepository specialityRepository;
     private final SpecialityMapper specialityMapper;
+
+    public SpecialityGetwayImpl(SpecialityRepository specialityRepository, SpecialityMapper specialityMapper) {
+        this.specialityRepository = specialityRepository;
+        this.specialityMapper = specialityMapper;
+    }
+
     @Override
     public void deleteById(Long id) {
         specialityRepository.deleteById(id);

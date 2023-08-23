@@ -4,7 +4,6 @@ import com.app.appointment_app.patient.domain.getways.*;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.s3_repository.PatientRepository;
 import com.app.appointment_app.patient.infraestructure.mapper.PatientMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -14,10 +13,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-@RequiredArgsConstructor
 public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
+
+    public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
+        this.patientRepository = patientRepository;
+        this.patientMapper = patientMapper;
+    }
 
     @Override
     public void deleteById(Long id) {

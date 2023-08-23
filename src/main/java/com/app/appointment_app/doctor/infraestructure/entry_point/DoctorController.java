@@ -5,7 +5,6 @@ import com.app.appointment_app.doctor.domain.useCases.DoctorDeleteUseCase;
 import com.app.appointment_app.doctor.domain.useCases.DoctorFindAllUseCase;
 import com.app.appointment_app.doctor.domain.useCases.DoctorFindByIdUseCase;
 import com.app.appointment_app.doctor.domain.useCases.DoctorSaveUseCase;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +12,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/doctors")
-@RequiredArgsConstructor
 public class DoctorController {
     private final DoctorSaveUseCase doctorSaveUseCase;
     private final DoctorDeleteUseCase doctorDeleteUseCase;
     private final DoctorFindByIdUseCase doctorFindByIdUseCase;
     private final DoctorFindAllUseCase doctorFindAllUseCase;
+
+    public DoctorController(DoctorSaveUseCase doctorSaveUseCase, DoctorDeleteUseCase doctorDeleteUseCase, DoctorFindByIdUseCase doctorFindByIdUseCase, DoctorFindAllUseCase doctorFindAllUseCase) {
+        this.doctorSaveUseCase = doctorSaveUseCase;
+        this.doctorDeleteUseCase = doctorDeleteUseCase;
+        this.doctorFindByIdUseCase = doctorFindByIdUseCase;
+        this.doctorFindAllUseCase = doctorFindAllUseCase;
+    }
 
     @PostMapping
     public ResponseEntity<Doctor> saveDoctor(@RequestBody Doctor doctor){
