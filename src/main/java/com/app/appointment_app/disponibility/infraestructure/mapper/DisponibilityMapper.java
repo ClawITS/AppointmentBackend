@@ -15,11 +15,11 @@ public class DisponibilityMapper {
                 disponibilityData.getDoctor().getName(),
                 disponibilityData.getDoctor().getDescription(), null);
         return new Disponibility(disponibilityData.getIdDisponibility(), disponibilityData.getHour(),
-                doc);
+                doc, disponibilityData.getDisponibilityState());
     }
 
     public DisponibilityData toData(Disponibility disponibility) {
         return new DisponibilityData(disponibility.getIdDisponibility(), disponibility.getHour(),
-                null);
+                null, disponibility.getDisponibilityState());
     }
 }

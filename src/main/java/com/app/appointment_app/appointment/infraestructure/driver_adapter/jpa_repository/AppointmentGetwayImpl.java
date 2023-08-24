@@ -8,6 +8,7 @@ import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
 
+import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository.PatientData;
@@ -62,10 +63,11 @@ private final PatientRepository patientRepository;
 
     @Override
     public Appointment save(Appointment appointment) {
-        Optional<DisponibilityData> DisponibilityData = disponibilityRepository.findById(appointment.getDisponibility().getIdDisponibility());
+        Optional<DisponibilityData> disponibilityData = disponibilityRepository.findById(appointment.getDisponibility().getIdDisponibility());
         Optional<PatientData> patientData = patientRepository.findById(appointment.getPatient().getIdPatient());
         AppointmentData appointmentData = appointmentMapper.toData(appointment);
-        appointmentData.setDisponibility(DisponibilityData.get());
+        disponibilityData.get().setDisponibilityState(DisponibilityState.BUSY);
+        appointmentData.setDisponibility(disponibilityData.get());
         appointmentData.setPatientData(patientData.get());
         return appointmentMapper
                 .toAppointment(appointmentRepository.save(appointmentData));

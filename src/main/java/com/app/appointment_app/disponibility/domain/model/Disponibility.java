@@ -1,6 +1,7 @@
 package com.app.appointment_app.disponibility.domain.model;
 
 import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 
 import java.util.Date;
@@ -9,14 +10,16 @@ public class Disponibility {
     private Long idDisponibility;
     private Date hour;
     private Doctor doctor;
+    private DisponibilityState disponibilityState;
 
-    public Disponibility(Long idDisponibility, Date hour, Doctor doctor) {
-        this.idDisponibility = idDisponibility;
-        this.hour = hour;
-        this.doctor = doctor;
-    }
-
-    public Disponibility() {
+    @Override
+    public String toString() {
+        return "Disponibility{" +
+                "idDisponibility=" + idDisponibility +
+                ", hour=" + hour +
+                ", doctor=" + doctor +
+                ", disponibilityState=" + disponibilityState +
+                '}';
     }
 
     public Long getIdDisponibility() {
@@ -43,12 +46,21 @@ public class Disponibility {
         this.doctor = doctor;
     }
 
-    @Override
-    public String toString() {
-        return "Disponibility{" +
-                "idDisponibility=" + idDisponibility +
-                ", hour=" + hour +
-                ", doctor=" + doctor +
-                '}';
+    public DisponibilityState getDisponibilityState() {
+        return disponibilityState;
+    }
+
+    public void setDisponibilityState(DisponibilityState disponibilityState) {
+        this.disponibilityState = disponibilityState;
+    }
+
+    public Disponibility() {
+    }
+
+    public Disponibility(Long idDisponibility, Date hour, Doctor doctor, DisponibilityState disponibilityState) {
+        this.idDisponibility = idDisponibility;
+        this.hour = hour;
+        this.doctor = doctor;
+        this.disponibilityState = disponibilityState;
     }
 }
