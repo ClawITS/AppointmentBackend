@@ -14,7 +14,7 @@ public class DoctorDisponibilityRelationMapper {
       return listDisponibility.stream().map(
                 disponibility ->
                     new DisponibilityData(disponibility.getIdDisponibility(),disponibility.getHour(),
-                            null)
+                            null,disponibility.getDisponibilityState())
 
         ).collect(Collectors.toList());
 
@@ -24,7 +24,7 @@ public class DoctorDisponibilityRelationMapper {
             return listDisponibilityData.stream().map(
                     disponibilityData ->
                             new Disponibility(disponibilityData.getIdDisponibility(),disponibilityData.getHour(),
-                                    null)
+                                    null,disponibilityData.getDisponibilityState())
 
             ).collect(Collectors.toList());
         }

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisponibilityMapper {
 
-    public Disponibility toDisponibility(DisponibilityData disponibilityData){
+    public Disponibility toDisponibility(DisponibilityData disponibilityData) {
         Doctor doc = new Doctor(disponibilityData.getDoctor().getIdDoctor(),
                 disponibilityData.getDoctor().getName(),
-                disponibilityData.getDoctor().getDescription(),null);
+                disponibilityData.getDoctor().getDescription(), null);
         return new Disponibility(disponibilityData.getIdDisponibility(), disponibilityData.getHour(),
-                doc);
+                doc, disponibilityData.getDisponibilityState());
     }
 
-    public DisponibilityData toData(Disponibility disponibility){
+    public DisponibilityData toData(Disponibility disponibility) {
         return new DisponibilityData(disponibility.getIdDisponibility(), disponibility.getHour(),
-                null);
+                null, disponibility.getDisponibilityState());
     }
 }

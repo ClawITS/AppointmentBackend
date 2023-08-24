@@ -8,6 +8,11 @@ import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
 
+import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
+import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
+import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
+import com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository.PatientData;
+import com.app.appointment_app.patient.infraestructure.driver_adapter.s3_repository.PatientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -20,10 +25,14 @@ import java.util.stream.Collectors;
 public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway, AppointmentDeleteGetway, AppointmentFindByIdGetway {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+private final PatientRepository patientRepository;
+    private final DisponibilityRepository disponibilityRepository;
 
-    public AppointmentGetwayImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper) {
+    public AppointmentGetwayImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper, PatientRepository patientRepository, DisponibilityRepository disponibilityRepository) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
+        this.patientRepository = patientRepository;
+        this.disponibilityRepository = disponibilityRepository;
     }
 
     @Override
@@ -54,7 +63,13 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
 
     @Override
     public Appointment save(Appointment appointment) {
+        Optional<DisponibilityData> disponibilityData = disponibilityRepository.findById(appointment.getDisponibility().getIdDisponibility());
+        Optional<PatientData> patientData = patientRepository.findById(appointment.getPatient().getIdPatient());
+        AppointmentData appointmentData = appointmentMapper.toData(appointment);
+        disponibilityData.get().setDisponibilityState(DisponibilityState.BUSY);
+        appointmentData.setDisponibility(disponibilityData.get());
+        appointmentData.setPatientData(patientData.get());
         return appointmentMapper
-                .toAppointment(appointmentRepository.save(appointmentMapper.toData(appointment)));
+                .toAppointment(appointmentRepository.save(appointmentData));
     }
 }

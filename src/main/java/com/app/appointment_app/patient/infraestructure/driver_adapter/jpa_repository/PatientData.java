@@ -1,16 +1,14 @@
 package com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository;
 
+import com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository.AppointmentData;
 import com.app.appointment_app.patient.domain.model.enums.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "patients")
-
 public class PatientData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +19,9 @@ public class PatientData {
     private String email;
     private Gender gender;
 
+    @OneToMany(mappedBy = "patient")
+    private List<AppointmentData> appointmentDataList;
+
     @Override
     public String toString() {
         return "PatientData{" +
@@ -30,16 +31,18 @@ public class PatientData {
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
+                ", appointmentDataList=" + appointmentDataList +
                 '}';
     }
 
-    public PatientData(Long idPatient, String name, Integer document, Date birthDate, String email, Gender gender) {
+    public PatientData(Long idPatient, String name, Integer document, Date birthDate, String email, Gender gender, List<AppointmentData> appointmentDataList) {
         this.idPatient = idPatient;
         this.name = name;
         this.document = document;
         this.birthDate = birthDate;
         this.email = email;
         this.gender = gender;
+        this.appointmentDataList = appointmentDataList;
     }
 
     public PatientData() {
@@ -91,5 +94,13 @@ public class PatientData {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public List<AppointmentData> getAppointmentDataList() {
+        return appointmentDataList;
+    }
+
+    public void setAppointmentDataList(List<AppointmentData> appointmentDataList) {
+        this.appointmentDataList = appointmentDataList;
     }
 }
