@@ -16,7 +16,6 @@ public class DoctorMapper {
     @Autowired
     private DoctorDisponibilityRelationMapper doctorDisponibilityRelationMapper;
     public Doctor toDoctor(DoctorData doctorData){
-
         return new Doctor(doctorData.getIdDoctor(),doctorData.getName(),doctorData.getDescription(),
                 doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList()),null);
     }

@@ -1,4 +1,4 @@
-package com.app.appointment_app.disponibility.infraestructure.driver_adapter.entry_points;
+package com.app.appointment_app.disponibility.infraestructure.entry_points;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityDeleteUseCase;
