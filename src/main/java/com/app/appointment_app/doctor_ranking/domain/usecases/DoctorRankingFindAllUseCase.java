@@ -19,6 +19,6 @@ public class DoctorRankingFindAllUseCase {
     }
 
     public List<DoctorRanking> findAll() {
-        return doctorRankingFindAllGetway.FindAll();
+        return doctorRankingFindAllGetway.findAll();
     }
 }

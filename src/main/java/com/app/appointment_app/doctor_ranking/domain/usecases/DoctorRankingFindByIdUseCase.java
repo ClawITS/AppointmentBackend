@@ -13,7 +13,7 @@ public class DoctorRankingFindByIdUseCase {
     }
 
     public DoctorRanking findDoctorRankingById(Long id) {
-        return doctorRankingFindByIdGetway.FindById(id);
+        return doctorRankingFindByIdGetway.findById(id);
     }
 
 }
