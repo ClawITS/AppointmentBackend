@@ -1,9 +1,12 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
 
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
+import com.app.appointment_app.doctor_ranking.infraestructure.driver_adapter.jpa_repository.DoctorRankingData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.util.List;
+
 @Entity(name = "doctors")
 public class DoctorData {
     @Id
@@ -11,9 +14,11 @@ public class DoctorData {
     private Long idDoctor;
     private String name;
     private String description;
+    @OneToOne(mappedBy = "doctor")
+    private DoctorRankingData doctorRanking;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="doctor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<DisponibilityData> disponibilityList;
 
     @Override
@@ -22,8 +27,17 @@ public class DoctorData {
                 "idDoctor=" + idDoctor +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", doctorRanking=" + doctorRanking +
                 ", disponibilityList=" + disponibilityList +
                 '}';
+    }
+
+    public DoctorData(Long idDoctor, String name, String description, DoctorRankingData doctorRanking, List<DisponibilityData> disponibilityList) {
+        this.idDoctor = idDoctor;
+        this.name = name;
+        this.description = description;
+        this.doctorRanking = doctorRanking;
+        this.disponibilityList = disponibilityList;
     }
 
     public DoctorData() {
@@ -61,10 +75,4 @@ public class DoctorData {
         this.disponibilityList = disponibilityList;
     }
 
-    public DoctorData(Long idDoctor, String name, String description, List<DisponibilityData> disponibilityList) {
-        this.idDoctor = idDoctor;
-        this.name = name;
-        this.description = description;
-        this.disponibilityList = disponibilityList;
-    }
 }

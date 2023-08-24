@@ -18,11 +18,11 @@ public class DoctorMapper {
     public Doctor toDoctor(DoctorData doctorData){
 
         return new Doctor(doctorData.getIdDoctor(),doctorData.getName(),doctorData.getDescription(),
-                doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList()));
+                doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList()),null);
     }
     public DoctorData toData(Doctor doctor){
         return new DoctorData(doctor.getIdDoctor(),doctor.getName(),doctor.getDescription(),
               /*  doctorDisponibilityRelationMapper.toDisponibilityDataList(doctor.getDisponibilityList())*/
-        null);
+        null, null);
     }
 }

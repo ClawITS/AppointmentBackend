@@ -1,5 +1,6 @@
 package com.app.appointment_app.doctor_ranking.infraestructure.driver_adapter.jpa_repository;
 
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,20 +14,32 @@ public class DoctorRankingData {
     private Long idDoctorRanking;
     private String commentary;
     private double rating;
+    private DoctorData doctor;
+
 
     @Override
     public String toString() {
         return "DoctorRankingData{" +
                 "idDoctorRanking=" + idDoctorRanking +
                 ", commentary='" + commentary + '\'' +
-                ", rating=" + rating +
+                ", rating=" + rating + '\'' +
+                ", doctor=" + doctor +
                 '}';
     }
 
-    public DoctorRankingData(Long idDoctorRanking, String commentary, double rating) {
+    public DoctorRankingData(Long idDoctorRanking, String commentary, double rating, DoctorData doctor) {
         this.idDoctorRanking = idDoctorRanking;
         this.commentary = commentary;
         this.rating = rating;
+        this.doctor = doctor;
+    }
+
+    public DoctorData getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorData doctor) {
+        this.doctor = doctor;
     }
 
     public DoctorRankingData() {

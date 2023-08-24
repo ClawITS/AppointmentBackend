@@ -7,19 +7,23 @@ public class DoctorRanking {
     private String commentary;
     private double rating;
 
+    private Doctor doctor;
+
     @Override
     public String toString() {
         return "DoctorRanking{" +
                 "idDoctorRanking=" + idDoctorRanking +
                 ", commentary='" + commentary + '\'' +
-                ", rating=" + rating +
+                ", rating=" + rating + '\'' +
+                ", doctor=" + doctor +
                 '}';
     }
 
-    public DoctorRanking(long idDoctorRanking, String commentary, double rating) {
+    public DoctorRanking(long idDoctorRanking, String commentary, double rating, Doctor doctor) {
         this.idDoctorRanking = idDoctorRanking;
         this.commentary = commentary;
         this.rating = rating;
+        this.doctor = doctor;
     }
 
     public DoctorRanking() {

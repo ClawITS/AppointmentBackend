@@ -10,11 +10,11 @@ public class DoctorRankingMapper {
 
     public DoctorRanking toDoctorRanking(DoctorRankingData doctorRankingData){
         return new DoctorRanking(doctorRankingData.getIdDoctorRanking(),doctorRankingData.getCommentary(),
-                doctorRankingData.getRating());
+                doctorRankingData.getRating(), null);
     }
 
     public DoctorRankingData toData(DoctorRanking doctorRanking){
         return new DoctorRankingData(doctorRanking.getIdDoctorRanking(),doctorRanking.getCommentary(),
-                doctorRanking.getRating());
+                doctorRanking.getRating(), null);
     }
 }
