@@ -6,7 +6,6 @@ public class DoctorRanking {
     private Long idDoctorRanking;
     private String commentary;
     private double rating;
-
     private Doctor doctor;
 
     @Override

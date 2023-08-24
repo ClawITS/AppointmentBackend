@@ -11,7 +11,6 @@ public class Doctor {
     private String name;
     private String description;
     private List<Disponibility> disponibilityList;
-
     private DoctorRanking doctorRanking;
 
     @Override

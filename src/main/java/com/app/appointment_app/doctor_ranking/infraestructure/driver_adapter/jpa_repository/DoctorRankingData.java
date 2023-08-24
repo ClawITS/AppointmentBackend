@@ -1,10 +1,7 @@
 package com.app.appointment_app.doctor_ranking.infraestructure.driver_adapter.jpa_repository;
 
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity(name = "doctor_ranking")
@@ -14,6 +11,8 @@ public class DoctorRankingData {
     private Long idDoctorRanking;
     private String commentary;
     private double rating;
+    @OneToOne
+    @JoinColumn(name="doctor_id")
     private DoctorData doctor;
 
 

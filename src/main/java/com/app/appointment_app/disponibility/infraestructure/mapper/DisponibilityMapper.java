@@ -13,7 +13,7 @@ public class DisponibilityMapper {
     public Disponibility toDisponibility(DisponibilityData disponibilityData){
         Doctor doc = new Doctor(disponibilityData.getDoctor().getIdDoctor(),
                 disponibilityData.getDoctor().getName(),
-                disponibilityData.getDoctor().getDescription(),null);
+                disponibilityData.getDoctor().getDescription(),null,null);
         return new Disponibility(disponibilityData.getIdDisponibility(), disponibilityData.getHour(),
                 doc);
     }

@@ -14,7 +14,7 @@ public class DoctorData {
     private Long idDoctor;
     private String name;
     private String description;
-    @OneToOne(mappedBy = "doctor")
+    @OneToOne(mappedBy = "doctor", cascade = CascadeType.ALL)
     private DoctorRankingData doctorRanking;
 
     @JsonIgnore
