@@ -1,5 +1,7 @@
 package com.app.appointment_app.speciality.infraestructure.entry_point;
 
+import com.app.appointment_app.speciality.domain.exceptions.SpecialityException;
+import com.app.appointment_app.speciality.domain.exceptions.SpecialityRowsValidation;
 import com.app.appointment_app.speciality.domain.model.Speciality;
 import com.app.appointment_app.speciality.domain.usecases.SpecialityDeleteUseCase;
 import com.app.appointment_app.speciality.domain.usecases.SpecialityFindAllUseCase;
@@ -31,8 +33,16 @@ public class SpecialityController {
         return new ResponseEntity<>(specialityFindByIdUseCase.findSpecialityById(id), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Speciality>save(@RequestBody Speciality speciality){
-        return new ResponseEntity<>(specialitySaveUseCase.saveSpeciality(speciality), HttpStatus.CREATED);
+    public ResponseEntity<?>save(@RequestBody Speciality speciality){
+        try {
+            SpecialityRowsValidation.validateSpecialityRows(speciality);
+
+             return new ResponseEntity<>(specialitySaveUseCase.saveSpeciality(speciality), HttpStatus.CREATED);
+        } catch (SpecialityException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
     }
     @GetMapping("/page/{numberPage}")
     public ResponseEntity<Page<Speciality>>getSpecialityPage(@PathVariable int numberPage){
