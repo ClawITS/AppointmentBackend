@@ -1,5 +1,6 @@
 package com.app.appointment_app.disponibility.domain.model;
 
+import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 
 import java.util.Date;

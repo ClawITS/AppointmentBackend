@@ -11,45 +11,48 @@ public class AppointmentData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAppointment;
     @OneToOne
-    private DisponibilityData disponibilityData;
+    @JoinColumn(name = "disponibility_id")
+    private DisponibilityData disponibility;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    private PatientData patientData;
+    private PatientData patient;
     private State state;
 
     @Override
     public String toString() {
         return "AppointmentData{" +
                 "idAppointment=" + idAppointment +
+                ", disponibility=" + disponibility +
+                ", patient=" + patient +
                 ", state=" + state +
                 '}';
     }
 
-    public AppointmentData(Long idAppointment, DisponibilityData disponibilityData, PatientData patientData, State state) {
+    public AppointmentData(Long idAppointment, DisponibilityData disponibility, PatientData patientData, State state) {
         this.idAppointment = idAppointment;
-        this.disponibilityData = disponibilityData;
-        this.patientData = patientData;
+        this.disponibility = disponibility;
+        this.patient = patientData;
         this.state = state;
     }
 
     public AppointmentData() {
     }
 
-    public DisponibilityData getDisponibilityData() {
-        return disponibilityData;
+    public DisponibilityData getDisponibility() {
+        return disponibility;
     }
 
-    public void setDisponibilityData(DisponibilityData disponibilityData) {
-        this.disponibilityData = disponibilityData;
+    public void setDisponibility(DisponibilityData disponibility) {
+        this.disponibility = disponibility;
     }
 
     public PatientData getPatientData() {
-        return patientData;
+        return patient;
     }
 
     public void setPatientData(PatientData patientData) {
-        this.patientData = patientData;
+        this.patient = patientData;
     }
 
     public Long getIdAppointment() {
