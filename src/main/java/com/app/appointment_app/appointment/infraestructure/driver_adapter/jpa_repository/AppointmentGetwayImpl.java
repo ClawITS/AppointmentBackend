@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Repository
 public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway, AppointmentDeleteGetway, AppointmentFindByIdGetway {
     private final AppointmentRepository appointmentRepository;
@@ -63,13 +65,28 @@ private final PatientRepository patientRepository;
 
     @Override
     public Appointment save(Appointment appointment) {
+        Optional<AppointmentData> appointmentData;
+        if(isNull(appointment.getIdAppointment())){
+            appointmentData = chargeAppointmentData(appointment);
+        }else {
+            appointmentData = appointmentRepository.findById(appointment.getIdAppointment());
+            appointmentData.get().setState(appointment.getState());
+        }
+
+        return appointmentMapper
+                .toAppointment(appointmentRepository.save(appointmentData.get()));
+    }
+
+    private Optional<AppointmentData> chargeAppointmentData(Appointment appointment) {
+        Optional<AppointmentData> appointmentData;
         Optional<DisponibilityData> disponibilityData = disponibilityRepository.findById(appointment.getDisponibility().getIdDisponibility());
         Optional<PatientData> patientData = patientRepository.findById(appointment.getPatient().getIdPatient());
-        AppointmentData appointmentData = appointmentMapper.toData(appointment);
-        disponibilityData.get().setDisponibilityState(DisponibilityState.BUSY);
-        appointmentData.setDisponibility(disponibilityData.get());
-        appointmentData.setPatientData(patientData.get());
-        return appointmentMapper
-                .toAppointment(appointmentRepository.save(appointmentData));
+        appointmentData = Optional.ofNullable(appointmentMapper.toData(appointment));
+        if(isNull(appointment.getState())){
+            disponibilityData.get().setDisponibilityState(DisponibilityState.BUSY);
+        }
+        appointmentData.get().setDisponibility(disponibilityData.get());
+        appointmentData.get().setPatientData(patientData.get());
+        return appointmentData;
     }
 }

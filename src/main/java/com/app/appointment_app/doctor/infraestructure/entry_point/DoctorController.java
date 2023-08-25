@@ -1,10 +1,8 @@
 package com.app.appointment_app.doctor.infraestructure.entry_point;
 
+import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.doctor.domain.model.Doctor;
-import com.app.appointment_app.doctor.domain.useCases.DoctorDeleteUseCase;
-import com.app.appointment_app.doctor.domain.useCases.DoctorFindAllUseCase;
-import com.app.appointment_app.doctor.domain.useCases.DoctorFindByIdUseCase;
-import com.app.appointment_app.doctor.domain.useCases.DoctorSaveUseCase;
+import com.app.appointment_app.doctor.domain.useCases.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +15,14 @@ public class DoctorController {
     private final DoctorDeleteUseCase doctorDeleteUseCase;
     private final DoctorFindByIdUseCase doctorFindByIdUseCase;
     private final DoctorFindAllUseCase doctorFindAllUseCase;
+    private final RescheduleAppointmentUseCase rescheduleAppointmentUseCase;
 
-    public DoctorController(DoctorSaveUseCase doctorSaveUseCase, DoctorDeleteUseCase doctorDeleteUseCase, DoctorFindByIdUseCase doctorFindByIdUseCase, DoctorFindAllUseCase doctorFindAllUseCase) {
+    public DoctorController(DoctorSaveUseCase doctorSaveUseCase, DoctorDeleteUseCase doctorDeleteUseCase, DoctorFindByIdUseCase doctorFindByIdUseCase, DoctorFindAllUseCase doctorFindAllUseCase, RescheduleAppointmentUseCase rescheduleAppointmentUseCase) {
         this.doctorSaveUseCase = doctorSaveUseCase;
         this.doctorDeleteUseCase = doctorDeleteUseCase;
         this.doctorFindByIdUseCase = doctorFindByIdUseCase;
         this.doctorFindAllUseCase = doctorFindAllUseCase;
+        this.rescheduleAppointmentUseCase = rescheduleAppointmentUseCase;
     }
 
     @PostMapping
@@ -42,5 +42,10 @@ public class DoctorController {
     @GetMapping("/page/{numberPage}")
     public ResponseEntity<Page<Doctor>> findAllPageDoctors(@PathVariable int numberPage){
         return new ResponseEntity<>(doctorFindAllUseCase.findAllDoctorsPaginator(numberPage),HttpStatus.OK);
+    }
+    @PostMapping("/rescheduleAppointment")
+    public ResponseEntity<Appointment> rescheduleAppointment(@RequestBody Appointment appointment){
+        return new ResponseEntity<>(rescheduleAppointmentUseCase.rescheduleAppointment(appointment),
+                HttpStatus.OK);
     }
 }

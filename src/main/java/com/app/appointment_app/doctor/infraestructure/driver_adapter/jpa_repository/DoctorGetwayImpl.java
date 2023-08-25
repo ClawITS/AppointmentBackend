@@ -1,8 +1,7 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
-import com.app.appointment_app.doctor.domain.getways.DoctorDeleteGetway;
-import com.app.appointment_app.doctor.domain.getways.DoctorFindAllGetway;
-import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
-import com.app.appointment_app.doctor.domain.getways.DoctorSaveGetway;
+import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository.AppointmentGetwayImpl;
+import com.app.appointment_app.doctor.domain.getways.*;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
@@ -13,13 +12,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
-        DoctorFindByIdGetway {
+        DoctorFindByIdGetway, RescheduleAppointmentGetyaw {
     private final DoctorRepository doctorRepository;
-
+    private final AppointmentGetwayImpl appointmentGetwayimpl;
     private final DoctorMapper doctorMapper;
 
-    public DoctorGetwayImpl(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
+    public DoctorGetwayImpl(DoctorRepository doctorRepository, AppointmentGetwayImpl appointmentGetwayimpl, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
+        this.appointmentGetwayimpl = appointmentGetwayimpl;
         this.doctorMapper = doctorMapper;
     }
 
@@ -45,5 +45,10 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
     public Doctor saveDoctor(Doctor doctor) {
        DoctorData dataDoctor = doctorMapper.toData(doctor);
         return doctorMapper.toDoctor(doctorRepository.save(dataDoctor));
+    }
+
+    @Override
+    public Appointment rescheduleAppointment(Appointment appointment) {
+        return appointmentGetwayimpl.save(appointment);
     }
 }
