@@ -2,6 +2,7 @@ package com.app.appointment_app.doctor.infraestructure.mapper;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
+import com.app.appointment_app.doctor.domain.model.Doctor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,12 +20,12 @@ public class DoctorDisponibilityRelationMapper {
         ).collect(Collectors.toList());
 
     }
-    public List<Disponibility> toDisponibilityList(List<DisponibilityData> listDisponibilityData){
+    public List<Disponibility> toDisponibilityList(List<DisponibilityData> listDisponibilityData, Doctor doctor){
         if(listDisponibilityData!=null){
             return listDisponibilityData.stream().map(
                     disponibilityData ->
                             new Disponibility(disponibilityData.getIdDisponibility(),disponibilityData.getHour(),
-                                    null,disponibilityData.getDisponibilityState())
+                                    doctor,disponibilityData.getDisponibilityState())
 
             ).collect(Collectors.toList());
         }

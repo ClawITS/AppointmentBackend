@@ -30,6 +30,7 @@ public class AppointmentMapper {
         doctor.setIdDoctor(appointmentData.getDisponibility().getDoctor().getIdDoctor());
         doctor.setName(appointmentData.getDisponibility().getDoctor().getName());
         doctor.setDescription(appointmentData.getDisponibility().getDoctor().getDescription());
+        disp.setIdDisponibility(appointmentData.getIdAppointment());
         disp.setDoctor(doctor);
         disp.setHour(appointmentData.getDisponibility().getHour());
         disp.setDisponibilityState(appointmentData.getDisponibility().getDisponibilityState());

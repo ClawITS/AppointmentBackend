@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/patient")
+@RequestMapping("/api/patients")
 public class PatientController {
     private final PatientSaveUseCase patientSaveUseCase;
     private final PatientFindAllUseCase patientFindAllUseCase;

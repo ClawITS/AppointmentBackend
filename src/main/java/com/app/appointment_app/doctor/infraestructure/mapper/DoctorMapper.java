@@ -16,8 +16,10 @@ public class DoctorMapper {
     @Autowired
     private DoctorDisponibilityRelationMapper doctorDisponibilityRelationMapper;
     public Doctor toDoctor(DoctorData doctorData){
+        Doctor doctor = new Doctor(doctorData.getIdDoctor(),doctorData.getName(),doctorData.getDescription()
+        ,null);
         return new Doctor(doctorData.getIdDoctor(),doctorData.getName(),doctorData.getDescription(),
-                doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList()));
+                doctorDisponibilityRelationMapper.toDisponibilityList(doctorData.getDisponibilityList(), doctor));
     }
     public DoctorData toData(Doctor doctor){
         return new DoctorData(doctor.getIdDoctor(),doctor.getName(),doctor.getDescription(),
