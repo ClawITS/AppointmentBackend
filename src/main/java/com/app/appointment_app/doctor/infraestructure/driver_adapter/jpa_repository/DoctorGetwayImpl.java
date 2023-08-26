@@ -1,4 +1,5 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
+import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository.AppointmentGetwayImpl;
 import com.app.appointment_app.doctor.domain.getways.*;
@@ -14,12 +15,12 @@ import org.springframework.stereotype.Repository;
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
         DoctorFindByIdGetway, RescheduleAppointmentGetyaw {
     private final DoctorRepository doctorRepository;
-    private final AppointmentGetwayImpl appointmentGetwayimpl;
+    private final AppointmentSaveGetway appointmentSaveGetway;
     private final DoctorMapper doctorMapper;
 
-    public DoctorGetwayImpl(DoctorRepository doctorRepository, AppointmentGetwayImpl appointmentGetwayimpl, DoctorMapper doctorMapper) {
+    public DoctorGetwayImpl(DoctorRepository doctorRepository, AppointmentSaveGetway appointmentSaveGetway, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
-        this.appointmentGetwayimpl = appointmentGetwayimpl;
+        this.appointmentSaveGetway = appointmentSaveGetway;
         this.doctorMapper = doctorMapper;
     }
 
@@ -49,6 +50,6 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
 
     @Override
     public Appointment rescheduleAppointment(Appointment appointment) {
-        return appointmentGetwayimpl.save(appointment);
+        return appointmentSaveGetway.save(appointment);
     }
 }

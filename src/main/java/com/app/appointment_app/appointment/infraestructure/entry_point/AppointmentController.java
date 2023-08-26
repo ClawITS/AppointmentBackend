@@ -1,10 +1,10 @@
 package com.app.appointment_app.appointment.infraestructure.entry_point;
 
+import com.app.appointment_app.appointment.domain.exceptions.AppointmentException;
+import com.app.appointment_app.appointment.domain.exceptions.CloseAppointmentException;
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentDeleteUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentFindAllUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentFindByIdUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentSaveUseCase;
+import com.app.appointment_app.appointment.domain.model.enums.State;
+import com.app.appointment_app.appointment.domain.usecases.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,14 @@ public class AppointmentController {
     private final AppointmentFindAllUseCase appointmentFindAllUseCase;
     private final AppointmentFindByIdUseCase appointmentFindByIdUseCase;
     private final AppointmentDeleteUseCase appointmentDeleteUseCase;
+    private final CloseAppointmentUseCase closeAppointmentUseCase;
 
-    public AppointmentController(AppointmentSaveUseCase appointmentSaveUseCase, AppointmentFindAllUseCase appointmentFindAllUseCase, AppointmentFindByIdUseCase appointmentFindByIdUseCase, AppointmentDeleteUseCase appointmentDeleteUseCase) {
+    public AppointmentController(AppointmentSaveUseCase appointmentSaveUseCase, AppointmentFindAllUseCase appointmentFindAllUseCase, AppointmentFindByIdUseCase appointmentFindByIdUseCase, AppointmentDeleteUseCase appointmentDeleteUseCase, CloseAppointmentUseCase closeAppointmentUseCase) {
         this.appointmentSaveUseCase = appointmentSaveUseCase;
         this.appointmentFindAllUseCase = appointmentFindAllUseCase;
         this.appointmentFindByIdUseCase = appointmentFindByIdUseCase;
         this.appointmentDeleteUseCase = appointmentDeleteUseCase;
+        this.closeAppointmentUseCase = closeAppointmentUseCase;
     }
 
     @GetMapping("/{id}")
@@ -33,6 +35,19 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<Appointment> save(@RequestBody Appointment appointment) {
         return new ResponseEntity<>(appointmentSaveUseCase.saveAppointment(appointment), HttpStatus.CREATED);
+    }
+    @PostMapping("/closeAppointment")
+    public ResponseEntity<?>closeAppointment(@RequestBody Appointment appointment){
+        try{
+            CloseAppointmentException.stateException(appointment);
+            return new ResponseEntity<>(closeAppointmentUseCase.closeAppointment(appointment),
+                    HttpStatus.OK);
+        }catch(AppointmentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+
     }
 
     @GetMapping("/page/{numberPage}")

@@ -1,18 +1,16 @@
 package com.app.appointment_app.appointment.application.config;
 
-import com.app.appointment_app.appointment.domain.usecases.AppointmentFindByIdUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentDeleteUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentFindAllUseCase;
-import com.app.appointment_app.appointment.domain.usecases.AppointmentSaveUseCase;
-import com.app.appointment_app.appointment.domain.getways.AppointmentDeleteGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindAllGetway;
+import com.app.appointment_app.appointment.domain.getways.*;
+import com.app.appointment_app.appointment.domain.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppointmentUseCaseConfig {
+    @Bean
+    public CloseAppointmentUseCase closeAppointmentUseCaseConfig(CloseAppointmentGetway closeAppointmentGetway){
+        return new CloseAppointmentUseCase(closeAppointmentGetway);
+    }
     @Bean
     public AppointmentSaveUseCase appointmentSaveUseCaseConfig(AppointmentSaveGetway appointmentSaveGetway) {
         return new AppointmentSaveUseCase(appointmentSaveGetway);
