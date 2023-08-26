@@ -1,5 +1,7 @@
 package com.app.appointment_app.appointment.infraestructure.entry_point;
 
+import com.app.appointment_app.appointment.domain.exceptions.AppointmentException;
+import com.app.appointment_app.appointment.domain.exceptions.CloseAppointmentException;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.appointment.domain.usecases.*;
@@ -35,12 +37,17 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentSaveUseCase.saveAppointment(appointment), HttpStatus.CREATED);
     }
     @PostMapping("/closeAppointment")
-    public ResponseEntity<Appointment>closeAppointment(@RequestBody Appointment appointment){
-        if(appointment.getState().equals(State.EARRING)){
-
+    public ResponseEntity<?>closeAppointment(@RequestBody Appointment appointment){
+        try{
+            CloseAppointmentException.stateException(appointment);
+            return new ResponseEntity<>(closeAppointmentUseCase.closeAppointment(appointment),
+                    HttpStatus.OK);
+        }catch(AppointmentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
-        return new ResponseEntity<>(closeAppointmentUseCase.closeAppointment(appointment),
-                HttpStatus.OK);
+
     }
 
     @GetMapping("/page/{numberPage}")
