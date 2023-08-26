@@ -36,6 +36,9 @@ public class AppointmentSaveHelper {
             appointmentData = chargeAppointmentData(appointment);
         }else {
             appointmentData = appointmentRepository.findById(appointment.getIdAppointment());
+            if(appointment.getState().equals(State.ATTENDED)){
+                appointmentData.get().getDisponibility().setDisponibilityState(DisponibilityState.CLOSED);
+            }
             appointmentData.get().setState(appointment.getState());
         }
         return appointmentData;
