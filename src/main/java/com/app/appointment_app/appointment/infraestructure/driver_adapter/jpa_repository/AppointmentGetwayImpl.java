@@ -1,9 +1,6 @@
 package com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindAllGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentDeleteGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.*;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
@@ -24,7 +21,8 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 
 @Repository
-public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway, AppointmentDeleteGetway, AppointmentFindByIdGetway {
+public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway,
+        AppointmentDeleteGetway, AppointmentFindByIdGetway, CloseAppointmentGetway {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
 private final PatientRepository patientRepository;
@@ -88,5 +86,10 @@ private final PatientRepository patientRepository;
         appointmentData.get().setDisponibility(disponibilityData.get());
         appointmentData.get().setPatientData(patientData.get());
         return appointmentData;
+    }
+
+    @Override
+    public Appointment closeAppointment(Appointment appointment) {
+        return this.save(appointment);
     }
 }
