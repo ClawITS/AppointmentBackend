@@ -1,5 +1,7 @@
 package com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository;
 
+import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.getways.*;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.s3_repository.PatientRepository;
@@ -13,13 +15,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway {
+public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway,
+AcceptReschedulingGetway{
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
 
-    public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
+    private final AppointmentSaveGetway appointmentSaveGetway;
+    public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper, AppointmentSaveGetway appointmentSaveGetway) {
         this.patientRepository = patientRepository;
         this.patientMapper = patientMapper;
+        this.appointmentSaveGetway = appointmentSaveGetway;
     }
 
     @Override
@@ -51,5 +56,10 @@ public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGe
     @Override
     public Patient save(Patient patient) {
         return patientMapper.toPatient(patientRepository.save(patientMapper.toData(patient)));
+    }
+
+    @Override
+    public Appointment acceptRescheduling(Appointment appointment) {
+        return appointmentSaveGetway.save(appointment);
     }
 }
