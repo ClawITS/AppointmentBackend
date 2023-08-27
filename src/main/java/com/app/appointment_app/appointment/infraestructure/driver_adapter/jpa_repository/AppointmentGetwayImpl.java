@@ -60,7 +60,6 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
         Optional<AppointmentData> appointmentData =
                 appointmentSaveHelper.appointmentDataChargeAndControlState(appointment);
 
-
         return appointmentMapper
                 .toAppointment(appointmentRepository.save(appointmentData.get()));
     }

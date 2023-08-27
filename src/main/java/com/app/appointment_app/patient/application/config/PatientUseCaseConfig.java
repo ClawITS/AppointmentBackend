@@ -1,18 +1,16 @@
 package com.app.appointment_app.patient.application.config;
 
-import com.app.appointment_app.patient.domain.getways.PatientDeleteGetway;
-import com.app.appointment_app.patient.domain.getways.PatientFindAllGetway;
-import com.app.appointment_app.patient.domain.getways.PatientFindByIdGetway;
-import com.app.appointment_app.patient.domain.getways.PatientSaveGetway;
-import com.app.appointment_app.patient.domain.usecases.PatientDeleteUseCase;
-import com.app.appointment_app.patient.domain.usecases.PatientFindAllUseCase;
-import com.app.appointment_app.patient.domain.usecases.PatientFindByIdUseCase;
-import com.app.appointment_app.patient.domain.usecases.PatientSaveUseCase;
+import com.app.appointment_app.patient.domain.getways.*;
+import com.app.appointment_app.patient.domain.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PatientUseCaseConfig {
+    @Bean
+    public AcceptReschedulingUseCase acceptReschedulingUseCaseConfig(AcceptReschedulingGetway acceptReschedulingGetway){
+        return new AcceptReschedulingUseCase(acceptReschedulingGetway);
+    }
     @Bean
     public PatientSaveUseCase patientSaveUseCaseConfig(PatientSaveGetway patientSaveGetway){
         return new PatientSaveUseCase(patientSaveGetway);
