@@ -17,15 +17,23 @@ public class PatientMapper {
 
 
     public Patient toPatient(PatientData patientData) {
-        List<Appointment> appointmentList = patientData.getAppointmentDataList().stream().map(
-                appointmentData -> new Appointment(appointmentData.getIdAppointment(),
-                        disponibilityDataToDisponibility(appointmentData.getDisponibility()
-                ), new Patient(patientData.getIdPatient(),patientData.getName(),patientData.getDocument()
-                , patientData.getBirthDate(),patientData.getEmail(),patientData.getGender(),
-                        null), appointmentData.getState())
-        ).collect(Collectors.toList());
+        List<Appointment> appointmentList = null;
+        if(patientData.getAppointmentDataList() != null){
+            appointmentList = listAppointmentDataToAppointmentList(patientData);
+        }
+         
         return new Patient(patientData.getIdPatient(), patientData.getName(), patientData.getDocument(), patientData.getBirthDate(),
                 patientData.getEmail(), patientData.getGender(), appointmentList);
+    }
+
+    private List<Appointment> listAppointmentDataToAppointmentList(PatientData patientData) {
+        return patientData.getAppointmentDataList().stream().map(
+                appointmentData -> new Appointment(appointmentData.getIdAppointment(),
+                        disponibilityDataToDisponibility(appointmentData.getDisponibility()
+                        ), new Patient(patientData.getIdPatient(), patientData.getName(), patientData.getDocument()
+                        , patientData.getBirthDate(), patientData.getEmail(), patientData.getGender(),
+                        null), appointmentData.getState())
+        ).collect(Collectors.toList());
     }
 
     public Disponibility disponibilityDataToDisponibility(DisponibilityData disponibilityData){

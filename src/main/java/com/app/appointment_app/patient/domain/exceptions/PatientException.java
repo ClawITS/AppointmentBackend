@@ -1,4 +1,4 @@
-package com.app.appointment_app.patient.exceptions;
+package com.app.appointment_app.patient.domain.exceptions;
 
 public class PatientException extends Exception{
     public PatientException(String message){
