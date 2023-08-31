@@ -5,6 +5,6 @@ public enum State {
     EARRING,
     CANCELED,
     ATTENDED,
-    RESCHEDULED
-
+    RESCHEDULED,
+    EARRINGBYDOCTOR
 }

@@ -8,7 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PatientUseCaseConfig {
     @Bean
-    public CancelReschedulingUseCase cancelReschedulingUseCase(CancelReschedulingGetway cancelReschedulingGetway){
+    public PatientResheduleUseCase patientResheduleUseCaseConfig(PatientRescheduleGetway patientRescheduleGetway){
+        return new PatientResheduleUseCase(patientRescheduleGetway);
+    }
+    @Bean
+    public CancelReschedulingUseCase cancelReschedulingUseCaseConfig(CancelReschedulingGetway cancelReschedulingGetway){
         return new CancelReschedulingUseCase(cancelReschedulingGetway);
     }
     @Bean
