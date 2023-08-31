@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/patients")
 public class PatientController {
+    private final PatientResheduleUseCase patientResheduleUseCase;
     private final PatientSaveUseCase patientSaveUseCase;
     private final AcceptReschedulingUseCase acceptReschedulingUseCase;
     private final PatientFindAllUseCase patientFindAllUseCase;
@@ -22,7 +23,11 @@ public class PatientController {
     private final PatientDeleteUseCase patientDeleteUseCase;
     private final CancelReschedulingUseCase cancelReschedulingUseCase;
 
-    public PatientController(PatientSaveUseCase patientSaveUseCase, AcceptReschedulingUseCase acceptReschedulingUseCase, PatientFindAllUseCase patientFindAllUseCase, PatientFindByIdUseCase patientFindByIdUseCase, PatientDeleteUseCase patientDeleteUseCase, CancelReschedulingUseCase cancelReschedulingUseCase) {
+    public PatientController(PatientResheduleUseCase patientResheduleUseCase, PatientSaveUseCase patientSaveUseCase,
+                             AcceptReschedulingUseCase acceptReschedulingUseCase, PatientFindAllUseCase patientFindAllUseCase,
+                             PatientFindByIdUseCase patientFindByIdUseCase, PatientDeleteUseCase patientDeleteUseCase,
+                             CancelReschedulingUseCase cancelReschedulingUseCase) {
+        this.patientResheduleUseCase = patientResheduleUseCase;
         this.patientSaveUseCase = patientSaveUseCase;
         this.acceptReschedulingUseCase = acceptReschedulingUseCase;
         this.patientFindAllUseCase = patientFindAllUseCase;
@@ -76,5 +81,9 @@ public class PatientController {
         }
 
     }
+@PostMapping("/patienReshedule")
+    public  ResponseEntity <?> patientReshedule(@RequestBody Appointment appointment){
+        return new ResponseEntity<>(patientResheduleUseCase.patientReschedule(appointment),HttpStatus.OK);
+}
 
 }

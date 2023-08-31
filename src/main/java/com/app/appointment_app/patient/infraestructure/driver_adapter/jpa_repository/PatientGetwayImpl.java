@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway,
-AcceptReschedulingGetway, CancelReschedulingGetway{
+AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
+
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
 
@@ -65,6 +66,11 @@ AcceptReschedulingGetway, CancelReschedulingGetway{
 
     @Override
     public Appointment cancelRescheduling(Appointment appointment) {
+        return appointmentSaveGetway.save(appointment);
+    }
+
+    @Override
+    public Appointment patientRescheduleGetway(Appointment appointment) {
         return appointmentSaveGetway.save(appointment);
     }
 }
