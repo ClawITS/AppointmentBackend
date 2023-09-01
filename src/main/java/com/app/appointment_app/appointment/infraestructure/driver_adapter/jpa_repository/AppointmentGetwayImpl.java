@@ -1,8 +1,13 @@
 package com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository;
 
+import com.app.appointment_app.appointment.domain.constants.AppointmentResponseMessages;
 import com.app.appointment_app.appointment.domain.getways.*;
 import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
+import com.app.appointment_app.appointment.domain.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.helper.AppointmentSaveHelper;
+import com.app.appointment_app.appointment.infraestructure.driver_adapter.helper.CloseAppointmentHelper;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
 
@@ -20,12 +25,14 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
     private final AppointmentSaveHelper appointmentSaveHelper;
+    private final CloseAppointmentHelper closeAppointmentHelper;
 
     public AppointmentGetwayImpl(AppointmentRepository appointmentRepository,
-                                 AppointmentMapper appointmentMapper, AppointmentSaveHelper appointmentSaveHelper) {
+                                 AppointmentMapper appointmentMapper, AppointmentSaveHelper appointmentSaveHelper, CloseAppointmentHelper closeAppointmentHelper) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
         this.appointmentSaveHelper = appointmentSaveHelper;
+        this.closeAppointmentHelper = closeAppointmentHelper;
     }
 
 
@@ -56,18 +63,20 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
     }
 
     @Override
-    public Appointment save(Appointment appointment) {
-        Optional<AppointmentData> appointmentData =
-                appointmentSaveHelper.appointmentDataChargeAndControlState(appointment);
-
-        return appointmentMapper
-                .toAppointment(appointmentRepository.save(appointmentData.get()));
+    public SaveAppointmentResponse save(Appointment appointment) {
+        AppointmentData appointmentData =
+                appointmentSaveHelper.saveByControl(appointment);
+        SaveAppointmentResponse saveAppointmentResponse = new SaveAppointmentResponse(
+                appointmentData.getDisponibility().getHour(), appointmentData.getDisponibility().getDoctor().getName(),
+                appointmentData.getPatientData().getName(), AppointmentResponseMessages.SAVE_SUCCESSFULlY
+        );
+        return saveAppointmentResponse;
     }
 
 
 
     @Override
-    public Appointment closeAppointment(Appointment appointment) {
-        return this.save(appointment);
+    public CloseAppointmentResponse closeAppointment(CloseAppointmentRequest closeAppointmentRequest) {
+        return closeAppointmentHelper.attendAppointment(closeAppointmentRequest);
     }
 }

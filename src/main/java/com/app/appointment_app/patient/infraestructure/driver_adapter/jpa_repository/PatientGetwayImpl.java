@@ -61,16 +61,16 @@ AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
 
     @Override
     public Appointment acceptRescheduling(Appointment appointment) {
-        return appointmentSaveGetway.save(appointment);
+        return appointment;
     }
 
     @Override
     public Appointment cancelRescheduling(Appointment appointment) {
-        return appointmentSaveGetway.save(appointment);
+        return appointment;
     }
 
     @Override
     public Appointment patientRescheduleGetway(Appointment appointment) {
-        return appointmentSaveGetway.save(appointment);
+        return appointment;
     }
 }

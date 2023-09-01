@@ -21,7 +21,6 @@ public class AppointmentSaveHelper {
     private final AppointmentMapper appointmentMapper;
     private final PatientRepository patientRepository;
     private final DisponibilityRepository disponibilityRepository;
-
     public AppointmentSaveHelper(AppointmentRepository appointmentRepository,
                                  AppointmentMapper appointmentMapper, PatientRepository patientRepository,
                                  DisponibilityRepository disponibilityRepository) {
@@ -30,19 +29,22 @@ public class AppointmentSaveHelper {
         this.patientRepository = patientRepository;
         this.disponibilityRepository = disponibilityRepository;
     }
-    public Optional<AppointmentData> appointmentDataChargeAndControlState(Appointment appointment) {
+    public AppointmentData saveByControl(Appointment appointment) {
+        Optional<AppointmentData> appointmentData = updateOrChargeNewData(appointment);
+
+        return appointmentRepository.save(appointmentData.get());
+    }
+
+    private Optional<AppointmentData> updateOrChargeNewData(Appointment appointment) {
         Optional<AppointmentData> appointmentData;
         if(isNull(appointment.getIdAppointment())){
             appointmentData = chargeAppointmentData(appointment);
         }else {
             appointmentData = appointmentRepository.findById(appointment.getIdAppointment());
-            if(appointment.getState().equals(State.ATTENDED)){
-                appointmentData.get().getDisponibility().setDisponibilityState(DisponibilityState.CLOSED);
-            }
-            appointmentData.get().setState(appointment.getState());
         }
         return appointmentData;
     }
+
     private Optional<AppointmentData> chargeAppointmentData(Appointment appointment) {
         Optional<AppointmentData> appointmentData;
         Optional<DisponibilityData> disponibilityData = disponibilityRepository.findById(appointment.getDisponibility().getIdDisponibility());

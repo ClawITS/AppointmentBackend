@@ -2,6 +2,8 @@ package com.app.appointment_app.doctor.infraestructure.entry_point;
 
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.doctor.domain.model.Doctor;
+import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
 import com.app.appointment_app.doctor.domain.useCases.*;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -44,8 +46,9 @@ public class DoctorController {
         return new ResponseEntity<>(doctorFindAllUseCase.findAllDoctorsPaginator(numberPage),HttpStatus.OK);
     }
     @PostMapping("/rescheduleAppointment")
-    public ResponseEntity<Appointment> rescheduleAppointment(@RequestBody Appointment appointment){
-        return new ResponseEntity<>(rescheduleAppointmentUseCase.rescheduleAppointment(appointment),
+    public ResponseEntity<RescheduleAppointmentResponse> rescheduleAppointment(@RequestBody RescheduleAppointmentRequest
+                                                                                           rescheduleAppointmentRequest){
+        return new ResponseEntity<>(rescheduleAppointmentUseCase.rescheduleAppointment(rescheduleAppointmentRequest),
                 HttpStatus.OK);
     }
 }

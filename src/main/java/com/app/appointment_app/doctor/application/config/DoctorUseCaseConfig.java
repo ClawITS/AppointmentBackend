@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class DoctorUseCaseConfig {
 
     @Bean
-    public RescheduleAppointmentUseCase rescheduleAppointmentUseCaseConfig(RescheduleAppointmentGetyaw rescheduleAppointmentGetyaw){
+    public RescheduleAppointmentUseCase rescheduleAppointmentUseCaseConfig(RescheduleAppointmentGetway rescheduleAppointmentGetyaw){
         return new RescheduleAppointmentUseCase(rescheduleAppointmentGetyaw);
     }
 

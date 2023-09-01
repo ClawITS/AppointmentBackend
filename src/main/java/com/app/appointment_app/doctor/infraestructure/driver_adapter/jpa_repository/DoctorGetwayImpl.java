@@ -1,9 +1,9 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
-import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_repository.AppointmentGetwayImpl;
 import com.app.appointment_app.doctor.domain.getways.*;
 import com.app.appointment_app.doctor.domain.model.Doctor;
+import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.helpers.RescheduleAppointmentHelper;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
 import org.springframework.data.domain.Page;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
-        DoctorFindByIdGetway, RescheduleAppointmentGetyaw {
+        DoctorFindByIdGetway, RescheduleAppointmentGetway {
     private final DoctorRepository doctorRepository;
-    private final AppointmentSaveGetway appointmentSaveGetway;
+    private final RescheduleAppointmentHelper rescheduleAppointmentHelper;
     private final DoctorMapper doctorMapper;
 
-    public DoctorGetwayImpl(DoctorRepository doctorRepository, AppointmentSaveGetway appointmentSaveGetway, DoctorMapper doctorMapper) {
+    public DoctorGetwayImpl(DoctorRepository doctorRepository, RescheduleAppointmentHelper rescheduleAppointmentHelper, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
-        this.appointmentSaveGetway = appointmentSaveGetway;
+        this.rescheduleAppointmentHelper = rescheduleAppointmentHelper;
         this.doctorMapper = doctorMapper;
     }
 
@@ -48,8 +48,9 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
         return doctorMapper.toDoctor(doctorRepository.save(dataDoctor));
     }
 
+
     @Override
-    public Appointment rescheduleAppointment(Appointment appointment) {
-        return appointmentSaveGetway.save(appointment);
+    public RescheduleAppointmentResponse rescheduleAppointment(RescheduleAppointmentRequest rescheduleAppointmentRequest) {
+        return rescheduleAppointmentHelper.rescheduleAppointment(rescheduleAppointmentRequest);
     }
 }
