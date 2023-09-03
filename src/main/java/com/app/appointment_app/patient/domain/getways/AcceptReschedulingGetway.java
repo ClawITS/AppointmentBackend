@@ -1,9 +1,8 @@
 package com.app.appointment_app.patient.domain.getways;
-
-
-import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
+import com.app.appointment_app.patient.domain.responses.AcceptReschedulingResponse;
 
 public interface AcceptReschedulingGetway {
 
-    Appointment acceptRescheduling(Appointment appointment);
+    AcceptReschedulingResponse acceptRescheduling(AcceptReschedulingRequest acceptReschedulingRequest);
 }

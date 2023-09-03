@@ -1,6 +1,4 @@
 package com.app.appointment_app.doctor.domain.model;
-
-
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 
 import java.util.List;

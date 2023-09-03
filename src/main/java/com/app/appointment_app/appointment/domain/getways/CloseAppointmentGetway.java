@@ -1,7 +1,7 @@
 package com.app.appointment_app.appointment.domain.getways;
-
-import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
 
 public interface CloseAppointmentGetway {
-    Appointment closeAppointment(Appointment appointment);
+    CloseAppointmentResponse closeAppointment(CloseAppointmentRequest closeAppointmentRequest);
 }
