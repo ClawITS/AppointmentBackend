@@ -4,6 +4,9 @@ import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.getways.*;
 import com.app.appointment_app.patient.domain.model.Patient;
+import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
+import com.app.appointment_app.patient.domain.responses.AcceptReschedulingResponse;
+import com.app.appointment_app.patient.infraestructure.driver_adapter.helper.AcceptReschedulingHelper;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.s3_repository.PatientRepository;
 import com.app.appointment_app.patient.infraestructure.mapper.PatientMapper;
 import org.springframework.data.domain.Page;
@@ -20,11 +23,12 @@ AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
 
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
-
+    private final AcceptReschedulingHelper acceptReschedulingHelper;
     private final AppointmentSaveGetway appointmentSaveGetway;
-    public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper, AppointmentSaveGetway appointmentSaveGetway) {
+    public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper, AcceptReschedulingHelper acceptReschedulingHelper, AppointmentSaveGetway appointmentSaveGetway) {
         this.patientRepository = patientRepository;
         this.patientMapper = patientMapper;
+        this.acceptReschedulingHelper = acceptReschedulingHelper;
         this.appointmentSaveGetway = appointmentSaveGetway;
     }
 
@@ -60,8 +64,8 @@ AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
     }
 
     @Override
-    public Appointment acceptRescheduling(Appointment appointment) {
-        return appointment;
+    public AcceptReschedulingResponse acceptRescheduling(AcceptReschedulingRequest acceptReschedulingRequest) {
+        return acceptReschedulingHelper.acceptRescheduling(acceptReschedulingRequest);
     }
 
     @Override

@@ -1,6 +1,4 @@
 package com.app.appointment_app.doctor.infraestructure.entry_point;
-
-import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
 import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;

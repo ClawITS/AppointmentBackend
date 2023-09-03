@@ -4,13 +4,12 @@ import com.app.appointment_app.appointment.domain.constants.AppointmentResponseM
 import com.app.appointment_app.appointment.domain.getways.*;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
 import com.app.appointment_app.appointment.domain.responses.SaveAppointmentResponse;
-import com.app.appointment_app.appointment.infraestructure.driver_adapter.helper.AppointmentSaveHelper;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.helper.CloseAppointmentHelper;
 import com.app.appointment_app.appointment.infraestructure.driver_adapter.s3_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.mapper.AppointmentMapper;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -24,14 +23,12 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
         AppointmentDeleteGetway, AppointmentFindByIdGetway, CloseAppointmentGetway {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
-    private final AppointmentSaveHelper appointmentSaveHelper;
     private final CloseAppointmentHelper closeAppointmentHelper;
 
     public AppointmentGetwayImpl(AppointmentRepository appointmentRepository,
-                                 AppointmentMapper appointmentMapper, AppointmentSaveHelper appointmentSaveHelper, CloseAppointmentHelper closeAppointmentHelper) {
+                                 AppointmentMapper appointmentMapper, CloseAppointmentHelper closeAppointmentHelper) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
-        this.appointmentSaveHelper = appointmentSaveHelper;
         this.closeAppointmentHelper = closeAppointmentHelper;
     }
 
@@ -42,11 +39,16 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
     }
 
     @Override
-    public Page<Appointment> findAllPaginator(int numberPage) {
+    public List<AppointmentPaginatorResponse> findAllPaginator(int numberPage) {
         int pageSize = 10;
         PageRequest page = PageRequest.of(numberPage, pageSize);
         Page<AppointmentData> data = appointmentRepository.findAll(page);
-        return data.map(appointmentMapper::toAppointment);
+        List<AppointmentPaginatorResponse> appointmentPaginatorResponses = data.get().map(appointmentData -> new AppointmentPaginatorResponse(appointmentData
+                .getDisponibility().getHour(),appointmentData.getPatientData().getName(),
+                appointmentData.getDisponibility().getDoctor().getName(), appointmentData.
+                getState(), data.getTotalPages())).collect(Collectors.toList());;
+
+        return appointmentPaginatorResponses;
     }
 
     @Override
@@ -64,12 +66,13 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
 
     @Override
     public SaveAppointmentResponse save(Appointment appointment) {
-        AppointmentData appointmentData =
-                appointmentSaveHelper.saveByControl(appointment);
+        AppointmentData appointmentData2= appointmentMapper.toData(appointment);
+        AppointmentData appointmentData = appointmentRepository.save(appointmentData2);
         SaveAppointmentResponse saveAppointmentResponse = new SaveAppointmentResponse(
                 appointmentData.getDisponibility().getHour(), appointmentData.getDisponibility().getDoctor().getName(),
                 appointmentData.getPatientData().getName(), AppointmentResponseMessages.SAVE_SUCCESSFULlY
         );
+
         return saveAppointmentResponse;
     }
 

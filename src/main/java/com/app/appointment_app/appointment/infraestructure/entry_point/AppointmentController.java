@@ -5,6 +5,7 @@ import com.app.appointment_app.appointment.domain.exceptions.CloseAppointmentExc
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
 import com.app.appointment_app.appointment.domain.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.domain.usecases.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/appointment")
@@ -60,7 +62,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/page/{numberPage}")
-    public ResponseEntity<Page<Appointment>> getAppointmentPage(@PathVariable int numberPage) {
+    public ResponseEntity<List<AppointmentPaginatorResponse>> getAppointmentPage(@PathVariable int numberPage) {
         return new ResponseEntity<>(appointmentFindAllUseCase.findAllAppointmentPaginator(numberPage), HttpStatus.OK);
     }
 

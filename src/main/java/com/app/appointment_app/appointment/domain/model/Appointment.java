@@ -1,5 +1,4 @@
 package com.app.appointment_app.appointment.domain.model;
-
 import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.patient.domain.model.Patient;
