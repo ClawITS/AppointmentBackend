@@ -1,19 +1,24 @@
 package com.app.appointment_app.appointment.domain.usecases;
 
 import com.app.appointment_app.appointment.domain.getways.CloseAppointmentGetway;
-import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
 import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
+import com.app.appointment_app.appointment.domain.usecases.helpers.CloseAppointmentHelper;
 
 public class CloseAppointmentUseCase {
     private final CloseAppointmentGetway closeAppointmentGetway;
+    private final CloseAppointmentHelper closeAppointmentHelper;
 
-    public CloseAppointmentUseCase(CloseAppointmentGetway closeAppointmentGetway) {
+    public CloseAppointmentUseCase(CloseAppointmentGetway closeAppointmentGetway, CloseAppointmentHelper closeAppointmentHelper) {
         this.closeAppointmentGetway = closeAppointmentGetway;
+        this.closeAppointmentHelper = closeAppointmentHelper;
     }
+
+
     public CloseAppointmentResponse closeAppointment(CloseAppointmentRequest closeAppointmentRequest){
         closeAppointmentRequest.setState(State.ATTENDED);
+        closeAppointmentHelper.attendAppointment(closeAppointmentRequest);
         return closeAppointmentGetway.closeAppointment(closeAppointmentRequest);
     }
 }
