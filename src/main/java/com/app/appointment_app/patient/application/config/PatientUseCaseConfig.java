@@ -1,7 +1,10 @@
 package com.app.appointment_app.patient.application.config;
 
+import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
 import com.app.appointment_app.patient.domain.getways.*;
 import com.app.appointment_app.patient.domain.usecases.*;
+import com.app.appointment_app.patient.domain.usecases.helpers.AcceptReschedulingHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +19,14 @@ public class PatientUseCaseConfig {
         return new CancelReschedulingUseCase(cancelReschedulingGetway);
     }
     @Bean
-    public AcceptReschedulingUseCase acceptReschedulingUseCaseConfig(AcceptReschedulingGetway acceptReschedulingGetway){
-        return new AcceptReschedulingUseCase(acceptReschedulingGetway);
+    public AcceptReschedulingHelper acceptReschedulingHelperConfig(AppointmentSaveGetway appointmentSaveGetway
+            , AppointmentFindByIdGetway appointmentFindByIdGetway){
+        return new AcceptReschedulingHelper(appointmentSaveGetway, appointmentFindByIdGetway);
+    }
+    @Bean
+    public AcceptReschedulingUseCase acceptReschedulingUseCaseConfig(AcceptReschedulingGetway acceptReschedulingGetway
+            , AcceptReschedulingHelper acceptReschedulingHelper){
+        return new AcceptReschedulingUseCase(acceptReschedulingGetway, acceptReschedulingHelper);
     }
     @Bean
     public PatientSaveUseCase patientSaveUseCaseConfig(PatientSaveGetway patientSaveGetway){
