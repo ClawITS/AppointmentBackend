@@ -6,7 +6,9 @@ import com.app.appointment_app.appointment.domain.exceptions.CancelReschedulingE
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
+import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
 import com.app.appointment_app.patient.domain.responses.AcceptReschedulingResponse;
+import com.app.appointment_app.patient.domain.responses.CancelReschedulingResponse;
 import com.app.appointment_app.patient.domain.usecases.*;
 
 import org.springframework.data.domain.Page;
@@ -73,14 +75,14 @@ public class PatientController {
     }
 
     @PostMapping("/cancelRescheduling")
-    public ResponseEntity<?> cancelRescheduling(@RequestBody Appointment appointment){
+    public ResponseEntity<CancelReschedulingResponse> cancelRescheduling(@RequestBody CancelReschedulingRequest cancelReschedulingRequest){
         try{
-            CancelReschedulingException.cancelReschedulingException(appointment);
-            return new ResponseEntity<>(cancelReschedulingUseCase.cancelRescheduling(appointment), HttpStatus.OK);
+            CancelReschedulingException.cancelReschedulingException(cancelReschedulingRequest);
+            return new ResponseEntity<>(cancelReschedulingUseCase.cancelRescheduling(cancelReschedulingRequest), HttpStatus.OK);
         }catch(AppointmentException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new CancelReschedulingResponse(e.getMessage()));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new CancelReschedulingResponse(e.getMessage()));
         }
 
     }

@@ -1,7 +1,7 @@
 package com.app.appointment_app.patient.domain.getways;
-
-import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
+import com.app.appointment_app.patient.domain.responses.CancelReschedulingResponse;
 
 public interface CancelReschedulingGetway {
-    Appointment cancelRescheduling(Appointment appointment);
+    CancelReschedulingResponse cancelRescheduling(CancelReschedulingRequest cancelReschedulingRequest);
 }
