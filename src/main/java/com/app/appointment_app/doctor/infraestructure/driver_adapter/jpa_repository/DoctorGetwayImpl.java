@@ -1,9 +1,9 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
+import com.app.appointment_app.doctor.domain.constants.DoctorResponseMessages;
 import com.app.appointment_app.doctor.domain.getways.*;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
 import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
-import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.helpers.RescheduleAppointmentHelper;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
 import org.springframework.data.domain.Page;
@@ -15,12 +15,10 @@ import org.springframework.stereotype.Repository;
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
         DoctorFindByIdGetway, RescheduleAppointmentGetway {
     private final DoctorRepository doctorRepository;
-    private final RescheduleAppointmentHelper rescheduleAppointmentHelper;
     private final DoctorMapper doctorMapper;
 
-    public DoctorGetwayImpl(DoctorRepository doctorRepository, RescheduleAppointmentHelper rescheduleAppointmentHelper, DoctorMapper doctorMapper) {
-        this.doctorRepository = doctorRepository;
-        this.rescheduleAppointmentHelper = rescheduleAppointmentHelper;
+    public DoctorGetwayImpl(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
+        this.doctorRepository = doctorRepository;;
         this.doctorMapper = doctorMapper;
     }
 
@@ -52,6 +50,8 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
 
     @Override
     public RescheduleAppointmentResponse rescheduleAppointment(RescheduleAppointmentRequest rescheduleAppointmentRequest) {
-        return rescheduleAppointmentHelper.rescheduleAppointment(rescheduleAppointmentRequest);
+        return new RescheduleAppointmentResponse(rescheduleAppointmentRequest.getReschuldeHour(),rescheduleAppointmentRequest
+                .getActualHour(), DoctorResponseMessages.RESCHEDULE_APPOINTMENT +
+                rescheduleAppointmentRequest.getPatientName());
     }
 }
