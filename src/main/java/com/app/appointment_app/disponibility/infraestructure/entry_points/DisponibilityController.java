@@ -1,6 +1,7 @@
 package com.app.appointment_app.disponibility.infraestructure.entry_points;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
+import com.app.appointment_app.disponibility.domain.requests.DisponibilitySaveRequest;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityDeleteUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindAllUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindByIdUseCase;
@@ -31,8 +32,8 @@ public class DisponibilityController {
         , HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Disponibility>saveDisponibility(@RequestBody Disponibility disponibility){
-        return new ResponseEntity<>(disponibilitySaveUseCase.saveDisponibility(disponibility),
+    public ResponseEntity<Disponibility>saveDisponibility(@RequestBody DisponibilitySaveRequest disponibilitySaveRequest){
+        return new ResponseEntity<>(disponibilitySaveUseCase.saveDisponibility(disponibilitySaveRequest),
                 HttpStatus.OK);
     }
     @GetMapping("/{id}")

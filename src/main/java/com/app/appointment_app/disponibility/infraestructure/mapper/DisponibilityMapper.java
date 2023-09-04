@@ -3,6 +3,7 @@ package com.app.appointment_app.disponibility.infraestructure.mapper;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
 import com.app.appointment_app.doctor.domain.model.Doctor;
+import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,10 @@ public class DisponibilityMapper {
 
     public DisponibilityData toData(Disponibility disponibility) {
         return new DisponibilityData(disponibility.getIdDisponibility(), disponibility.getHour(),
-                null, disponibility.getDisponibilityState());
+                this.toDoctorData(disponibility.getDoctor()), disponibility.getDisponibilityState());
+    }
+    public DoctorData toDoctorData(Doctor doctor){
+        return new DoctorData(doctor.getIdDoctor(), doctor.getName(), doctor.getDescription(),
+                null);
     }
 }

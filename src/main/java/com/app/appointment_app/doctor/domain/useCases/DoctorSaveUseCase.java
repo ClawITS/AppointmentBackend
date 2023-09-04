@@ -10,27 +10,31 @@ import java.util.List;
 
 public class DoctorSaveUseCase {
     private final DoctorSaveGetway doctorSaveGetway;
-    private final DoctorDisponibilityRelationGetway doctorDisponibilityRelation;
 
-    public DoctorSaveUseCase(DoctorSaveGetway doctorSaveGetway, DoctorDisponibilityRelationGetway doctorDisponibilityRelation) {
+    public DoctorSaveUseCase(DoctorSaveGetway doctorSaveGetway) {
         this.doctorSaveGetway = doctorSaveGetway;
-        this.doctorDisponibilityRelation = doctorDisponibilityRelation;
     }
 
     public Doctor saveDoctor(Doctor doctor) {
         if (!doctor.getDisponibilityList().isEmpty()) {
-            if (doctor.getIdDoctor() == null) {
-                Doctor newDoctor = doctorSaveGetway.saveDoctor(doctor);
-                List<Disponibility> disponibilityList = doctor.getDisponibilityList();
-                disponibilityList.forEach(
-                        disponibility -> disponibility.setDisponibilityState(DisponibilityState.AVAILABLE)
-                );
-                newDoctor.setDisponibilityList(disponibilityList);
-                return doctorDisponibilityRelation.disponibilityRelation(newDoctor);
-            }
-            return doctorDisponibilityRelation.disponibilityRelation(doctor);
-
-        }
+            List<Disponibility> listDisponibilities = doctor.getDisponibilityList();
+            Doctor doctor1 = saveDoctorWithoutList(doctor);
+            setListDisponibilitiesWithDoctorSavedAndDoctorWithDisponibilityList(listDisponibilities, doctor1);
+            return doctorSaveGetway.saveDoctor(doctor1);}
         return doctorSaveGetway.saveDoctor(doctor);
+    }
+
+    private void setListDisponibilitiesWithDoctorSavedAndDoctorWithDisponibilityList(List<Disponibility> listDisponibilities, Doctor doctor1) {
+        listDisponibilities.forEach(disponibility ->{
+                    disponibility.setDoctor(doctor1);
+                    disponibility.setDisponibilityState(DisponibilityState.AVAILABLE);
+                });
+        doctor1.setDisponibilityList(listDisponibilities);
+    }
+
+    private Doctor saveDoctorWithoutList(Doctor doctor) {
+        doctor.setDisponibilityList(null);
+        Doctor doctor1 =doctorSaveGetway.saveDoctor(doctor);
+        return doctor1;
     }
 }

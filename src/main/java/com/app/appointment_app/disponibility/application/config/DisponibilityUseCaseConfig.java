@@ -8,14 +8,21 @@ import com.app.appointment_app.disponibility.domain.usecases.DisponibilityDelete
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindAllUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindByIdUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.DisponibilitySaveUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.helpers.DisponibilitySaveHelper;
+import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DisponibilityUseCaseConfig {
     @Bean
-    public DisponibilitySaveUseCase disponibilitySaveUseCaseConfig(DisponibilitySaveGetway disponibilitySaveGetway){
-        return new DisponibilitySaveUseCase(disponibilitySaveGetway);
+    public DisponibilitySaveHelper disponibilitySaveHelperConfig(DoctorFindByIdGetway doctorFindByIdGetway){
+        return new DisponibilitySaveHelper(doctorFindByIdGetway);
+    }
+    @Bean
+    public DisponibilitySaveUseCase disponibilitySaveUseCaseConfig(DisponibilitySaveGetway disponibilitySaveGetway
+            , DisponibilitySaveHelper disponibilitySaveHelper){
+        return new DisponibilitySaveUseCase(disponibilitySaveGetway, disponibilitySaveHelper);
 
     }
     @Bean

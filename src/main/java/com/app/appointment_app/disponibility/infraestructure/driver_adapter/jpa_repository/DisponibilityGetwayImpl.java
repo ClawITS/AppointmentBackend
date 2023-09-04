@@ -48,9 +48,9 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
 
     @Override
     public Disponibility save(Disponibility disponibility) {
-        Optional<DoctorData> doctorData = doctorRepository.findById(disponibility.getDoctor().getIdDoctor());
+      // Optional<DoctorData> doctorData = doctorRepository.findById(disponibility.getDoctor().getIdDoctor());
         DisponibilityData disponibilityData = disponibilityMapper.toData(disponibility);
-        disponibilityData.setDoctor(doctorData.get());
+       //disponibilityData.setDoctor(doctorData.get());
         disponibilityRepository.save(disponibilityData);
         return disponibilityMapper.toDisponibility(disponibilityData);
     }
