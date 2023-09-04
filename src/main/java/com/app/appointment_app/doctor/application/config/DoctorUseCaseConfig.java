@@ -15,9 +15,8 @@ public class DoctorUseCaseConfig {
     }
 
     @Bean
-    public DoctorSaveUseCase doctorSaveUseCaseConfig(DoctorSaveGetway doctorSaveGetway, DoctorDisponibilityRelationGetway
-                                                     doctorDisponibilityRelationGetway){
-        return new DoctorSaveUseCase(doctorSaveGetway, doctorDisponibilityRelationGetway);
+    public DoctorSaveUseCase doctorSaveUseCaseConfig(DoctorSaveGetway doctorSaveGetway){
+        return new DoctorSaveUseCase(doctorSaveGetway);
     }
     @Bean
     public DoctorDeleteUseCase doctorDeleteUseCaseConfig(DoctorDeleteGetway doctorDeleteGetway){

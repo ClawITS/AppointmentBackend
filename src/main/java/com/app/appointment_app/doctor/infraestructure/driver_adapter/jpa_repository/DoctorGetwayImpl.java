@@ -45,7 +45,8 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
     @Override
     public Doctor saveDoctor(Doctor doctor) {
        DoctorData dataDoctor = doctorMapper.toData(doctor);
-        return doctorMapper.toDoctor(doctorRepository.save(dataDoctor));
+        return doctorMapper
+                .toDoctor(doctorRepository.save(dataDoctor));
     }
 
 
