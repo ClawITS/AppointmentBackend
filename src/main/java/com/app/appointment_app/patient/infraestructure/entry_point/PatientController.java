@@ -7,8 +7,10 @@ import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
 import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
+import com.app.appointment_app.patient.domain.requests.PatientRescheduleRequest;
 import com.app.appointment_app.patient.domain.responses.AcceptReschedulingResponse;
 import com.app.appointment_app.patient.domain.responses.CancelReschedulingResponse;
+import com.app.appointment_app.patient.domain.responses.PatientRescheduleResponse;
 import com.app.appointment_app.patient.domain.usecases.*;
 
 import org.springframework.data.domain.Page;
@@ -86,9 +88,9 @@ public class PatientController {
         }
 
     }
-@PostMapping("/patienReshedule")
-    public  ResponseEntity <?> patientReshedule(@RequestBody Appointment appointment){
-        return new ResponseEntity<>(patientResheduleUseCase.patientReschedule(appointment),HttpStatus.OK);
+@PostMapping("/patientReshedule")
+    public  ResponseEntity <PatientRescheduleResponse> patientReshedule(@RequestBody PatientRescheduleRequest patientRescheduleRequest){
+        return new ResponseEntity<>(patientResheduleUseCase.patientReschedule(patientRescheduleRequest),HttpStatus.OK);
 }
 
 }

@@ -9,6 +9,7 @@ import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest
 import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
 import com.app.appointment_app.patient.domain.responses.AcceptReschedulingResponse;
 import com.app.appointment_app.patient.domain.responses.CancelReschedulingResponse;
+import com.app.appointment_app.patient.domain.responses.PatientRescheduleResponse;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.s3_repository.PatientRepository;
 import com.app.appointment_app.patient.infraestructure.mapper.PatientMapper;
 import org.springframework.data.domain.Page;
@@ -74,7 +75,9 @@ AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
     }
 
     @Override
-    public Appointment patientRescheduleGetway(Appointment appointment) {
-        return appointment;
+    public PatientRescheduleResponse patientRescheduleGetway(Appointment appointment) {
+
+        return new PatientRescheduleResponse(PatientResponseMessages.PATIENT_RESCHEDULING +
+                appointment.getDisponibility().getDoctor().getName());
     }
 }

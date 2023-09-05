@@ -7,14 +7,21 @@ import com.app.appointment_app.patient.domain.getways.*;
 import com.app.appointment_app.patient.domain.usecases.*;
 import com.app.appointment_app.patient.domain.usecases.helpers.AcceptReschedulingHelper;
 import com.app.appointment_app.patient.domain.usecases.helpers.CancelReschedulingHelper;
+import com.app.appointment_app.patient.domain.usecases.helpers.PatientRescheduleHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PatientUseCaseConfig {
     @Bean
-    public PatientResheduleUseCase patientResheduleUseCaseConfig(PatientRescheduleGetway patientRescheduleGetway){
-        return new PatientResheduleUseCase(patientRescheduleGetway);
+    public PatientRescheduleHelper patientRescheduleHelperConfig(AppointmentSaveGetway appointmentSaveGetway
+            , AppointmentFindByIdGetway appointmentFindByIdGetway){
+        return new PatientRescheduleHelper(appointmentSaveGetway, appointmentFindByIdGetway);
+    }
+    @Bean
+    public PatientResheduleUseCase patientResheduleUseCaseConfig(PatientRescheduleGetway patientRescheduleGetway
+            , PatientRescheduleHelper patientRescheduleHelper){
+        return new PatientResheduleUseCase(patientRescheduleGetway, patientRescheduleHelper);
     }
     @Bean
     public CancelReschedulingHelper cancelReschedulingHelperConfig(
