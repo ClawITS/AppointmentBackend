@@ -1,6 +1,6 @@
 package com.app.appointment_app.appointment.domain.usecases;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 
 public class AppointmentFindByIdUseCase {

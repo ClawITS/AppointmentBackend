@@ -1,11 +1,19 @@
 package com.app.appointment_app.doctor.application.config;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
-import com.app.appointment_app.doctor.domain.getways.*;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 
-import com.app.appointment_app.doctor.domain.useCases.*;
+import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorDeleteGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindAllGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorSaveGetway;
+import com.app.appointment_app.doctor.domain.useCases.business_services.RescheduleAppointmentUseCase;
+import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorDeleteUseCase;
+import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorFindAllUseCase;
+import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorFindByIdUseCase;
+import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorSaveUseCase;
 import com.app.appointment_app.doctor.domain.useCases.helpers.RescheduleAppointmentHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

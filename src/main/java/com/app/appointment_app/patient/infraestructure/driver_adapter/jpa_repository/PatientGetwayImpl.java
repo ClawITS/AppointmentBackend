@@ -1,9 +1,16 @@
 package com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.constants.PatientResponseMessages;
-import com.app.appointment_app.patient.domain.getways.*;
+import com.app.appointment_app.patient.domain.getways.business_services.AcceptReschedulingGetway;
+import com.app.appointment_app.patient.domain.getways.business_services.CancelReschedulingGetway;
+import com.app.appointment_app.patient.domain.getways.business_services.PatientRescheduleGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientDeleteGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientFindAllGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientFindByIdGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientSaveGetway;
+import com.app.appointment_app.patient.domain.getways.filters.PatientFilterByNameGetway;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
 import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
@@ -22,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway,
-AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway, PatientFilterByNameGetway{
+        AcceptReschedulingGetway, CancelReschedulingGetway, PatientRescheduleGetway, PatientFilterByNameGetway {
 
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;

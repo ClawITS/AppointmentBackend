@@ -1,7 +1,7 @@
 package com.app.appointment_app.patient.domain.usecases.helpers;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
 

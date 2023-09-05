@@ -1,9 +1,9 @@
 package com.app.appointment_app.doctor.domain.useCases.helpers;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindByIdGetway;
-import com.app.appointment_app.appointment.domain.getways.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
 
 public class RescheduleAppointmentHelper {

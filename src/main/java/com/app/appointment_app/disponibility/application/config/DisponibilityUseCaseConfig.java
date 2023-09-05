@@ -1,15 +1,15 @@
 package com.app.appointment_app.disponibility.application.config;
 
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityDeleteByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindAllGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityDeleteUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindAllUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindByIdUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilitySaveUseCase;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityDeleteByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindAllGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityDeleteUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindAllUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilitySaveUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.helpers.DisponibilitySaveHelper;
-import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

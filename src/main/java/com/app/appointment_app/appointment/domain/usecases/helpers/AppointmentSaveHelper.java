@@ -1,11 +1,11 @@
 package com.app.appointment_app.appointment.domain.usecases.helpers;
 
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
-import com.app.appointment_app.patient.domain.getways.PatientFindByIdGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientFindByIdGetway;
 import com.app.appointment_app.patient.domain.model.Patient;
 
 public class AppointmentSaveHelper {

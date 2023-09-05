@@ -1,9 +1,8 @@
 package com.app.appointment_app.appointment.domain.usecases;
 
-import com.app.appointment_app.appointment.domain.getways.AppointmentFindAllGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.responses.AppointmentPaginatorResponse;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

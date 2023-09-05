@@ -1,13 +1,13 @@
 package com.app.appointment_app.speciality.application.config;
 
-import com.app.appointment_app.speciality.domain.getways.SpecialityDeleteGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialityFindAllGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialityFindByIdGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialitySaveGetway;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityDeleteUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityFindAllUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityFindByIdUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialitySaveUseCase;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityDeleteGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityFindAllGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityFindByIdGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialitySaveGetway;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityDeleteUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityFindAllUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityFindByIdUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialitySaveUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
