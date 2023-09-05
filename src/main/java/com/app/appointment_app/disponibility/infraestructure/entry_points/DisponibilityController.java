@@ -2,10 +2,10 @@ package com.app.appointment_app.disponibility.infraestructure.entry_points;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilitySaveRequest;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityDeleteUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindAllUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilityFindByIdUseCase;
-import com.app.appointment_app.disponibility.domain.usecases.DisponibilitySaveUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityDeleteUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindAllUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilitySaveUseCase;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

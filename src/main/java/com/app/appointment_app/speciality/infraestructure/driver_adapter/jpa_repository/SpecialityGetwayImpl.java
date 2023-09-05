@@ -1,9 +1,9 @@
 package com.app.appointment_app.speciality.infraestructure.driver_adapter.jpa_repository;
 
-import com.app.appointment_app.speciality.domain.getways.SpecialityDeleteGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialityFindAllGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialityFindByIdGetway;
-import com.app.appointment_app.speciality.domain.getways.SpecialitySaveGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityDeleteGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityFindAllGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialityFindByIdGetway;
+import com.app.appointment_app.speciality.domain.getways.cruds.SpecialitySaveGetway;
 import com.app.appointment_app.speciality.domain.model.Speciality;
 import com.app.appointment_app.speciality.infraestructure.driver_adapter.s3_repository.SpecialityRepository;
 import com.app.appointment_app.speciality.infraestructure.mapper.SpecialityMapper;

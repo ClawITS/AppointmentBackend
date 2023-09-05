@@ -2,7 +2,11 @@ package com.app.appointment_app.appointment.infraestructure.driver_adapter.jpa_r
 
 import com.app.appointment_app.appointment.domain.constants.AppointmentResponseMessages;
 import com.app.appointment_app.appointment.domain.constants.CloseAppointmentMessages;
-import com.app.appointment_app.appointment.domain.getways.*;
+import com.app.appointment_app.appointment.domain.getways.business_services.CloseAppointmentGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentDeleteGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
 import com.app.appointment_app.appointment.domain.responses.AppointmentPaginatorResponse;

@@ -2,7 +2,7 @@ package com.app.appointment_app.disponibility.domain.usecases.helpers;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilitySaveRequest;
-import com.app.appointment_app.doctor.domain.getways.DoctorFindByIdGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 
 public class DisponibilitySaveHelper {

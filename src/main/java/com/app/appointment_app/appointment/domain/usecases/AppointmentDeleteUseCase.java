@@ -1,5 +1,5 @@
 package com.app.appointment_app.appointment.domain.usecases;
-import com.app.appointment_app.appointment.domain.getways.AppointmentDeleteGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentDeleteGetway;
 
 public class AppointmentDeleteUseCase {
     private final AppointmentDeleteGetway appointmentDeleteGetway;

@@ -1,10 +1,10 @@
 package com.app.appointment_app.speciality.infraestructure.entry_point;
 
 import com.app.appointment_app.speciality.domain.model.Speciality;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityDeleteUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityFindAllUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialityFindByIdUseCase;
-import com.app.appointment_app.speciality.domain.usecases.SpecialitySaveUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityDeleteUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityFindAllUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialityFindByIdUseCase;
+import com.app.appointment_app.speciality.domain.usecases.cruds.SpecialitySaveUseCase;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

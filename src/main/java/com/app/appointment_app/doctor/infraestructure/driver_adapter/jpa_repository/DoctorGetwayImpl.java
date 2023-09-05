@@ -1,6 +1,10 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
 import com.app.appointment_app.doctor.domain.constants.DoctorResponseMessages;
-import com.app.appointment_app.doctor.domain.getways.*;
+import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorDeleteGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindAllGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
+import com.app.appointment_app.doctor.domain.getways.cruds.DoctorSaveGetway;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
 import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;

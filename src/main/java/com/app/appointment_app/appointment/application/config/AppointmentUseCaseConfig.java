@@ -1,12 +1,16 @@
 package com.app.appointment_app.appointment.application.config;
 
-import com.app.appointment_app.appointment.domain.getways.*;
+import com.app.appointment_app.appointment.domain.getways.business_services.CloseAppointmentGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentDeleteGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.usecases.*;
 import com.app.appointment_app.appointment.domain.usecases.helpers.AppointmentSaveHelper;
 import com.app.appointment_app.appointment.domain.usecases.helpers.CloseAppointmentHelper;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
-import com.app.appointment_app.patient.domain.getways.PatientFindByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.patient.domain.getways.cruds.PatientFindByIdGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

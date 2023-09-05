@@ -1,19 +1,16 @@
 package com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository;
 
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityDeleteByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindAllGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilityFindByIdGetway;
-import com.app.appointment_app.disponibility.domain.getways.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityDeleteByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindAllGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
+import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
-import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
