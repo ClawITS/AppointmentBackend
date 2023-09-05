@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PatientUseCaseConfig {
     @Bean
+    public PatientFilterByNameUseCase patientFilterByNameUseCase(PatientFilterByNameGetway patientFilterByNameGetway){
+        return new PatientFilterByNameUseCase(patientFilterByNameGetway);
+    }
+    @Bean
     public PatientRescheduleHelper patientRescheduleHelperConfig(AppointmentSaveGetway appointmentSaveGetway
             , AppointmentFindByIdGetway appointmentFindByIdGetway){
         return new PatientRescheduleHelper(appointmentSaveGetway, appointmentFindByIdGetway);

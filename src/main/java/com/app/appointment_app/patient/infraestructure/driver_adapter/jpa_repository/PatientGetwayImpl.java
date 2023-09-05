@@ -22,15 +22,13 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGetway, PatientSaveGetway, PatientFindAllGetway,
-AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
+AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway, PatientFilterByNameGetway{
 
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
-    private final AppointmentSaveGetway appointmentSaveGetway;
     public PatientGetwayImpl(PatientRepository patientRepository, PatientMapper patientMapper, AppointmentSaveGetway appointmentSaveGetway) {
         this.patientRepository = patientRepository;
         this.patientMapper = patientMapper;
-        this.appointmentSaveGetway = appointmentSaveGetway;
     }
 
     @Override
@@ -79,5 +77,12 @@ AcceptReschedulingGetway, CancelReschedulingGetway,PatientRescheduleGetway{
 
         return new PatientRescheduleResponse(PatientResponseMessages.PATIENT_RESCHEDULING +
                 appointment.getDisponibility().getDoctor().getName());
+    }
+
+    @Override
+    public List<Patient> getPatientsByName(String name) {
+        return patientRepository.findByNameContaining(name)
+                .stream().map(patientMapper::toPatient)
+                .collect(Collectors.toList());
     }
 }
