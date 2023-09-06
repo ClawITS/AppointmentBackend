@@ -5,7 +5,11 @@ import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentDelet
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
-import com.app.appointment_app.appointment.domain.usecases.*;
+import com.app.appointment_app.appointment.domain.usecases.business_services.CloseAppointmentUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentDeleteUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindAllUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindByIdUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentSaveUseCase;
 import com.app.appointment_app.appointment.domain.usecases.helpers.AppointmentSaveHelper;
 import com.app.appointment_app.appointment.domain.usecases.helpers.CloseAppointmentHelper;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;

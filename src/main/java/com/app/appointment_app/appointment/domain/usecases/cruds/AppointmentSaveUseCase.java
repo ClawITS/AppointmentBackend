@@ -1,4 +1,4 @@
-package com.app.appointment_app.appointment.domain.usecases;
+package com.app.appointment_app.appointment.domain.usecases.cruds;
 
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;

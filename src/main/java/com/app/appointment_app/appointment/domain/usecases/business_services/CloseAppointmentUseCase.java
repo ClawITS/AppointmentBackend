@@ -1,4 +1,4 @@
-package com.app.appointment_app.appointment.domain.usecases;
+package com.app.appointment_app.appointment.domain.usecases.business_services;
 
 import com.app.appointment_app.appointment.domain.getways.business_services.CloseAppointmentGetway;
 import com.app.appointment_app.appointment.domain.model.enums.State;

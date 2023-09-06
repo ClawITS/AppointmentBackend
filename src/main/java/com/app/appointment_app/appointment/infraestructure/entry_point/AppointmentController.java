@@ -3,19 +3,19 @@ package com.app.appointment_app.appointment.infraestructure.entry_point;
 import com.app.appointment_app.appointment.domain.exceptions.AppointmentException;
 import com.app.appointment_app.appointment.domain.exceptions.CloseAppointmentException;
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
 import com.app.appointment_app.appointment.domain.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.responses.CloseAppointmentResponse;
 import com.app.appointment_app.appointment.domain.responses.SaveAppointmentResponse;
-import com.app.appointment_app.appointment.domain.usecases.*;
-import org.springframework.data.domain.Page;
+import com.app.appointment_app.appointment.domain.usecases.business_services.CloseAppointmentUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentDeleteUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindAllUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindByIdUseCase;
+import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentSaveUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RestController
