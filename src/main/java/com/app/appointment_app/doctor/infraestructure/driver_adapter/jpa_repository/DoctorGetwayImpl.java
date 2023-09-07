@@ -1,5 +1,7 @@
 package com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository;
+import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.doctor.domain.constants.DoctorResponseMessages;
+import com.app.appointment_app.doctor.domain.getways.business_services.AcceptPatientReschedulingGetway;
 import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorDeleteGetway;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindAllGetway;
@@ -7,6 +9,7 @@ import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorSaveGetway;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.responses.AcceptPatientReschedulingResponse;
 import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import com.app.appointment_app.doctor.infraestructure.mapper.DoctorMapper;
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway, DoctorSaveGetway,
-        DoctorFindByIdGetway, RescheduleAppointmentGetway {
+        DoctorFindByIdGetway, RescheduleAppointmentGetway, AcceptPatientReschedulingGetway {
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
 
@@ -57,5 +60,10 @@ public class DoctorGetwayImpl implements DoctorFindAllGetway, DoctorDeleteGetway
         return new RescheduleAppointmentResponse(rescheduleAppointmentRequest.getReschuldeHour(),rescheduleAppointmentRequest
                 .getActualHour(), DoctorResponseMessages.RESCHEDULE_APPOINTMENT +
                 rescheduleAppointmentRequest.getPatientName());
+    }
+
+    @Override
+    public AcceptPatientReschedulingResponse acceptPatientRescheduling(Appointment appointment) {
+        return new AcceptPatientReschedulingResponse(DoctorResponseMessages.ACCEPT_PATIENT_RESCHEDULE);
     }
 }
