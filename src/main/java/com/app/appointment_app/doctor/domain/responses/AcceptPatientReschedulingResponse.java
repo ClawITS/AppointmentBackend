@@ -17,7 +17,7 @@ public class AcceptPatientReschedulingResponse {
 
     @Override
     public String toString() {
-        return "AcepptPatientReschedulingResponse{" +
+        return "AcceptPatientReschedulingResponse{" +
                 "messageResponse='" + messageResponse + '\'' +
                 '}';
     }

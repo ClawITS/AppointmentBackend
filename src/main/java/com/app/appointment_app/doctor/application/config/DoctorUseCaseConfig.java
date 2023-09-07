@@ -1,9 +1,7 @@
 package com.app.appointment_app.doctor.application.config;
-
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
-
 import com.app.appointment_app.doctor.domain.getways.business_services.AcceptPatientReschedulingGetway;
 import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorDeleteGetway;
@@ -53,15 +51,15 @@ public class DoctorUseCaseConfig {
         return new DoctorFindAllUseCase(doctorFindAllGetway);
     }
     @Bean
-    public AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCaseConfig(AcceptPatientReschedulingGetway
-                                                                                   acceptPatientReschedulingGetway
-            , AcceptPatientReschedulingHelper acceptPatientReschedulingHelper){
-        return new AcceptPatientReschedulingUseCase(acceptPatientReschedulingGetway, acceptPatientReschedulingHelper);
-
-    }
-    @Bean
     public AcceptPatientReschedulingHelper acceptPatientReschedulingHelper(AppointmentFindByIdGetway appointmentFindByIdGetway
-            ,AppointmentSaveGetway appointmentSaveGetway){
+            , AppointmentSaveGetway appointmentSaveGetway){
         return new AcceptPatientReschedulingHelper(appointmentFindByIdGetway, appointmentSaveGetway);
     }
+    @Bean
+    public AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCaseConfig(AcceptPatientReschedulingGetway acceptPatientReschedulingGetway
+            , AcceptPatientReschedulingHelper acceptPatientReschedulingHelper){
+        return  new AcceptPatientReschedulingUseCase(acceptPatientReschedulingGetway, acceptPatientReschedulingHelper);
+
+    }
+
 }
