@@ -4,6 +4,8 @@ import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityD
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindAllGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.filters.DisponibilityFilterByHourGetway;
+import com.app.appointment_app.disponibility.domain.usecases.business_services.DisponibilityFilterByHourUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityDeleteUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindAllUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
@@ -15,6 +17,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DisponibilityUseCaseConfig {
+    @Bean
+    public DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCaseConfig(DisponibilityFilterByHourGetway disponibilityFilterByHourGetway){
+        return new DisponibilityFilterByHourUseCase(disponibilityFilterByHourGetway);
+    }
     @Bean
     public DisponibilitySaveHelper disponibilitySaveHelperConfig(DoctorFindByIdGetway doctorFindByIdGetway){
         return new DisponibilitySaveHelper(doctorFindByIdGetway);

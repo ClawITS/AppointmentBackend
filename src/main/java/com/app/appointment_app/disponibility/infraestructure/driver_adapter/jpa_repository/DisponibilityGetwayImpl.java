@@ -4,7 +4,9 @@ import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityD
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindAllGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.filters.DisponibilityFilterByHourGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
+import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByHourRequest;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
@@ -12,9 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
-        DisponibilityFindAllGetway, DisponibilityFindByIdGetway, DisponibilityDeleteByIdGetway {
+        DisponibilityFindAllGetway, DisponibilityFindByIdGetway, DisponibilityDeleteByIdGetway,
+        DisponibilityFilterByHourGetway {
     private final DisponibilityRepository disponibilityRepository;
     private final DisponibilityMapper disponibilityMapper;
     private final DoctorRepository doctorRepository;
@@ -50,5 +56,13 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
        //disponibilityData.setDoctor(doctorData.get());
         disponibilityRepository.save(disponibilityData);
         return disponibilityMapper.toDisponibility(disponibilityData);
+    }
+
+    @Override
+    public List<Disponibility> filterByHour(DisponibilityFilterByHourRequest doctorFilterByHourRequest) {
+        return disponibilityRepository.findByHourRange(doctorFilterByHourRequest.getStartDate()
+                ,doctorFilterByHourRequest.getEndDate()).stream().map(
+                        disponibilityMapper::toDisponibility
+        ).collect(Collectors.toList());
     }
 }
