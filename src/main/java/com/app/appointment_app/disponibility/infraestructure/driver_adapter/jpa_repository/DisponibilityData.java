@@ -2,7 +2,7 @@ package com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa
 
 import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class DisponibilityData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDisponibility;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    @JsonDeserialize
     private Date hour;
     @ManyToOne
     @JoinColumn(name = "doctor_id")
