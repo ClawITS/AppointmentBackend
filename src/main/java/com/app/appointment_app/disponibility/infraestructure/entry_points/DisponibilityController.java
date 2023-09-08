@@ -1,7 +1,9 @@
 package com.app.appointment_app.disponibility.infraestructure.entry_points;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
+import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByHourRequest;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilitySaveRequest;
+import com.app.appointment_app.disponibility.domain.usecases.business_services.DisponibilityFilterByHourUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityDeleteUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindAllUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/disponibilities")
 public class DisponibilityController {
@@ -18,13 +22,15 @@ public class DisponibilityController {
     private final DisponibilityDeleteUseCase disponibilityDeleteUseCase;
     private final DisponibilityFindAllUseCase disponibilityFindAllUseCase;
     private final DisponibilityFindByIdUseCase disponibilityFindByIdUseCase;
+    private final DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase;
 
     public DisponibilityController(DisponibilitySaveUseCase disponibilitySaveUseCase, DisponibilityDeleteUseCase
-            disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase) {
+            disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase, DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase) {
         this.disponibilitySaveUseCase = disponibilitySaveUseCase;
         this.disponibilityDeleteUseCase = disponibilityDeleteUseCase;
         this.disponibilityFindAllUseCase = disponibilityFindAllUseCase;
         this.disponibilityFindByIdUseCase = disponibilityFindByIdUseCase;
+        this.disponibilityFilterByHourUseCase = disponibilityFilterByHourUseCase;
     }
     @GetMapping("/page/{numberPage}")
     public ResponseEntity<Page<Disponibility>>findAllDisponibilities(@PathVariable int numberPage){
@@ -45,6 +51,12 @@ public class DisponibilityController {
         disponibilityDeleteUseCase.deleteDisponibilityById(id);
         return new ResponseEntity<>( "the disponibility with id "+ id +" has been deleted",
                 HttpStatus.OK);
+    }
+    @PostMapping("/filter-hour-range")
+    public ResponseEntity<List<Disponibility>>filterDisponibilityByHourRange(@RequestBody DisponibilityFilterByHourRequest
+                                                                             disponibilityFilterByHourRequest){
+        return new ResponseEntity<>(disponibilityFilterByHourUseCase.findDisponibilitiesByHour(disponibilityFilterByHourRequest)
+                ,HttpStatus.OK);
     }
 
 }
