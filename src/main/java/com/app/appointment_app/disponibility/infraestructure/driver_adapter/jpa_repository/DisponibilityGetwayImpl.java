@@ -4,8 +4,10 @@ import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityD
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindAllGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilityFindByIdGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.disponibility.domain.getways.filters.DisponibilityFilterByDoctorAndHourGetway;
 import com.app.appointment_app.disponibility.domain.getways.filters.DisponibilityFilterByHourGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
+import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByDoctorAndHourRequest;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByHourRequest;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
@@ -20,14 +22,14 @@ import java.util.stream.Collectors;
 @Repository
 public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
         DisponibilityFindAllGetway, DisponibilityFindByIdGetway, DisponibilityDeleteByIdGetway,
-        DisponibilityFilterByHourGetway {
+        DisponibilityFilterByHourGetway, DisponibilityFilterByDoctorAndHourGetway {
     private final DisponibilityRepository disponibilityRepository;
     private final DisponibilityMapper disponibilityMapper;
-    private final DoctorRepository doctorRepository;
-    public DisponibilityGetwayImpl(DisponibilityRepository disponibilityRepository, DisponibilityMapper disponibilityMapper, DoctorRepository doctorRepository) {
+
+    public DisponibilityGetwayImpl(DisponibilityRepository disponibilityRepository, DisponibilityMapper disponibilityMapper) {
         this.disponibilityRepository = disponibilityRepository;
         this.disponibilityMapper = disponibilityMapper;
-        this.doctorRepository = doctorRepository;
+
     }
 
     @Override
@@ -63,6 +65,16 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
         return disponibilityRepository.findByHourRange(doctorFilterByHourRequest.getStartDate()
                 ,doctorFilterByHourRequest.getEndDate()).stream().map(
                         disponibilityMapper::toDisponibility
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Disponibility> filterByDoctorAndHour(DisponibilityFilterByDoctorAndHourRequest disponibilityFilterByDoctorAndHourRequest) {
+        return disponibilityRepository.findByDoctorIdAndHourRange(
+                disponibilityFilterByDoctorAndHourRequest.getDoctorId(),disponibilityFilterByDoctorAndHourRequest.getStartDate(),
+                disponibilityFilterByDoctorAndHourRequest.getEndDate()
+        ).stream().map(
+                disponibilityMapper::toDisponibility
         ).collect(Collectors.toList());
     }
 }

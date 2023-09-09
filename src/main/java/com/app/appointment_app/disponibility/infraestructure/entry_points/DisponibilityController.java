@@ -1,9 +1,11 @@
 package com.app.appointment_app.disponibility.infraestructure.entry_points;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
+import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByDoctorAndHourRequest;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByHourRequest;
 import com.app.appointment_app.disponibility.domain.requests.DisponibilitySaveRequest;
-import com.app.appointment_app.disponibility.domain.usecases.business_services.DisponibilityFilterByHourUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.filters.DisponibilityFilterByDoctorAndHourUseCase;
+import com.app.appointment_app.disponibility.domain.usecases.filters.DisponibilityFilterByHourUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityDeleteUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindAllUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
@@ -23,14 +25,16 @@ public class DisponibilityController {
     private final DisponibilityFindAllUseCase disponibilityFindAllUseCase;
     private final DisponibilityFindByIdUseCase disponibilityFindByIdUseCase;
     private final DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase;
+    private final DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase;
 
     public DisponibilityController(DisponibilitySaveUseCase disponibilitySaveUseCase, DisponibilityDeleteUseCase
-            disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase, DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase) {
+            disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase, DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase, DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase) {
         this.disponibilitySaveUseCase = disponibilitySaveUseCase;
         this.disponibilityDeleteUseCase = disponibilityDeleteUseCase;
         this.disponibilityFindAllUseCase = disponibilityFindAllUseCase;
         this.disponibilityFindByIdUseCase = disponibilityFindByIdUseCase;
         this.disponibilityFilterByHourUseCase = disponibilityFilterByHourUseCase;
+        this.disponibilityFilterByDoctorAndHourUseCase = disponibilityFilterByDoctorAndHourUseCase;
     }
     @GetMapping("/page/{numberPage}")
     public ResponseEntity<Page<Disponibility>>findAllDisponibilities(@PathVariable int numberPage){
@@ -56,6 +60,12 @@ public class DisponibilityController {
     public ResponseEntity<List<Disponibility>>filterDisponibilityByHourRange(@RequestBody DisponibilityFilterByHourRequest
                                                                              disponibilityFilterByHourRequest){
         return new ResponseEntity<>(disponibilityFilterByHourUseCase.findDisponibilitiesByHour(disponibilityFilterByHourRequest)
+                ,HttpStatus.OK);
+    }
+    @PostMapping("/filter-hour-range-doctor")
+    public ResponseEntity<List<Disponibility>>filterDisponibilityByDoctorAndHourRange(@RequestBody DisponibilityFilterByDoctorAndHourRequest
+                                                                                     disponibilityFilterByDoctorAndHourRequest){
+        return new ResponseEntity<>(disponibilityFilterByDoctorAndHourUseCase.filterDisponibilittyByDoctorAndHour(disponibilityFilterByDoctorAndHourRequest)
                 ,HttpStatus.OK);
     }
 

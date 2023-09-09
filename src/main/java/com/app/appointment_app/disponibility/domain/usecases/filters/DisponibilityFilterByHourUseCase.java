@@ -1,4 +1,4 @@
-package com.app.appointment_app.disponibility.domain.usecases.business_services;
+package com.app.appointment_app.disponibility.domain.usecases.filters;
 
 import com.app.appointment_app.disponibility.domain.getways.filters.DisponibilityFilterByHourGetway;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
