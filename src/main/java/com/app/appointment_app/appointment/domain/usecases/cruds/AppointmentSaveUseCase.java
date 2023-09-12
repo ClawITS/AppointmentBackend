@@ -3,7 +3,7 @@ package com.app.appointment_app.appointment.domain.usecases.cruds;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
-import com.app.appointment_app.appointment.domain.responses.SaveAppointmentResponse;
+import com.app.appointment_app.appointment.domain.ports.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.domain.usecases.helpers.AppointmentSaveHelper;
 
 public class AppointmentSaveUseCase {

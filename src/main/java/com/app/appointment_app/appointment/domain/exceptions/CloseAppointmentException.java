@@ -1,9 +1,8 @@
 package com.app.appointment_app.appointment.domain.exceptions;
 
 import com.app.appointment_app.appointment.domain.constants.CloseAppointmentMessages;
-import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
-import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.ports.requests.CloseAppointmentRequest;
 
 public class CloseAppointmentException {
 
