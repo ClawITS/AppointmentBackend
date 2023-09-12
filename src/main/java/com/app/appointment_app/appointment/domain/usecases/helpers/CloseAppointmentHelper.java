@@ -3,7 +3,7 @@ package com.app.appointment_app.appointment.domain.usecases.helpers;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.appointment.domain.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.ports.requests.CloseAppointmentRequest;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
 
