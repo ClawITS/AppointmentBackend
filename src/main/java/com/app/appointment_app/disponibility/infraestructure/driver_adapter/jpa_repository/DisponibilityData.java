@@ -19,6 +19,9 @@ public class DisponibilityData {
     @Enumerated(EnumType.STRING)
     private DisponibilityState disponibilityState;
 
+    public DisponibilityData() {
+    }
+
     @Override
     public String toString() {
         return "DisponibilityData{" +
@@ -59,9 +62,6 @@ public class DisponibilityData {
 
     public void setDisponibilityState(DisponibilityState disponibilityState) {
         this.disponibilityState = disponibilityState;
-    }
-
-    public DisponibilityData() {
     }
 
     public DisponibilityData(Long idDisponibility, Date hour, DoctorData doctor, DisponibilityState disponibilityState) {

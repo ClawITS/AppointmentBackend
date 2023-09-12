@@ -1,6 +1,5 @@
 package com.app.appointment_app.disponibility.domain.model;
 
-import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.disponibility.domain.model.enums.DisponibilityState;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 
@@ -11,6 +10,9 @@ public class Disponibility {
     private Date hour;
     private Doctor doctor;
     private DisponibilityState disponibilityState;
+
+    public Disponibility() {
+    }
 
     @Override
     public String toString() {
@@ -52,9 +54,6 @@ public class Disponibility {
 
     public void setDisponibilityState(DisponibilityState disponibilityState) {
         this.disponibilityState = disponibilityState;
-    }
-
-    public Disponibility() {
     }
 
     public Disponibility(Long idDisponibility, Date hour, Doctor doctor, DisponibilityState disponibilityState) {

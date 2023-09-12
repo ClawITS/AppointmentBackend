@@ -16,6 +16,7 @@ import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorFindByIdUseCas
 import com.app.appointment_app.doctor.domain.useCases.cruds.DoctorSaveUseCase;
 import com.app.appointment_app.doctor.domain.useCases.helpers.AcceptPatientReschedulingHelper;
 import com.app.appointment_app.doctor.domain.useCases.helpers.RescheduleAppointmentHelper;
+import com.app.appointment_app.pendinghour.domain.getways.factories.CreatePendingHourFactoryGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,9 +24,11 @@ import org.springframework.context.annotation.Configuration;
 public class DoctorUseCaseConfig {
     @Bean
     public RescheduleAppointmentHelper rescheduleAppointmentHelperConfig(AppointmentFindByIdGetway appointmentFindByIdGetway
-            ,AppointmentSaveGetway appointmentSaveGetway,DisponibilitySaveGetway disponibilitySaveGetway){
+            , AppointmentSaveGetway appointmentSaveGetway
+            , DisponibilitySaveGetway disponibilitySaveGetway
+            , CreatePendingHourFactoryGetway createPendingHourFactoryGetway){
         return new RescheduleAppointmentHelper(appointmentFindByIdGetway,
-                appointmentSaveGetway, disponibilitySaveGetway);
+                appointmentSaveGetway, disponibilitySaveGetway, createPendingHourFactoryGetway);
     }
     @Bean
     public RescheduleAppointmentUseCase rescheduleAppointmentUseCaseConfig(RescheduleAppointmentGetway rescheduleAppointmentGetyaw
@@ -52,8 +55,8 @@ public class DoctorUseCaseConfig {
     }
     @Bean
     public AcceptPatientReschedulingHelper acceptPatientReschedulingHelper(AppointmentFindByIdGetway appointmentFindByIdGetway
-            , AppointmentSaveGetway appointmentSaveGetway){
-        return new AcceptPatientReschedulingHelper(appointmentFindByIdGetway, appointmentSaveGetway);
+            , AppointmentSaveGetway appointmentSaveGetway, DisponibilitySaveGetway disponibilitySaveGetway){
+        return new AcceptPatientReschedulingHelper(appointmentFindByIdGetway, appointmentSaveGetway, disponibilitySaveGetway);
     }
     @Bean
     public AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCaseConfig(AcceptPatientReschedulingGetway acceptPatientReschedulingGetway

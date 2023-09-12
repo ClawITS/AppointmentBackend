@@ -11,7 +11,6 @@ import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilter
 import com.app.appointment_app.disponibility.domain.requests.DisponibilityFilterByHourRequest;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.s3_repository.DisponibilityRepository;
 import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
-import com.app.appointment_app.doctor.infraestructure.driver_adapter.s3_repository.DoctorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -53,10 +52,13 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
 
     @Override
     public Disponibility save(Disponibility disponibility) {
-      // Optional<DoctorData> doctorData = doctorRepository.findById(disponibility.getDoctor().getIdDoctor());
         DisponibilityData disponibilityData = disponibilityMapper.toData(disponibility);
-       //disponibilityData.setDoctor(doctorData.get());
-        disponibilityRepository.save(disponibilityData);
+     /*   if(disponibility.getPendingReschedule() != null && disponibility.getPendingReschedule().getIdPendingHour()
+        == null){
+            disponibilityData.setPendingReschedule(new PendingHourData(null
+                    , disponibility.getPendingReschedule().getNewHour()));
+        }
+        disponibilityRepository.save(disponibilityData);*/
         return disponibilityMapper.toDisponibility(disponibilityData);
     }
 
