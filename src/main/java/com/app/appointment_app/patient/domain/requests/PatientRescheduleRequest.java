@@ -2,21 +2,34 @@ package com.app.appointment_app.patient.domain.requests;
 
 import com.app.appointment_app.appointment.domain.model.enums.State;
 
+import java.util.Date;
+
 public class PatientRescheduleRequest {
     private Long idAppointment;
     private State state;
+    private Date newDate;
+
+    public Date getNewDate() {
+        return newDate;
+    }
+
+    public void setNewDate(Date newDate) {
+        this.newDate = newDate;
+    }
+
+    public PatientRescheduleRequest(Long idAppointment, State state, Date newDate) {
+        this.idAppointment = idAppointment;
+        this.state = state;
+        this.newDate = newDate;
+    }
 
     @Override
     public String toString() {
         return "PatientRescheduleRequest{" +
                 "idAppointment=" + idAppointment +
                 ", state=" + state +
+                ", newDate=" + newDate +
                 '}';
-    }
-
-    public PatientRescheduleRequest(Long idAppointment, State state) {
-        this.idAppointment = idAppointment;
-        this.state = state;
     }
 
     public Long getIdAppointment() {

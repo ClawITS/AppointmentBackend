@@ -8,6 +8,7 @@ import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.infraestructure.driver_adapter.jpa_repository.PatientData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

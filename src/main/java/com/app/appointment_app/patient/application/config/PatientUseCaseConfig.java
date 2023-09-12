@@ -22,6 +22,7 @@ import com.app.appointment_app.patient.domain.usecases.filters.PatientFilterByNa
 import com.app.appointment_app.patient.domain.usecases.helpers.AcceptReschedulingHelper;
 import com.app.appointment_app.patient.domain.usecases.helpers.CancelReschedulingHelper;
 import com.app.appointment_app.patient.domain.usecases.helpers.PatientRescheduleHelper;
+import com.app.appointment_app.pendinghour.domain.getways.factories.CreatePendingHourFactoryGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,8 +34,9 @@ public class PatientUseCaseConfig {
     }
     @Bean
     public PatientRescheduleHelper patientRescheduleHelperConfig(AppointmentSaveGetway appointmentSaveGetway
-            , AppointmentFindByIdGetway appointmentFindByIdGetway){
-        return new PatientRescheduleHelper(appointmentSaveGetway, appointmentFindByIdGetway);
+            , AppointmentFindByIdGetway appointmentFindByIdGetway, DisponibilitySaveGetway disponibilitySaveGetway
+            , CreatePendingHourFactoryGetway createPendingHourFactoryGetway){
+        return new PatientRescheduleHelper(appointmentSaveGetway, appointmentFindByIdGetway, disponibilitySaveGetway, createPendingHourFactoryGetway);
     }
     @Bean
     public PatientResheduleUseCase patientResheduleUseCaseConfig(PatientRescheduleGetway patientRescheduleGetway

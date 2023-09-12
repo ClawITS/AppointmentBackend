@@ -2,13 +2,11 @@ package com.app.appointment_app.doctor.infraestructure.mapper;
 
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.driver_adapter.jpa_repository.DisponibilityData;
-import com.app.appointment_app.disponibility.infraestructure.mapper.DisponibilityMapper;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.infraestructure.driver_adapter.jpa_repository.DoctorData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
