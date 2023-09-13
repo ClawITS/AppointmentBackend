@@ -1,6 +1,7 @@
 package com.app.appointment_app.doctor.application.config;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentUpdateStateGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
 import com.app.appointment_app.doctor.domain.getways.business_services.AcceptPatientReschedulingGetway;
 import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
@@ -23,12 +24,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DoctorUseCaseConfig {
     @Bean
-    public RescheduleAppointmentHelper rescheduleAppointmentHelperConfig(AppointmentFindByIdGetway appointmentFindByIdGetway
-            , AppointmentSaveGetway appointmentSaveGetway
-            , DisponibilitySaveGetway disponibilitySaveGetway
-            , CreatePendingHourFactoryGetway createPendingHourFactoryGetway){
-        return new RescheduleAppointmentHelper(appointmentFindByIdGetway,
-                appointmentSaveGetway, disponibilitySaveGetway, createPendingHourFactoryGetway);
+    public RescheduleAppointmentHelper rescheduleAppointmentHelperConfig(
+             CreatePendingHourFactoryGetway createPendingHourFactoryGetway
+            , AppointmentUpdateStateGetway appointmentUpdateStateGetway){
+        return new RescheduleAppointmentHelper(createPendingHourFactoryGetway, appointmentUpdateStateGetway);
     }
     @Bean
     public RescheduleAppointmentUseCase rescheduleAppointmentUseCaseConfig(RescheduleAppointmentGetway rescheduleAppointmentGetyaw
