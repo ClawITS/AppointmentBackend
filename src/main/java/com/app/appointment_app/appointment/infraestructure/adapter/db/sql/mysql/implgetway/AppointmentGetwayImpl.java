@@ -1,13 +1,10 @@
 package com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.implgetway;
-
 import com.app.appointment_app.appointment.domain.constants.AppointmentResponseMessages;
 import com.app.appointment_app.appointment.domain.constants.CloseAppointmentMessages;
 import com.app.appointment_app.appointment.domain.getways.business_services.CloseAppointmentGetway;
-import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentDeleteGetway;
-import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
-import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindByIdGetway;
-import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
+import com.app.appointment_app.appointment.domain.getways.cruds.*;
 import com.app.appointment_app.appointment.domain.model.Appointment;
+import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.appointment.domain.ports.requests.CloseAppointmentRequest;
 import com.app.appointment_app.appointment.domain.ports.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.ports.responses.CloseAppointmentResponse;
@@ -15,10 +12,10 @@ import com.app.appointment_app.appointment.domain.ports.responses.SaveAppointmen
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.entity.AppointmentData;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.jpa_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.mapper.AppointmentMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +23,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class AppointmentGetwayImpl implements AppointmentFindAllGetway, AppointmentSaveGetway,
-        AppointmentDeleteGetway, AppointmentFindByIdGetway, CloseAppointmentGetway {
+        AppointmentDeleteGetway, AppointmentFindByIdGetway, CloseAppointmentGetway
+        ,AppointmentUpdateStateGetway{
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
 
@@ -86,5 +84,11 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
         return new CloseAppointmentResponse(null, CloseAppointmentMessages.ATTEND_APPOINTMENT
                 + LocalDateTime.now().toString()
         );
+    }
+
+    @Override
+    @Transactional
+    public void updateAppointmentState(Long idAppointment, State newState) {
+        appointmentRepository.updateAppointmentState(idAppointment, newState);
     }
 }

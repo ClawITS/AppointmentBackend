@@ -10,6 +10,8 @@ import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.infraestructure.adapter.db.sql.mysql.entity.PatientData;
 import org.springframework.stereotype.Component;
 
+import static java.util.Objects.isNull;
+
 @Component
 public class AppointmentMapper {
     public Appointment toAppointment(AppointmentData appointmentData){
@@ -44,11 +46,16 @@ public class AppointmentMapper {
                 , this.toPatientData(appointment.getPatient()), appointment.getState());
     }
     public PatientData toPatientData(Patient patient){
+        if(isNull(patient)){
+            return null;
+        }
         return new PatientData(patient.getIdPatient(), patient.getName(), patient.getDocument(), patient.getBirthDate(),
                 patient.getEmail(), patient.getGender(), null);
     }
     public DisponibilityData toDisponibilityData(Disponibility disponibility){
-
+if(isNull(disponibility)){
+    return null;
+}
         return new DisponibilityData(disponibility.getIdDisponibility(),disponibility.getHour(),
                this.toDoctorData(disponibility.getDoctor()),disponibility.getDisponibilityState());
     }
