@@ -1,7 +1,7 @@
 package com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.jpa_repository;
 
 import com.app.appointment_app.appointment.domain.model.enums.State;
-import com.app.appointment_app.appointment.domain.ports.responses.AppointmentFindStateByIdResponse;
+import com.app.appointment_app.appointment.domain.dto.responses.AppointmentFindStateByIdResponse;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.entity.AppointmentData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

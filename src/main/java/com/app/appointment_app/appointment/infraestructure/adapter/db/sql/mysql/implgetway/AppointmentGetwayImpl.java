@@ -5,10 +5,10 @@ import com.app.appointment_app.appointment.domain.getways.business_services.Clos
 import com.app.appointment_app.appointment.domain.getways.cruds.*;
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
-import com.app.appointment_app.appointment.domain.ports.requests.CloseAppointmentRequest;
-import com.app.appointment_app.appointment.domain.ports.responses.AppointmentPaginatorResponse;
-import com.app.appointment_app.appointment.domain.ports.responses.CloseAppointmentResponse;
-import com.app.appointment_app.appointment.domain.ports.responses.SaveAppointmentResponse;
+import com.app.appointment_app.appointment.domain.dto.requests.CloseAppointmentRequest;
+import com.app.appointment_app.appointment.domain.dto.responses.AppointmentPaginatorResponse;
+import com.app.appointment_app.appointment.domain.dto.responses.CloseAppointmentResponse;
+import com.app.appointment_app.appointment.domain.dto.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.entity.AppointmentData;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.jpa_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.mapper.AppointmentMapper;

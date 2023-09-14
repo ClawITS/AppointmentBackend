@@ -1,12 +1,20 @@
-package com.app.appointment_app.appointment.domain.ports.requests;
+package com.app.appointment_app.appointment.domain.dto.responses;
 
 import com.app.appointment_app.appointment.domain.model.enums.State;
 
-public class CloseAppointmentRequest {
+public class AppointmentFindStateByIdResponse {
     private Long idAppointment;
     private State state;
 
-    public CloseAppointmentRequest(Long idAppointment, State state) {
+    @Override
+    public String toString() {
+        return "AppointmentFindStateByIdResponse{" +
+                "idAppointment=" + idAppointment +
+                ", state=" + state +
+                '}';
+    }
+
+    public AppointmentFindStateByIdResponse(Long idAppointment, State state) {
         this.idAppointment = idAppointment;
         this.state = state;
     }

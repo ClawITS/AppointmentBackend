@@ -2,7 +2,7 @@ package com.app.appointment_app.appointment.domain.usecases.cruds;
 
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindAllGetway;
 import com.app.appointment_app.appointment.domain.model.Appointment;
-import com.app.appointment_app.appointment.domain.ports.responses.AppointmentPaginatorResponse;
+import com.app.appointment_app.appointment.domain.dto.responses.AppointmentPaginatorResponse;
 
 import java.util.List;
 

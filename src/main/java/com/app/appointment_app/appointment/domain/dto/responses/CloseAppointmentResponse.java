@@ -1,5 +1,4 @@
-package com.app.appointment_app.appointment.domain.ports.responses;
-import com.app.appointment_app.appointment.domain.model.enums.State;
+package com.app.appointment_app.appointment.domain.dto.responses;
 
 import java.util.Date;
 

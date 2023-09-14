@@ -1,4 +1,4 @@
-package com.app.appointment_app.appointment.domain.ports.responses;
+package com.app.appointment_app.appointment.domain.dto.responses;
 
 import java.util.Date;
 
