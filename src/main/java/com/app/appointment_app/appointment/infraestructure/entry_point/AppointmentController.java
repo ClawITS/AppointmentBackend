@@ -7,11 +7,7 @@ import com.app.appointment_app.appointment.domain.dto.requests.CloseAppointmentR
 import com.app.appointment_app.appointment.domain.dto.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.dto.responses.CloseAppointmentResponse;
 import com.app.appointment_app.appointment.domain.dto.responses.SaveAppointmentResponse;
-import com.app.appointment_app.appointment.domain.usecases.business_services.CloseAppointmentUseCase;
-import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentDeleteUseCase;
-import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindAllUseCase;
-import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentFindByIdUseCase;
-import com.app.appointment_app.appointment.domain.usecases.cruds.AppointmentSaveUseCase;
+import com.app.appointment_app.appointment.infraestructure.entry_point.provider.AppointmentProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,34 +17,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/appointment")
 public class AppointmentController {
-    private final AppointmentSaveUseCase appointmentSaveUseCase;
-    private final AppointmentFindAllUseCase appointmentFindAllUseCase;
-    private final AppointmentFindByIdUseCase appointmentFindByIdUseCase;
-    private final AppointmentDeleteUseCase appointmentDeleteUseCase;
-    private final CloseAppointmentUseCase closeAppointmentUseCase;
-
-    public AppointmentController(AppointmentSaveUseCase appointmentSaveUseCase, AppointmentFindAllUseCase appointmentFindAllUseCase, AppointmentFindByIdUseCase appointmentFindByIdUseCase, AppointmentDeleteUseCase appointmentDeleteUseCase, CloseAppointmentUseCase closeAppointmentUseCase) {
-        this.appointmentSaveUseCase = appointmentSaveUseCase;
-        this.appointmentFindAllUseCase = appointmentFindAllUseCase;
-        this.appointmentFindByIdUseCase = appointmentFindByIdUseCase;
-        this.appointmentDeleteUseCase = appointmentDeleteUseCase;
-        this.closeAppointmentUseCase = closeAppointmentUseCase;
+   private final AppointmentProvider appointmentProvider;
+    public AppointmentController(AppointmentProvider appointmentProvider) {
+        this.appointmentProvider = appointmentProvider;
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(appointmentFindByIdUseCase.findAppointmentById(id), HttpStatus.OK);
+        return new ResponseEntity<>(appointmentProvider.getAppointmentFindByIdUseCase()
+                .findAppointmentById(id), HttpStatus.OK);
     }
-
     @PostMapping
     public ResponseEntity<SaveAppointmentResponse> save(@RequestBody Appointment appointment) {
-        return new ResponseEntity<>(appointmentSaveUseCase.saveAppointment(appointment), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                appointmentProvider.getAppointmentSaveUseCase()
+                        .saveAppointment(appointment), HttpStatus.CREATED);
     }
     @PostMapping("/closeAppointment")
     public ResponseEntity<CloseAppointmentResponse>closeAppointment(@RequestBody CloseAppointmentRequest closeAppointmentRequest){
         try{
             CloseAppointmentException.stateException(closeAppointmentRequest);
-            return new ResponseEntity<>(closeAppointmentUseCase.closeAppointment(closeAppointmentRequest),
+            return new ResponseEntity<>(
+                    appointmentProvider.getCloseAppointmentUseCase().
+                        closeAppointment(closeAppointmentRequest),
                     HttpStatus.OK);
         }catch(AppointmentException e){
             return ResponseEntity.badRequest().body(new CloseAppointmentResponse(
@@ -63,12 +53,14 @@ public class AppointmentController {
 
     @GetMapping("/page/{numberPage}")
     public ResponseEntity<List<AppointmentPaginatorResponse>> getAppointmentPage(@PathVariable int numberPage) {
-        return new ResponseEntity<>(appointmentFindAllUseCase.findAllAppointmentPaginator(numberPage), HttpStatus.OK);
+        return new ResponseEntity<>(appointmentProvider.getAppointmentFindAllUseCase()
+                .findAllAppointmentPaginator(numberPage), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAppointmentById(@PathVariable Long id) {
-        appointmentDeleteUseCase.deleteAppointmentById(id);
+        appointmentProvider.getAppointmentDeleteUseCase()
+                .deleteAppointmentById(id);
         return new ResponseEntity<>("the entity with id " + id + " has been deleted", HttpStatus.OK);
     }
 }

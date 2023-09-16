@@ -14,6 +14,5 @@ public interface AppointmentRepository extends JpaRepository<AppointmentData, Lo
     @Query("UPDATE appointments a SET a.state = :newState WHERE a.idAppointment = :appointmentId")
     void updateAppointmentState(@Param("appointmentId") Long appointmentId, @Param("newState") State newState);
 
-    @Query("SELECT NEW com.app.appointment_app.appointment.domain.ports.responses.AppointmentFindStateByIdResponse(a.idAppointment, a.state) FROM appointments a WHERE a.idAppointment = :appointmentId")
-    AppointmentFindStateByIdResponse findAppointmentStateById(@Param("appointmentId") Long appointmentId);
+
 }
