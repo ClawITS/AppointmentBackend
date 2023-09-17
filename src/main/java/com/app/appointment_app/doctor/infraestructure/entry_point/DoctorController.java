@@ -1,4 +1,6 @@
 package com.app.appointment_app.doctor.infraestructure.entry_point;
+import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
+import com.app.appointment_app.commons.infraestructure.rest.entry_points.controller.GenericRestController;
 import com.app.appointment_app.doctor.domain.exceptions.AcceptPatientRescheduleException;
 import com.app.appointment_app.doctor.domain.exceptions.DoctorException;
 import com.app.appointment_app.doctor.domain.model.Doctor;
@@ -12,9 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.app.appointment_app.doctor.infraestructure.entry_point.constants.DoctorApiConstants.REQUEST_DOCTOR;
+import static com.app.appointment_app.doctor.infraestructure.entry_point.constants.DoctorResponseConstants.DOCTOR_SAVED;
+
 @RestController
-@RequestMapping("/api/doctors")
-public class DoctorController {
+@RequestMapping(REQUEST_DOCTOR)
+public class DoctorController extends GenericRestController implements IDoctorController {
    private final DoctorProvider doctorProvider;
 
     public DoctorController(DoctorProvider doctorProvider) {
@@ -22,32 +27,33 @@ public class DoctorController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Doctor> saveDoctor(@RequestBody Doctor doctor) {
-        return new ResponseEntity<>(doctorProvider
-                .getDoctorSaveUseCase().saveDoctor(doctor), HttpStatus.CREATED);
+    @Override
+    public ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor) {
+        return ok(doctorProvider
+                .getDoctorSaveUseCase().saveDoctor(doctor),DOCTOR_SAVED,
+                REQUEST_DOCTOR);
     }
 
-    @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<String> deleteDoctorById(@PathVariable Long id) {
         doctorProvider.getDoctorDeleteUseCase().deleteDoctorById(id);
         return new ResponseEntity<>("The doctor with id " + id + " has been deleted succesfuly", HttpStatus.OK);
 
     }
 
-    @GetMapping("/{id}")
+    @Override
     public ResponseEntity<Doctor> findDoctorById(@PathVariable Long id) {
         return new ResponseEntity<>(doctorProvider
                 .getDoctorFindByIdUseCase().findDoctorById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/page/{numberPage}")
+    @Override
     public ResponseEntity<Page<Doctor>> findAllPageDoctors(@PathVariable int numberPage) {
         return new ResponseEntity<>(doctorProvider
                 .getDoctorFindAllUseCase().findAllDoctorsPaginator(numberPage), HttpStatus.OK);
     }
 
-    @PostMapping("/rescheduleAppointment")
+    @Override
     public ResponseEntity<RescheduleAppointmentResponse> rescheduleAppointment(@RequestBody RescheduleAppointmentRequest
                                                                                        rescheduleAppointmentRequest) {
         return new ResponseEntity<>(doctorProvider.getRescheduleAppointmentUseCase()
@@ -55,7 +61,7 @@ public class DoctorController {
                 HttpStatus.OK);
     }
 
-    @PostMapping("/acceptRescheduling")
+    @Override
     public ResponseEntity<AcceptPatientReschedulingResponse> acceptReschedule(@RequestBody AcceptPatientReschedulingRequest acceptPatientReschedulingRequest) {
         try{
             AcceptPatientRescheduleException.invalidState(acceptPatientReschedulingRequest);

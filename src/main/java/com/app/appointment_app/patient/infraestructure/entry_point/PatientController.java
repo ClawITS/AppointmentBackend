@@ -3,6 +3,8 @@ package com.app.appointment_app.patient.infraestructure.entry_point;
 import com.app.appointment_app.appointment.domain.exceptions.AcceptReschedulingException;
 import com.app.appointment_app.appointment.domain.exceptions.AppointmentException;
 import com.app.appointment_app.appointment.domain.exceptions.CancelReschedulingException;
+import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
+import com.app.appointment_app.commons.infraestructure.rest.entry_points.controller.GenericRestController;
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.domain.requests.AcceptReschedulingRequest;
 import com.app.appointment_app.patient.domain.requests.CancelReschedulingRequest;
@@ -19,9 +21,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.app.appointment_app.patient.infraestructure.entry_point.constants.DoctorApiConstants.REQUEST_PATIENT;
+import static com.app.appointment_app.patient.infraestructure.entry_point.constants.DoctorResponseConstants.PATIENT_SAVED;
+
 @RestController
 @RequestMapping("/api/patients")
-public class PatientController {
+public class PatientController extends GenericRestController implements IPatientController {
 
     private final PatientProvider patientProvider;
 
@@ -29,18 +34,19 @@ public class PatientController {
         this.patientProvider = patientProvider;
     }
 
-    @GetMapping("/{id}")
+    @Override
     public ResponseEntity<Patient> findById(@PathVariable Long id) {
         return new ResponseEntity<>(patientProvider
                 .getPatientFindByIdUseCase().findPatientById(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Patient> save(@RequestBody Patient patient) {
-        return new ResponseEntity<>(patientProvider
-                .getPatientSaveUseCase().savePatient(patient), HttpStatus.CREATED);
+    @Override
+    public ResponseEntity<CustomResponse> save(@RequestBody Patient patient) {
+        return ok(patientProvider
+                .getPatientSaveUseCase().savePatient(patient),
+                PATIENT_SAVED, REQUEST_PATIENT);
     }
-    @PostMapping("/acceptRescheduling")
+    @Override
     public ResponseEntity<AcceptReschedulingResponse> acceptRescheduling(@RequestBody AcceptReschedulingRequest acceptReschedulingRequest){
         try {
             AcceptReschedulingException.invalidStateToRescheduling(acceptReschedulingRequest);
@@ -55,19 +61,19 @@ public class PatientController {
 
     }
 
-    @GetMapping("/page/{numberPage}")
+    @Override
     public ResponseEntity<Page<Patient>> getPatientPage(@PathVariable int numberPage) {
         return new ResponseEntity<>(patientProvider
                 .getPatientFindAllUseCase().findAllPatientPaginator(numberPage), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<String> deletePatientById(@PathVariable Long id) {
         patientProvider.getPatientDeleteUseCase().deletePatientById(id);
         return new ResponseEntity<>("the entity with id " + id + " has been deleted", HttpStatus.OK);
     }
 
-    @PostMapping("/cancelRescheduling")
+    @Override
     public ResponseEntity<CancelReschedulingResponse> cancelRescheduling(@RequestBody CancelReschedulingRequest cancelReschedulingRequest){
         try{
             CancelReschedulingException.cancelReschedulingException(cancelReschedulingRequest);
@@ -80,13 +86,13 @@ public class PatientController {
         }
 
     }
-    @PostMapping("/patientReshedule")
+    @Override
         public  ResponseEntity <PatientRescheduleResponse> patientReshedule(@RequestBody PatientRescheduleRequest patientRescheduleRequest){
             return new ResponseEntity<>(patientProvider
                     .getPatientResheduleUseCase().patientReschedule(patientRescheduleRequest),HttpStatus.OK);
     }
 
-    @PostMapping("/fileredByName")
+    @Override
     public ResponseEntity<List<Patient>> patientsFilteredByName(@RequestBody PatientFilterByNameRequest patientFilterByNameRequest) {
         return new ResponseEntity<>(patientProvider.getPatientFilterByNameUseCase()
                 .filterPatientsByName(patientFilterByNameRequest), HttpStatus.OK);
