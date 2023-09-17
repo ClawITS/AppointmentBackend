@@ -8,31 +8,34 @@ import com.app.appointment_app.appointment.domain.dto.responses.AppointmentPagin
 import com.app.appointment_app.appointment.domain.dto.responses.CloseAppointmentResponse;
 import com.app.appointment_app.appointment.domain.dto.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.infraestructure.entry_point.provider.AppointmentProvider;
+import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
+import com.app.appointment_app.commons.infraestructure.rest.entry_points.controller.GenericRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.app.appointment_app.appointment.infraestructure.entry_point.constants.AppointmentApiConstant.REQUEST_APPOINTMENT;
+
 @RestController
-@RequestMapping("/api/appointment")
-public class AppointmentController {
+@RequestMapping(REQUEST_APPOINTMENT)
+public class AppointmentController extends GenericRestController implements IAppointmentController {
    private final AppointmentProvider appointmentProvider;
     public AppointmentController(AppointmentProvider appointmentProvider) {
         this.appointmentProvider = appointmentProvider;
     }
-    @GetMapping("/{id}")
+    @Override
     public ResponseEntity<Appointment> findById(@PathVariable Long id) {
         return new ResponseEntity<>(appointmentProvider.getAppointmentFindByIdUseCase()
                 .findAppointmentById(id), HttpStatus.OK);
     }
-    @PostMapping
-    public ResponseEntity<SaveAppointmentResponse> save(@RequestBody Appointment appointment) {
-        return new ResponseEntity<>(
-                appointmentProvider.getAppointmentSaveUseCase()
-                        .saveAppointment(appointment), HttpStatus.CREATED);
+    @Override
+    public ResponseEntity<CustomResponse> save(@RequestBody Appointment appointment) {
+
+        return ok(appointmentProvider.getAppointmentSaveUseCase().saveAppointment(appointment));
     }
-    @PostMapping("/closeAppointment")
+    @Override
     public ResponseEntity<CloseAppointmentResponse>closeAppointment(@RequestBody CloseAppointmentRequest closeAppointmentRequest){
         try{
             CloseAppointmentException.stateException(closeAppointmentRequest);
@@ -51,13 +54,13 @@ public class AppointmentController {
 
     }
 
-    @GetMapping("/page/{numberPage}")
+    @Override
     public ResponseEntity<List<AppointmentPaginatorResponse>> getAppointmentPage(@PathVariable int numberPage) {
         return new ResponseEntity<>(appointmentProvider.getAppointmentFindAllUseCase()
                 .findAllAppointmentPaginator(numberPage), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<String> deleteAppointmentById(@PathVariable Long id) {
         appointmentProvider.getAppointmentDeleteUseCase()
                 .deleteAppointmentById(id);
