@@ -13,12 +13,17 @@ import com.app.appointment_app.disponibility.domain.usecases.cruds.Disponibility
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilityFindByIdUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.cruds.DisponibilitySaveUseCase;
 import com.app.appointment_app.disponibility.domain.usecases.helpers.DisponibilitySaveHelper;
+import com.app.appointment_app.disponibility.domain.usecases.mappers.SaveDisponibilityResponseMapper;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorFindByIdGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DisponibilityUseCaseConfig {
+    @Bean
+    public SaveDisponibilityResponseMapper disponibilityResponseMapperConfig(){
+        return new SaveDisponibilityResponseMapper();
+    }
     @Bean
     public DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase(DisponibilityFilterByDoctorAndHourGetway disponibilityFilterByDoctorAndHourGetway){
         return new DisponibilityFilterByDoctorAndHourUseCase(disponibilityFilterByDoctorAndHourGetway);
@@ -33,8 +38,9 @@ public class DisponibilityUseCaseConfig {
     }
     @Bean
     public DisponibilitySaveUseCase disponibilitySaveUseCaseConfig(DisponibilitySaveGetway disponibilitySaveGetway
-            , DisponibilitySaveHelper disponibilitySaveHelper){
-        return new DisponibilitySaveUseCase(disponibilitySaveGetway, disponibilitySaveHelper);
+            , DisponibilitySaveHelper disponibilitySaveHelper
+            , SaveDisponibilityResponseMapper saveDisponibilityResponseMapper){
+        return new DisponibilitySaveUseCase(disponibilitySaveGetway, disponibilitySaveHelper, saveDisponibilityResponseMapper);
 
     }
     @Bean

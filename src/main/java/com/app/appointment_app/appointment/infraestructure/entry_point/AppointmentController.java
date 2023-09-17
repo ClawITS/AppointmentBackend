@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.app.appointment_app.appointment.domain.constants.AppointmentResponseMessages.APPOINTMENT_SUCCESSFULlY_SAVED;
 import static com.app.appointment_app.appointment.infraestructure.entry_point.constants.AppointmentApiConstant.REQUEST_APPOINTMENT;
 
 @RestController
@@ -33,7 +34,8 @@ public class AppointmentController extends GenericRestController implements IApp
     @Override
     public ResponseEntity<CustomResponse> save(@RequestBody Appointment appointment) {
 
-        return ok(appointmentProvider.getAppointmentSaveUseCase().saveAppointment(appointment));
+        return ok(appointmentProvider.getAppointmentSaveUseCase().saveAppointment(appointment),APPOINTMENT_SUCCESSFULlY_SAVED,
+                REQUEST_APPOINTMENT);
     }
     @Override
     public ResponseEntity<CloseAppointmentResponse>closeAppointment(@RequestBody CloseAppointmentRequest closeAppointmentRequest){
