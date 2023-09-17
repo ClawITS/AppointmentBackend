@@ -6,17 +6,15 @@ public class SaveAppointmentResponse {
     private Date hour;
     private String doctor;
     private String patient;
-    private String message;
 
     public Date getHour() {
         return hour;
     }
 
-    public SaveAppointmentResponse(Date hour, String doctor, String patient, String message) {
+    public SaveAppointmentResponse(Date hour, String doctor, String patient) {
         this.hour = hour;
         this.doctor = doctor;
         this.patient = patient;
-        this.message = message;
     }
 
     public void setHour(Date hour) {
@@ -39,11 +37,4 @@ public class SaveAppointmentResponse {
         this.patient = patient;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }
