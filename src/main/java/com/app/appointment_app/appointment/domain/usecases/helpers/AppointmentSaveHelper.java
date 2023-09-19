@@ -26,6 +26,7 @@ public class AppointmentSaveHelper {
         Patient patient = patientFindByIdGetway.findById(appointment.getPatient().getIdPatient());
         updateDisponibilityState(disponibility);
         appointment.setDisponibility(disponibility);
+        appointment.setPatient(patient);
     }
 
     private void updateDisponibilityState(Disponibility disponibility) {

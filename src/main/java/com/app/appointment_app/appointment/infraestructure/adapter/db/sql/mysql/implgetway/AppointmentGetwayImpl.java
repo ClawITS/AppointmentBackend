@@ -12,6 +12,7 @@ import com.app.appointment_app.appointment.domain.dto.responses.SaveAppointmentR
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.entity.AppointmentData;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.jpa_repository.AppointmentRepository;
 import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.mapper.AppointmentMapper;
+import com.app.appointment_app.appointment.infraestructure.adapter.db.sql.mysql.mapper.SaveResponseMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,11 +28,13 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
         ,AppointmentUpdateStateGetway{
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+    private final SaveResponseMapper saveResponseMapper;
 
     public AppointmentGetwayImpl(AppointmentRepository appointmentRepository,
-                                 AppointmentMapper appointmentMapper) {
+                                 AppointmentMapper appointmentMapper, SaveResponseMapper saveResponseMapper) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
+        this.saveResponseMapper = saveResponseMapper;
     }
 
 
@@ -68,12 +71,8 @@ public class AppointmentGetwayImpl implements AppointmentFindAllGetway, Appointm
 
     @Override
     public SaveAppointmentResponse save(Appointment appointment) {
-        AppointmentData appointmentData2= appointmentMapper.toData(appointment);
-        AppointmentData appointmentData = appointmentRepository.save(appointmentData2);
-        return new SaveAppointmentResponse(
-                appointmentData.getDisponibility().getHour(), appointmentData.getDisponibility().getDoctor().getName(),
-                appointmentData.getPatientData().getName(), AppointmentResponseMessages.SAVE_SUCCESSFULlY
-        );
+        AppointmentData appointmentData = appointmentRepository.save(appointmentMapper.toData(appointment));
+        return saveResponseMapper.toSaveResponseMapper(appointmentData);
     }
 
 

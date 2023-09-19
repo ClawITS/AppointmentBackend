@@ -60,4 +60,5 @@ public class Doctor {
                 ", disponibilityList=" + disponibilityList +
                 '}';
     }
+
 }

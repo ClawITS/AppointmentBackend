@@ -5,7 +5,7 @@ import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveG
 import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.model.enums.State;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
-import com.app.appointment_app.doctor.domain.requests.AcceptPatientReschedulingRequest;
+import com.app.appointment_app.doctor.domain.dto.requests.AcceptPatientReschedulingRequest;
 
 public class AcceptPatientReschedulingHelper {
     private final AppointmentFindByIdGetway appointmentFindByIdGetway;
