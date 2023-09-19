@@ -36,4 +36,41 @@ public class Speciality {
     public void setGrade(Integer grade) {
         this.grade = grade;
     }
+
+
+    public static final class SpecialityBuilder {
+        private Long idSpeciality;
+        private String name;
+        private Integer grade;
+
+        public SpecialityBuilder() {
+        }
+
+        public static SpecialityBuilder aSpeciality() {
+            return new SpecialityBuilder();
+        }
+
+        public SpecialityBuilder idSpeciality(Long idSpeciality) {
+            this.idSpeciality = idSpeciality;
+            return this;
+        }
+
+        public SpecialityBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public SpecialityBuilder grade(Integer grade) {
+            this.grade = grade;
+            return this;
+        }
+
+        public Speciality build() {
+            Speciality speciality = new Speciality();
+            speciality.setIdSpeciality(idSpeciality);
+            speciality.setName(name);
+            speciality.setGrade(grade);
+            return speciality;
+        }
+    }
 }

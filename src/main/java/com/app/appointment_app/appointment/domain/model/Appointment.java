@@ -62,4 +62,47 @@ public class Appointment {
         this.state = state;
     }
 
+    public static final class AppointmentBuilder {
+        private Long idAppointment;
+        private Disponibility disponibility;
+        private Patient patient;
+        private State state;
+
+        public AppointmentBuilder() {
+            // TODO document why this constructor is empty
+        }
+
+        public static AppointmentBuilder anAppointment() {
+            return new AppointmentBuilder();
+        }
+
+        public AppointmentBuilder idAppointment(Long idAppointment) {
+            this.idAppointment = idAppointment;
+            return this;
+        }
+
+        public AppointmentBuilder disponibility(Disponibility disponibility) {
+            this.disponibility = disponibility;
+            return this;
+        }
+
+        public AppointmentBuilder patient(Patient patient) {
+            this.patient = patient;
+            return this;
+        }
+
+        public AppointmentBuilder state(State state) {
+            this.state = state;
+            return this;
+        }
+
+        public Appointment build() {
+            Appointment appointment = new Appointment();
+            appointment.setIdAppointment(idAppointment);
+            appointment.setDisponibility(disponibility);
+            appointment.setPatient(patient);
+            appointment.setState(state);
+            return appointment;
+        }
+    }
 }

@@ -1,13 +1,8 @@
-package com.app.appointment_app.speciality.infraestructure.adapter.db.sql.mysql.mapper;
-
+package com.app.appointment_app.commons.domain.mappers;
 import com.app.appointment_app.speciality.domain.model.Speciality;
 import com.app.appointment_app.speciality.infraestructure.adapter.db.sql.mysql.entity.SpecialityData;
-import org.springframework.stereotype.Component;
-
 import static java.util.Objects.isNull;
-
-@Component
-public class SpecialityMapper {
+public class SpecialityCommonMapper {
     public Speciality toSpeciality(SpecialityData specialityData){
         if(isNull(specialityData)){
             return null;
@@ -18,7 +13,7 @@ public class SpecialityMapper {
                 .grade(specialityData.getGrade())
                 .build();
     }
-    public SpecialityData toData(Speciality speciality){
+    public SpecialityData toSpecialityData(Speciality speciality){
         if(isNull(speciality)){
             return null;
         }

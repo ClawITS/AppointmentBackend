@@ -29,13 +29,6 @@ public class AppointmentData {
                 '}';
     }
 
-    public AppointmentData(Long idAppointment, DisponibilityData disponibility, PatientData patientData, State state) {
-        this.idAppointment = idAppointment;
-        this.disponibility = disponibility;
-        this.patient = patientData;
-        this.state = state;
-    }
-
     public AppointmentData() {
     }
 
@@ -69,5 +62,49 @@ public class AppointmentData {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public static final class AppointmentDataBuilder {
+        private Long idAppointment;
+        private DisponibilityData disponibility;
+        private PatientData patient;
+        private State state;
+
+        public AppointmentDataBuilder() {
+            // TODO document why this constructor is empty
+        }
+
+        public static AppointmentDataBuilder anAppointmentData() {
+            return new AppointmentDataBuilder();
+        }
+
+        public AppointmentDataBuilder idAppointment(Long idAppointment) {
+            this.idAppointment = idAppointment;
+            return this;
+        }
+
+        public AppointmentDataBuilder disponibility(DisponibilityData disponibility) {
+            this.disponibility = disponibility;
+            return this;
+        }
+
+        public AppointmentDataBuilder patient(PatientData patient) {
+            this.patient = patient;
+            return this;
+        }
+
+        public AppointmentDataBuilder state(State state) {
+            this.state = state;
+            return this;
+        }
+
+        public AppointmentData build() {
+            AppointmentData appointmentData = new AppointmentData();
+            appointmentData.setIdAppointment(idAppointment);
+            appointmentData.setDisponibility(disponibility);
+            appointmentData.setState(state);
+            appointmentData.patient = this.patient;
+            return appointmentData;
+        }
     }
 }

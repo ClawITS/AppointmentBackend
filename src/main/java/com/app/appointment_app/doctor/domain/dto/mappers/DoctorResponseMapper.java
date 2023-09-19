@@ -21,6 +21,7 @@ public class DoctorResponseMapper {
                 .withName(doctor.getName())
                 .withDescription(doctor.getDescription())
                 .withNewDisponibilitiesHour(disponibilityList)
+                .withSpeciality(doctor.getSpeciality())
                 .build();
     }
     public List<DoctorDisponibilityListResponse> newDisponibilities(List<Disponibility> disponibilities){

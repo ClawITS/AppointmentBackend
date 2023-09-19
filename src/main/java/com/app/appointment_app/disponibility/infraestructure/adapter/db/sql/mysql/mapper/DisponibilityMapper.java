@@ -1,9 +1,11 @@
 package com.app.appointment_app.disponibility.infraestructure.adapter.db.sql.mysql.mapper;
 
+import com.app.appointment_app.commons.domain.mappers.SpecialityCommonMapper;
 import com.app.appointment_app.disponibility.domain.model.Disponibility;
 import com.app.appointment_app.disponibility.infraestructure.adapter.db.sql.mysql.entity.DisponibilityData;
 import com.app.appointment_app.doctor.domain.model.Doctor;
 import com.app.appointment_app.doctor.infraestructure.adapter.db.sql.mysql.entity.DoctorData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,8 +14,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DisponibilityMapper {
-
-
+    @Autowired
+    private SpecialityCommonMapper specialityCommonMapper;
     public Disponibility toDisponibility(DisponibilityData disponibilityData) {
         Doctor doc = new Doctor(disponibilityData.getDoctor().getIdDoctor(),
                 disponibilityData.getDoctor().getName(),
@@ -27,8 +29,14 @@ public class DisponibilityMapper {
                 this.toDoctorData(disponibility.getDoctor()), disponibility.getDisponibilityState());
     }
     public DoctorData toDoctorData(Doctor doctor){
-        return new DoctorData(doctor.getIdDoctor(), doctor.getName(), doctor.getDescription(),
-                null);
+        return new DoctorData.DoctorDataBuilder().
+                withIdDoctor(doctor.getIdDoctor())
+                .withName(doctor.getName())
+                .withDescription(doctor.getDescription())
+                .withSpeciality(specialityCommonMapper.toSpecialityData(doctor.getSpeciality()))
+                .build();
+
     }
+
 
 }

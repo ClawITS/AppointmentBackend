@@ -54,13 +54,9 @@ public class DisponibilityGetwayImpl implements DisponibilitySaveGetway,
     @Override
     public Disponibility save(Disponibility disponibility) {
         DisponibilityData disponibilityData = disponibilityMapper.toData(disponibility);
-     /*   if(disponibility.getPendingReschedule() != null && disponibility.getPendingReschedule().getIdPendingHour()
-        == null){
-            disponibilityData.setPendingReschedule(new PendingHourData(null
-                    , disponibility.getPendingReschedule().getNewHour()));
-        }
-        disponibilityRepository.save(disponibilityData);*/
-        return disponibilityMapper.toDisponibility(disponibilityData);
+        return disponibilityMapper.toDisponibility(
+                disponibilityRepository.save(disponibilityData)
+        );
     }
 
     @Override

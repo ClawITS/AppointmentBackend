@@ -20,6 +20,14 @@ public class Doctor {
         this.disponibilityList = disponibilityList;
     }
 
+    public Speciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
+    }
+
     public Long getIdDoctor() {
         return idDoctor;
     }

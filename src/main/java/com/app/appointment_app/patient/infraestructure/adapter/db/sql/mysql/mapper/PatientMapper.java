@@ -8,7 +8,6 @@ import com.app.appointment_app.doctor.infraestructure.adapter.db.sql.mysql.entit
 import com.app.appointment_app.patient.domain.model.Patient;
 import com.app.appointment_app.patient.infraestructure.adapter.db.sql.mysql.entity.PatientData;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +44,13 @@ public class PatientMapper {
                 null);
     }
     public PatientData toData(Patient patient) {
-        return new PatientData(patient.getIdPatient(), patient.getName(), patient.getDocument(), patient.getBirthDate(),
-                patient.getEmail(), patient.getGender(), null);
+        return new PatientData.PatientDataBuilder()
+                .idPatient(patient.getIdPatient())
+                .name(patient.getName())
+                .document(patient.getDocument())
+                .birthDate(patient.getBirthDate())
+                .email(patient.getEmail())
+                .gender(patient.getGender())
+                .build();
     }
 }

@@ -31,6 +31,7 @@ public class DoctorData {
     }
 
     public DoctorData() {
+        // TODO document why this constructor is empty
     }
 
     public Long getIdDoctor() {
@@ -73,13 +74,6 @@ public class DoctorData {
         this.speciality = speciality;
     }
 
-    public DoctorData(Long idDoctor, String name, String description, List<DisponibilityData> disponibilityList) {
-        this.idDoctor = idDoctor;
-        this.name = name;
-        this.description = description;
-        this.disponibilityList = disponibilityList;
-    }
-
     public static final class DoctorDataBuilder {
         private Long idDoctor;
         private String name;
@@ -88,6 +82,7 @@ public class DoctorData {
         private SpecialityData speciality;
 
         public DoctorDataBuilder() {
+            // TODO document why this constructor is empty
         }
 
         public static DoctorDataBuilder aDoctorData() {

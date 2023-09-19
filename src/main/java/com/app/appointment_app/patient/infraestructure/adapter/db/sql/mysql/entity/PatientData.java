@@ -35,16 +35,6 @@ public class PatientData {
                 '}';
     }
 
-    public PatientData(Long idPatient, String name, Integer document, Date birthDate, String email, Gender gender, List<AppointmentData> appointmentDataList) {
-        this.idPatient = idPatient;
-        this.name = name;
-        this.document = document;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.gender = gender;
-        this.appointmentDataList = appointmentDataList;
-    }
-
     public PatientData() {
     }
 
@@ -102,5 +92,69 @@ public class PatientData {
 
     public void setAppointmentDataList(List<AppointmentData> appointmentDataList) {
         this.appointmentDataList = appointmentDataList;
+    }
+
+    public static final class PatientDataBuilder {
+        private Long idPatient;
+        private String name;
+        private Integer document;
+        private Date birthDate;
+        private String email;
+        private Gender gender;
+        private List<AppointmentData> appointmentDataList;
+
+        public PatientDataBuilder() {
+        }
+
+        public static PatientDataBuilder aPatientData() {
+            return new PatientDataBuilder();
+        }
+
+        public PatientDataBuilder idPatient(Long idPatient) {
+            this.idPatient = idPatient;
+            return this;
+        }
+
+        public PatientDataBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public PatientDataBuilder document(Integer document) {
+            this.document = document;
+            return this;
+        }
+
+        public PatientDataBuilder birthDate(Date birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+        public PatientDataBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public PatientDataBuilder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public PatientDataBuilder appointmentDataList(List<AppointmentData> appointmentDataList) {
+            this.appointmentDataList = appointmentDataList;
+            return this;
+        }
+
+        public PatientData build() {
+            PatientData patientData = new PatientData();
+            patientData.setIdPatient(idPatient);
+            patientData.setName(name);
+            patientData.setDocument(document);
+            patientData.setBirthDate(birthDate);
+            patientData.setEmail(email);
+            patientData.setGender(gender);
+            patientData.setAppointmentDataList(appointmentDataList);
+            return patientData;
+        }
     }
 }
