@@ -6,7 +6,6 @@ import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.appointment.domain.dto.requests.CloseAppointmentRequest;
 import com.app.appointment_app.appointment.domain.dto.responses.AppointmentPaginatorResponse;
 import com.app.appointment_app.appointment.domain.dto.responses.CloseAppointmentResponse;
-import com.app.appointment_app.appointment.domain.dto.responses.SaveAppointmentResponse;
 import com.app.appointment_app.appointment.infraestructure.entry_point.provider.AppointmentProvider;
 import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
 import com.app.appointment_app.commons.infraestructure.rest.entry_points.controller.GenericRestController;

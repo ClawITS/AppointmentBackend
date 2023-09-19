@@ -1,4 +1,4 @@
-package com.app.appointment_app.doctor.domain.responses;
+package com.app.appointment_app.doctor.domain.dto.response;
 
 import java.util.Date;
 

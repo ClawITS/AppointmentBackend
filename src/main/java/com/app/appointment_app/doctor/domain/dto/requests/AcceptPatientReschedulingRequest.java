@@ -1,4 +1,4 @@
-package com.app.appointment_app.doctor.domain.requests;
+package com.app.appointment_app.doctor.domain.dto.requests;
 
 import com.app.appointment_app.appointment.domain.model.enums.State;
 

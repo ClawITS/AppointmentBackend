@@ -4,10 +4,11 @@ import com.app.appointment_app.commons.infraestructure.rest.entry_points.control
 import com.app.appointment_app.doctor.domain.exceptions.AcceptPatientRescheduleException;
 import com.app.appointment_app.doctor.domain.exceptions.DoctorException;
 import com.app.appointment_app.doctor.domain.model.Doctor;
-import com.app.appointment_app.doctor.domain.requests.AcceptPatientReschedulingRequest;
-import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
-import com.app.appointment_app.doctor.domain.responses.AcceptPatientReschedulingResponse;
-import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
+import com.app.appointment_app.doctor.domain.dto.requests.AcceptPatientReschedulingRequest;
+import com.app.appointment_app.doctor.domain.dto.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.dto.mappers.DoctorResponseMapper;
+import com.app.appointment_app.doctor.domain.dto.response.AcceptPatientReschedulingResponse;
+import com.app.appointment_app.doctor.domain.dto.response.RescheduleAppointmentResponse;
 import com.app.appointment_app.doctor.infraestructure.entry_point.provider.DoctorProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -26,11 +27,10 @@ public class DoctorController extends GenericRestController implements IDoctorCo
         this.doctorProvider = doctorProvider;
     }
 
-
     @Override
     public ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor) {
         return ok(doctorProvider
-                .getDoctorSaveUseCase().saveDoctor(doctor),DOCTOR_SAVED,
+                        .getDoctorSaveUseCase().saveDoctor(doctor),DOCTOR_SAVED,
                 REQUEST_DOCTOR);
     }
 

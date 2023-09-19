@@ -3,6 +3,7 @@ import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentFindB
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentUpdateStateGetway;
 import com.app.appointment_app.disponibility.domain.getways.cruds.DisponibilitySaveGetway;
+import com.app.appointment_app.doctor.domain.dto.mappers.DoctorResponseMapper;
 import com.app.appointment_app.doctor.domain.getways.business_services.AcceptPatientReschedulingGetway;
 import com.app.appointment_app.doctor.domain.getways.business_services.RescheduleAppointmentGetway;
 import com.app.appointment_app.doctor.domain.getways.cruds.DoctorDeleteGetway;
@@ -24,6 +25,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DoctorUseCaseConfig {
     @Bean
+    public DoctorResponseMapper doctorResponseMapperConfig(){
+        return new DoctorResponseMapper();
+    }
+    @Bean
     public RescheduleAppointmentHelper rescheduleAppointmentHelperConfig(
              CreatePendingHourFactoryGetway createPendingHourFactoryGetway
             , AppointmentUpdateStateGetway appointmentUpdateStateGetway){
@@ -37,8 +42,9 @@ public class DoctorUseCaseConfig {
 
 
     @Bean
-    public DoctorSaveUseCase doctorSaveUseCaseConfig(DoctorSaveGetway doctorSaveGetway){
-        return new DoctorSaveUseCase(doctorSaveGetway);
+    public DoctorSaveUseCase doctorSaveUseCaseConfig(DoctorSaveGetway doctorSaveGetway,
+                                                     DoctorResponseMapper doctorResponseMapper){
+        return new DoctorSaveUseCase(doctorSaveGetway, doctorResponseMapper);
     }
     @Bean
     public DoctorDeleteUseCase doctorDeleteUseCaseConfig(DoctorDeleteGetway doctorDeleteGetway){

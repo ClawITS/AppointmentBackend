@@ -2,10 +2,10 @@ package com.app.appointment_app.doctor.infraestructure.entry_point;
 
 import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
 import com.app.appointment_app.doctor.domain.model.Doctor;
-import com.app.appointment_app.doctor.domain.requests.AcceptPatientReschedulingRequest;
-import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
-import com.app.appointment_app.doctor.domain.responses.AcceptPatientReschedulingResponse;
-import com.app.appointment_app.doctor.domain.responses.RescheduleAppointmentResponse;
+import com.app.appointment_app.doctor.domain.dto.requests.AcceptPatientReschedulingRequest;
+import com.app.appointment_app.doctor.domain.dto.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.dto.response.AcceptPatientReschedulingResponse;
+import com.app.appointment_app.doctor.domain.dto.response.RescheduleAppointmentResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.app.appointment_app.doctor.domain.useCases.helpers;
 
 import com.app.appointment_app.appointment.domain.getways.cruds.AppointmentUpdateStateGetway;
-import com.app.appointment_app.doctor.domain.requests.RescheduleAppointmentRequest;
+import com.app.appointment_app.doctor.domain.dto.requests.RescheduleAppointmentRequest;
 import com.app.appointment_app.pendinghour.domain.getways.factories.CreatePendingHourFactoryGetway;
 import com.app.appointment_app.pendinghour.domain.getways.factories.PendingHourTypeToCreate;
 import com.app.appointment_app.pendinghour.domain.model.PendingHourDoctor;

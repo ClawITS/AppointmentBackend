@@ -1,6 +1,4 @@
 package com.app.appointment_app.commons.infraestructure.rest.entry_points.controller;
-
-import com.app.appointment_app.appointment.domain.model.Appointment;
 import com.app.appointment_app.commons.infraestructure.rest.dto.response.CustomResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
