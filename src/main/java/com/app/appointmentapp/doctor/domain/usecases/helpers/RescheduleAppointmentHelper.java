@@ -1,4 +1,4 @@
-package com.app.appointmentapp.doctor.domain.useCases.helpers;
+package com.app.appointmentapp.doctor.domain.usecases.helpers;
 
 import com.app.appointmentapp.appointment.domain.getways.cruds.AppointmentUpdateStateGetway;
 import com.app.appointmentapp.doctor.domain.dto.requests.RescheduleAppointmentRequest;

@@ -17,6 +17,15 @@ public class GenericRestController {
         return ResponseEntity.ok(customResponse);
     }
 
+    protected ResponseEntity<CustomResponse> bad(Object obj,String message, String api ){
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setApi(api);
+        customResponse.setCode(HttpStatus.BAD_REQUEST.toString());
+        customResponse.setMessage(message);
+        customResponse.setResponse(obj);
+        return ResponseEntity.ok(customResponse);
+    }
+
 
 
 }

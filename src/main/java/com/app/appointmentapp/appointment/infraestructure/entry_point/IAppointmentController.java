@@ -6,6 +6,7 @@ import com.app.appointmentapp.appointment.domain.dto.responses.CloseAppointmentR
 import com.app.appointmentapp.appointment.domain.model.Appointment;
 import com.app.appointmentapp.commons.infraestructure.rest.dto.response.CustomResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface IAppointmentController {
     ResponseEntity<Appointment> findById(@PathVariable Long id);
 
     @PostMapping
-    ResponseEntity<CustomResponse> save(@RequestBody Appointment appointment);
+    ResponseEntity<CustomResponse> save(@RequestBody Appointment appointment, BindingResult bindingResult);
 
     @PostMapping(CLOSE_APPOINTMENT)
     ResponseEntity<CloseAppointmentResponse> closeAppointment(@RequestBody CloseAppointmentRequest closeAppointmentRequest);

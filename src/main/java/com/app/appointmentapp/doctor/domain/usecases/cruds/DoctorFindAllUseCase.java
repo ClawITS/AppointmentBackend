@@ -1,4 +1,4 @@
-package com.app.appointmentapp.doctor.domain.useCases.cruds;
+package com.app.appointmentapp.doctor.domain.usecases.cruds;
 
 import com.app.appointmentapp.doctor.domain.getways.cruds.DoctorFindAllGetway;
 import com.app.appointmentapp.doctor.domain.model.Doctor;

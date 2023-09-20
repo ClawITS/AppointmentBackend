@@ -1,4 +1,4 @@
-package com.app.appointmentapp.doctor.domain.useCases.cruds;
+package com.app.appointmentapp.doctor.domain.usecases.cruds;
 
 import com.app.appointmentapp.disponibility.domain.model.Disponibility;
 import com.app.appointmentapp.disponibility.domain.model.enums.DisponibilityState;

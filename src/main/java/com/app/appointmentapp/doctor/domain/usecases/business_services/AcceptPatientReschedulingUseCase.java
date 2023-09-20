@@ -1,10 +1,10 @@
-package com.app.appointmentapp.doctor.domain.useCases.business_services;
+package com.app.appointmentapp.doctor.domain.usecases.business_services;
 
 import com.app.appointmentapp.appointment.domain.model.enums.State;
 import com.app.appointmentapp.doctor.domain.getways.business_services.AcceptPatientReschedulingGetway;
 import com.app.appointmentapp.doctor.domain.dto.requests.AcceptPatientReschedulingRequest;
 import com.app.appointmentapp.doctor.domain.dto.response.AcceptPatientReschedulingResponse;
-import com.app.appointmentapp.doctor.domain.useCases.helpers.AcceptPatientReschedulingHelper;
+import com.app.appointmentapp.doctor.domain.usecases.helpers.AcceptPatientReschedulingHelper;
 
 public class AcceptPatientReschedulingUseCase {
     private final AcceptPatientReschedulingGetway acceptPatientReschedulingGetway;

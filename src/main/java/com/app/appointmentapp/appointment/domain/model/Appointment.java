@@ -14,6 +14,9 @@ public class Appointment {
     }
 
     public Appointment(Long idAppointment, Disponibility disponibility, Patient patient, State state) {
+        if (disponibility == null) {
+            throw new IllegalArgumentException("Disponibility cannot be null");
+        }
         this.idAppointment = idAppointment;
         this.disponibility = disponibility;
         this.patient = patient;
@@ -35,6 +38,9 @@ public class Appointment {
     }
 
     public void setDisponibility(Disponibility disponibility) {
+        if (disponibility == null) {
+            throw new IllegalArgumentException("Disponibility cannot be null");
+        }
         this.disponibility = disponibility;
     }
 
