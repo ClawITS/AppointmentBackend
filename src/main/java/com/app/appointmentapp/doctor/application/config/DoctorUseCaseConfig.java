@@ -15,13 +15,19 @@ import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindAllUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindByIdUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorSaveUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.helpers.AcceptPatientReschedulingHelper;
+import com.app.appointmentapp.doctor.domain.usecases.helpers.DoctorSaveHelper;
 import com.app.appointmentapp.doctor.domain.usecases.helpers.RescheduleAppointmentHelper;
 import com.app.appointmentapp.pendinghour.domain.getways.factories.CreatePendingHourFactoryGetway;
+import com.app.appointmentapp.speciality.domain.getways.cruds.SpecialityFindByIdGetway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DoctorUseCaseConfig {
+    @Bean
+    public DoctorSaveHelper doctorSaveHelperConfing(SpecialityFindByIdGetway specialityFindByIdGetway){
+        return new DoctorSaveHelper(specialityFindByIdGetway);
+    }
     @Bean
     public DoctorResponseMapper doctorResponseMapperConfig(){
         return new DoctorResponseMapper();
@@ -41,8 +47,9 @@ public class DoctorUseCaseConfig {
 
     @Bean
     public DoctorSaveUseCase doctorSaveUseCaseConfig(DoctorSaveGetway doctorSaveGetway,
-                                                     DoctorResponseMapper doctorResponseMapper){
-        return new DoctorSaveUseCase(doctorSaveGetway, doctorResponseMapper);
+                                                     DoctorResponseMapper doctorResponseMapper
+            , DoctorSaveHelper doctorSaveHelper){
+        return new DoctorSaveUseCase(doctorSaveGetway, doctorSaveHelper, doctorResponseMapper);
     }
     @Bean
     public DoctorDeleteUseCase doctorDeleteUseCaseConfig(DoctorDeleteGetway doctorDeleteGetway){

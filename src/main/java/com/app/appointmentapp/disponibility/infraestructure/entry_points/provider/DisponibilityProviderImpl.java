@@ -6,6 +6,7 @@ import com.app.appointmentapp.disponibility.domain.usecases.cruds.DisponibilityF
 import com.app.appointmentapp.disponibility.domain.usecases.cruds.DisponibilitySaveUseCase;
 import com.app.appointmentapp.disponibility.domain.usecases.filters.DisponibilityFilterByDoctorAndHourUseCase;
 import com.app.appointmentapp.disponibility.domain.usecases.filters.DisponibilityFilterByHourUseCase;
+import com.app.appointmentapp.disponibility.infraestructure.dto.mappers.DisponibilityGetByIdMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,14 +17,16 @@ public class DisponibilityProviderImpl implements DisponibilityProvider{
     private final DisponibilityFindByIdUseCase disponibilityFindByIdUseCase;
     private final DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase;
     private final DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase;
+    private final DisponibilityGetByIdMapper disponibilityGetByIdMapper;
 
-    public DisponibilityProviderImpl(DisponibilitySaveUseCase disponibilitySaveUseCase, DisponibilityDeleteUseCase disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase, DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase, DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase) {
+    public DisponibilityProviderImpl(DisponibilitySaveUseCase disponibilitySaveUseCase, DisponibilityDeleteUseCase disponibilityDeleteUseCase, DisponibilityFindAllUseCase disponibilityFindAllUseCase, DisponibilityFindByIdUseCase disponibilityFindByIdUseCase, DisponibilityFilterByHourUseCase disponibilityFilterByHourUseCase, DisponibilityFilterByDoctorAndHourUseCase disponibilityFilterByDoctorAndHourUseCase, DisponibilityGetByIdMapper disponibilityGetByIdMapper) {
         this.disponibilitySaveUseCase = disponibilitySaveUseCase;
         this.disponibilityDeleteUseCase = disponibilityDeleteUseCase;
         this.disponibilityFindAllUseCase = disponibilityFindAllUseCase;
         this.disponibilityFindByIdUseCase = disponibilityFindByIdUseCase;
         this.disponibilityFilterByHourUseCase = disponibilityFilterByHourUseCase;
         this.disponibilityFilterByDoctorAndHourUseCase = disponibilityFilterByDoctorAndHourUseCase;
+        this.disponibilityGetByIdMapper = disponibilityGetByIdMapper;
     }
 
     @Override
@@ -54,5 +57,10 @@ public class DisponibilityProviderImpl implements DisponibilityProvider{
     @Override
     public DisponibilityFilterByDoctorAndHourUseCase getDisponibilityFilterByDoctorAndHourUseCase() {
         return disponibilityFilterByDoctorAndHourUseCase;
+    }
+
+    @Override
+    public DisponibilityGetByIdMapper dispibilityGetByIdMapper() {
+        return disponibilityGetByIdMapper;
     }
 }

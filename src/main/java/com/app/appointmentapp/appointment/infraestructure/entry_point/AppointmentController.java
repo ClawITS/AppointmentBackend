@@ -1,5 +1,4 @@
 package com.app.appointmentapp.appointment.infraestructure.entry_point;
-
 import com.app.appointmentapp.appointment.domain.exceptions.AppointmentException;
 import com.app.appointmentapp.appointment.domain.exceptions.CloseAppointmentException;
 import com.app.appointmentapp.appointment.domain.model.Appointment;
@@ -7,19 +6,18 @@ import com.app.appointmentapp.appointment.domain.dto.requests.CloseAppointmentRe
 import com.app.appointmentapp.appointment.domain.dto.responses.AppointmentPaginatorResponse;
 import com.app.appointmentapp.appointment.domain.dto.responses.CloseAppointmentResponse;
 import com.app.appointmentapp.appointment.infraestructure.entry_point.provider.AppointmentProvider;
-import com.app.appointmentapp.appointment.infraestructure.entry_point.validator.ValidateApoointment;
+import com.app.appointmentapp.appointment.infraestructure.entry_point.validator.ValidateAppointment;
 import com.app.appointmentapp.commons.infraestructure.rest.dto.response.CustomResponse;
 import com.app.appointmentapp.commons.infraestructure.rest.entry_points.controller.GenericRestController;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.app.appointmentapp.appointment.domain.constants.AppointmentResponseMessages.APPOINTMENT_SUCCESSFULLY_SAVED;
+import static com.app.appointmentapp.appointment.domain.constants.AppointmentResponseMessages.*;
 import static com.app.appointmentapp.appointment.infraestructure.entry_point.constants.AppointmentApiConstant.REQUEST_APPOINTMENT;
 
 @RestController
@@ -30,17 +28,17 @@ public class AppointmentController extends GenericRestController implements IApp
         this.appointmentProvider = appointmentProvider;
     }
     @Override
-    public ResponseEntity<Appointment> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(appointmentProvider.getAppointmentFindByIdUseCase()
-                .findAppointmentById(id), HttpStatus.OK);
+    public ResponseEntity<CustomResponse> findById(@PathVariable Long id) {
+        return ok(appointmentProvider.getAppointmentFindByIdUseCase()
+                .findAppointmentById(id), APPOINTMENT_SUCCESSFULLY_FOUND, REQUEST_APPOINTMENT);
     }
     @Override
     public ResponseEntity<CustomResponse> save(@RequestBody @Valid Appointment appointment, BindingResult bindingResult) {
-        ValidateApoointment.validateAppointmentFields(bindingResult, appointment);
+        ValidateAppointment.validateAppointmentFields(bindingResult, appointment);
         if(bindingResult.hasErrors()){
             return bad(appointment,bindingResult.getFieldError().getDefaultMessage(), REQUEST_APPOINTMENT);
         }
-        return ok(appointmentProvider.getAppointmentSaveUseCase().saveAppointment(appointment),APPOINTMENT_SUCCESSFULLY_SAVED,
+        return create(appointmentProvider.getAppointmentSaveUseCase().saveAppointment(appointment),APPOINTMENT_SUCCESSFULLY_SAVED,
                 REQUEST_APPOINTMENT);
     }
     @Override

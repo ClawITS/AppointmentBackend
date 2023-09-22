@@ -4,13 +4,17 @@ import com.app.appointmentapp.appointment.domain.model.Appointment;
 import com.app.appointmentapp.commons.infraestructure.rest.validators.Validator;
 import com.app.appointmentapp.commons.infraestructure.rest.validators.ValidatorObject;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
-public class ValidateApoointment extends Validator {
+
+public class ValidateAppointment extends Validator {
     private static final String OBJ = "appointment";
 
     public static void validateAppointmentFields(BindingResult bindingResult, Appointment appointment){
         validateDisponibilityNotNull(bindingResult, appointment);
+        validatePatientNotNull(bindingResult, appointment);
+    }
+
+    private static void validatePatientNotNull(BindingResult bindingResult, Appointment appointment) {
         if (appointment.getPatient() == null) {
             validate(new ValidatorObject.ValidatorObjectBuilder()
                     .object(OBJ)

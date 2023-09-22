@@ -6,6 +6,7 @@ import com.app.appointmentapp.disponibility.domain.usecases.cruds.DisponibilityF
 import com.app.appointmentapp.disponibility.domain.usecases.cruds.DisponibilitySaveUseCase;
 import com.app.appointmentapp.disponibility.domain.usecases.filters.DisponibilityFilterByDoctorAndHourUseCase;
 import com.app.appointmentapp.disponibility.domain.usecases.filters.DisponibilityFilterByHourUseCase;
+import com.app.appointmentapp.disponibility.infraestructure.dto.mappers.DisponibilityGetByIdMapper;
 
 public interface DisponibilityProvider {
     DisponibilitySaveUseCase getDisponibilitySaveUseCase();
@@ -14,4 +15,6 @@ public interface DisponibilityProvider {
     DisponibilityFindByIdUseCase getDisponibilityFindByIdUseCase();
     DisponibilityFilterByHourUseCase getDisponibilityFilterByHourUseCase();
     DisponibilityFilterByDoctorAndHourUseCase getDisponibilityFilterByDoctorAndHourUseCase();
+    DisponibilityGetByIdMapper dispibilityGetByIdMapper();
+
 }

@@ -29,7 +29,7 @@ public class SpecialityController extends GenericRestController implements ISpec
     }
     @Override
     public ResponseEntity<CustomResponse>save(@RequestBody Speciality speciality){
-        return ok(specialityProvider
+        return create(specialityProvider
                 .getSpecialitySaveUseCase().saveSpeciality(speciality),
                 SPECIALITY_SAVED, REQUEST_SPECIALITY);
     }

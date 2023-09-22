@@ -42,7 +42,7 @@ public class PatientController extends GenericRestController implements IPatient
 
     @Override
     public ResponseEntity<CustomResponse> save(@RequestBody Patient patient) {
-        return ok(patientProvider
+        return create(patientProvider
                 .getPatientSaveUseCase().savePatient(patient),
                 PATIENT_SAVED, REQUEST_PATIENT);
     }

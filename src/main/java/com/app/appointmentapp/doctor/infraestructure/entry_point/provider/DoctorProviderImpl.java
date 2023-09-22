@@ -6,6 +6,7 @@ import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorDeleteUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindAllUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindByIdUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorSaveUseCase;
+import com.app.appointmentapp.doctor.infraestructure.entry_point.dto.mapper.DoctorFindedMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,14 +17,16 @@ public class DoctorProviderImpl implements DoctorProvider{
     private final DoctorFindAllUseCase doctorFindAllUseCase;
     private final RescheduleAppointmentUseCase rescheduleAppointmentUseCase;
     private final AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCase;
+    private final DoctorFindedMapper doctorFindedMapper;
 
-    public DoctorProviderImpl(DoctorSaveUseCase doctorSaveUseCase, DoctorDeleteUseCase doctorDeleteUseCase, DoctorFindByIdUseCase doctorFindByIdUseCase, DoctorFindAllUseCase doctorFindAllUseCase, RescheduleAppointmentUseCase rescheduleAppointmentUseCase, AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCase) {
+    public DoctorProviderImpl(DoctorSaveUseCase doctorSaveUseCase, DoctorDeleteUseCase doctorDeleteUseCase, DoctorFindByIdUseCase doctorFindByIdUseCase, DoctorFindAllUseCase doctorFindAllUseCase, RescheduleAppointmentUseCase rescheduleAppointmentUseCase, AcceptPatientReschedulingUseCase acceptPatientReschedulingUseCase, DoctorFindedMapper doctorFindedMapper) {
         this.doctorSaveUseCase = doctorSaveUseCase;
         this.doctorDeleteUseCase = doctorDeleteUseCase;
         this.doctorFindByIdUseCase = doctorFindByIdUseCase;
         this.doctorFindAllUseCase = doctorFindAllUseCase;
         this.rescheduleAppointmentUseCase = rescheduleAppointmentUseCase;
         this.acceptPatientReschedulingUseCase = acceptPatientReschedulingUseCase;
+        this.doctorFindedMapper = doctorFindedMapper;
     }
 
     @Override
@@ -54,5 +57,10 @@ public class DoctorProviderImpl implements DoctorProvider{
     @Override
     public AcceptPatientReschedulingUseCase getAcceptPatientReschedulingUseCase() {
         return acceptPatientReschedulingUseCase;
+    }
+
+    @Override
+    public DoctorFindedMapper doctorFindedMapper() {
+        return doctorFindedMapper;
     }
 }

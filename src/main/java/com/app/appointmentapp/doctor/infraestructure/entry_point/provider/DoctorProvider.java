@@ -6,6 +6,7 @@ import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorDeleteUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindAllUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorFindByIdUseCase;
 import com.app.appointmentapp.doctor.domain.usecases.cruds.DoctorSaveUseCase;
+import com.app.appointmentapp.doctor.infraestructure.entry_point.dto.mapper.DoctorFindedMapper;
 
 public interface DoctorProvider {
     DoctorSaveUseCase getDoctorSaveUseCase();
@@ -14,4 +15,5 @@ public interface DoctorProvider {
     DoctorFindAllUseCase getDoctorFindAllUseCase();
     RescheduleAppointmentUseCase getRescheduleAppointmentUseCase();
     AcceptPatientReschedulingUseCase getAcceptPatientReschedulingUseCase();
+    DoctorFindedMapper doctorFindedMapper();
 }

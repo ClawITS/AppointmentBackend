@@ -8,6 +8,7 @@ import com.app.appointmentapp.doctor.domain.dto.response.AcceptPatientRescheduli
 import com.app.appointmentapp.doctor.domain.dto.response.RescheduleAppointmentResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import static com.app.appointmentapp.commons.infraestructure.rest.entry_points.constants.GlobalApiConstant.*;
@@ -16,13 +17,13 @@ import static com.app.appointmentapp.doctor.infraestructure.entry_point.constant
 
 public interface IDoctorController {
     @PostMapping
-    ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor);
+    ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor, BindingResult bindingResult);
 
     @DeleteMapping(ID_PARAM)
     ResponseEntity<String> deleteDoctorById(@PathVariable Long id);
 
     @GetMapping(ID_PARAM)
-    ResponseEntity<Doctor> findDoctorById(@PathVariable Long id);
+    ResponseEntity<CustomResponse> findDoctorById(@PathVariable Long id);
 
     @GetMapping(GENERIC_PAGINATOR_PARAM)
     ResponseEntity<Page<Doctor>> findAllPageDoctors(@PathVariable int numberPage);

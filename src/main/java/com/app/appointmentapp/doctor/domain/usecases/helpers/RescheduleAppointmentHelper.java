@@ -1,13 +1,10 @@
 package com.app.appointmentapp.doctor.domain.usecases.helpers;
-
 import com.app.appointmentapp.appointment.domain.getways.cruds.AppointmentUpdateStateGetway;
 import com.app.appointmentapp.doctor.domain.dto.requests.RescheduleAppointmentRequest;
 import com.app.appointmentapp.pendinghour.domain.getways.factories.CreatePendingHourFactoryGetway;
 import com.app.appointmentapp.pendinghour.domain.getways.factories.PendingHourTypeToCreate;
 import com.app.appointmentapp.pendinghour.domain.model.PendingHourDoctor;
-
 import java.util.Date;
-
 public class RescheduleAppointmentHelper {
 
     private final CreatePendingHourFactoryGetway createPendingHourFactoryGetway;
