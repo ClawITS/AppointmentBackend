@@ -9,11 +9,12 @@ import com.app.appointmentapp.doctor.domain.dto.requests.RescheduleAppointmentRe
 import com.app.appointmentapp.doctor.domain.dto.response.AcceptPatientReschedulingResponse;
 import com.app.appointmentapp.doctor.domain.dto.response.RescheduleAppointmentResponse;
 import com.app.appointmentapp.doctor.infraestructure.entry_point.provider.DoctorProvider;
+import com.app.appointmentapp.doctor.infraestructure.entry_point.validate.ValidateDoctor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import static com.app.appointmentapp.doctor.infraestructure.entry_point.constants.DoctorApiConstants.REQUEST_DOCTOR;
 import static com.app.appointmentapp.doctor.infraestructure.entry_point.constants.DoctorResponseConstants.DOCTOR_SAVED;
 
@@ -27,8 +28,12 @@ public class DoctorController extends GenericRestController implements IDoctorCo
     }
 
     @Override
-    public ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor) {
-        return ok(doctorProvider
+    public ResponseEntity<CustomResponse> saveDoctor(@RequestBody Doctor doctor, BindingResult bindingResult) {
+        ValidateDoctor.validateDoctorFields(doctor, bindingResult);
+        if(bindingResult.hasErrors()){
+            return bad(doctor,bindingResult.getFieldError().getDefaultMessage(), REQUEST_DOCTOR);
+        }
+        return create(doctorProvider
                         .getDoctorSaveUseCase().saveDoctor(doctor),DOCTOR_SAVED,
                 REQUEST_DOCTOR);
     }
@@ -41,9 +46,10 @@ public class DoctorController extends GenericRestController implements IDoctorCo
     }
 
     @Override
-    public ResponseEntity<Doctor> findDoctorById(@PathVariable Long id) {
-        return new ResponseEntity<>(doctorProvider
-                .getDoctorFindByIdUseCase().findDoctorById(id), HttpStatus.OK);
+    public ResponseEntity<CustomResponse> findDoctorById(@PathVariable Long id) {
+        return ok(doctorProvider.doctorFindedMapper().toDoctorFindedResponse(doctorProvider
+                        .getDoctorFindByIdUseCase().findDoctorById(id)),
+                "doctor finded", REQUEST_DOCTOR);
     }
 
     @Override

@@ -6,19 +6,23 @@ import com.app.appointmentapp.doctor.domain.dto.mappers.DoctorResponseMapper;
 import com.app.appointmentapp.doctor.domain.dto.response.DoctorResponse;
 import com.app.appointmentapp.doctor.domain.getways.cruds.DoctorSaveGetway;
 import com.app.appointmentapp.doctor.domain.model.Doctor;
+import com.app.appointmentapp.doctor.domain.usecases.helpers.DoctorSaveHelper;
 
 import java.util.List;
 
 public class DoctorSaveUseCase {
     private final DoctorSaveGetway doctorSaveGetway;
+    private final DoctorSaveHelper doctorSaveHelper;
     private final DoctorResponseMapper doctorResponseMapper;
 
-    public DoctorSaveUseCase(DoctorSaveGetway doctorSaveGetway, DoctorResponseMapper doctorResponseMapper) {
+    public DoctorSaveUseCase(DoctorSaveGetway doctorSaveGetway, DoctorSaveHelper doctorSaveHelper, DoctorResponseMapper doctorResponseMapper) {
         this.doctorSaveGetway = doctorSaveGetway;
+        this.doctorSaveHelper = doctorSaveHelper;
         this.doctorResponseMapper = doctorResponseMapper;
     }
 
     public DoctorResponse saveDoctor(Doctor doctor) {
+        doctorSaveHelper.chargeDoctorWithSpeciality(doctor);
         if (!doctor.getDisponibilityList().isEmpty()) {
             List<Disponibility> listDisponibilities = doctor.getDisponibilityList();
             Doctor doctor1 = saveDoctorWithoutList(doctor);

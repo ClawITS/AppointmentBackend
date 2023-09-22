@@ -8,10 +8,18 @@ public class GenericRestController {
         // TODO document why this constructor is empty
     }
 
-    protected ResponseEntity<CustomResponse> ok(Object obj,String message, String api ){
+    protected ResponseEntity<CustomResponse> create(Object obj, String message, String api ){
         CustomResponse customResponse = new CustomResponse();
         customResponse.setApi(api);
         customResponse.setCode(HttpStatus.CREATED.toString());
+        customResponse.setMessage(message);
+        customResponse.setResponse(obj);
+        return ResponseEntity.ok(customResponse);
+    }
+    protected ResponseEntity<CustomResponse> ok(Object obj, String message, String api ){
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setApi(api);
+        customResponse.setCode(HttpStatus.OK.toString());
         customResponse.setMessage(message);
         customResponse.setResponse(obj);
         return ResponseEntity.ok(customResponse);

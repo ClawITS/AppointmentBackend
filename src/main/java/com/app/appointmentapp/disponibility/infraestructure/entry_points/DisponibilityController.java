@@ -35,14 +35,16 @@ public class DisponibilityController extends GenericRestController implements ID
     }
     @Override
     public ResponseEntity<CustomResponse>saveDisponibility(@RequestBody DisponibilitySaveRequest disponibilitySaveRequest){
-        return ok(disponibilityProvider
+        return create(disponibilityProvider
                 .getDisponibilitySaveUseCase().saveDisponibility(disponibilitySaveRequest)
                 , DISPONIBILITY_SAVED, REQUEST_DISPONIBILITY);
     }
     @Override
-    public ResponseEntity<Disponibility>findDisponibilityById(@PathVariable Long id){
-        return new ResponseEntity<>(disponibilityProvider
-                .getDisponibilityFindByIdUseCase().findDisponibilityById(id), HttpStatus.OK);
+    public ResponseEntity<CustomResponse>findDisponibilityById(@PathVariable Long id){
+        return ok(disponibilityProvider.dispibilityGetByIdMapper()
+                .toDisponibilityResponse(disponibilityProvider
+                        .getDisponibilityFindByIdUseCase()
+                        .findDisponibilityById(id)),"finded",REQUEST_DISPONIBILITY);
     }
     @Override
     public ResponseEntity<String>deleteDisponibilityById(@PathVariable Long id){

@@ -24,7 +24,7 @@ public interface IDisponibilityController {
     ResponseEntity<CustomResponse> saveDisponibility(@RequestBody DisponibilitySaveRequest disponibilitySaveRequest);
 
     @GetMapping(ID_PARAM)
-    ResponseEntity<Disponibility> findDisponibilityById(@PathVariable Long id);
+    ResponseEntity<CustomResponse> findDisponibilityById(@PathVariable Long id);
 
     @DeleteMapping(ID_PARAM)
     ResponseEntity<String> deleteDisponibilityById(@PathVariable Long id);

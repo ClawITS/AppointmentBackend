@@ -17,7 +17,7 @@ import static com.app.appointmentapp.commons.infraestructure.rest.entry_points.c
 
 public interface IAppointmentController {
     @GetMapping(ID_PARAM)
-    ResponseEntity<Appointment> findById(@PathVariable Long id);
+    ResponseEntity<CustomResponse> findById(@PathVariable Long id);
 
     @PostMapping
     ResponseEntity<CustomResponse> save(@RequestBody Appointment appointment, BindingResult bindingResult);
