@@ -4,6 +4,7 @@ import com.app.appointmentapp.disponibility.domain.model.Disponibility;
 import com.app.appointmentapp.disponibility.domain.model.enums.DisponibilityState;
 import com.app.appointmentapp.doctor.domain.dto.mappers.DoctorResponseMapper;
 import com.app.appointmentapp.doctor.domain.dto.response.DoctorResponse;
+import com.app.appointmentapp.doctor.domain.exceptions.DoctorException;
 import com.app.appointmentapp.doctor.domain.getways.cruds.DoctorSaveGetway;
 import com.app.appointmentapp.doctor.domain.model.Doctor;
 import com.app.appointmentapp.doctor.domain.usecases.helpers.DoctorSaveHelper;
@@ -22,16 +23,23 @@ public class DoctorSaveUseCase {
     }
 
     public DoctorResponse saveDoctor(Doctor doctor) {
-        doctorSaveHelper.chargeDoctorWithSpeciality(doctor);
+        try {
+            doctorSaveHelper.chargeDoctorWithSpeciality(doctor);
+        }catch (DoctorException e){
+            return new DoctorResponse.DoctorResponseBuilder()
+                    .withDescription(e.getMessage()).build();
+        }
         if (!doctor.getDisponibilityList().isEmpty()) {
-            List<Disponibility> listDisponibilities = doctor.getDisponibilityList();
-            Doctor doctor1 = saveDoctorWithoutList(doctor);
-            setListDisponibilitiesWithDoctorSavedAndDoctorWithDisponibilityList(listDisponibilities, doctor1);
-
+            Doctor doctor1 = setDisponibilityList(doctor);
             return doctorResponseMapper.toDoctorResponse(doctorSaveGetway.saveDoctor(doctor1));
         }
-        return doctorResponseMapper
-                .toDoctorResponse(doctorSaveGetway.saveDoctor(doctor));
+        return doctorResponseMapper.toDoctorResponse(doctorSaveGetway.saveDoctor(doctor));
+    }
+    private Doctor setDisponibilityList(Doctor doctor) {
+        List<Disponibility> listDisponibilities = doctor.getDisponibilityList();
+        Doctor doctor1 = saveDoctorWithoutList(doctor);
+        setListDisponibilitiesWithDoctorSavedAndDoctorWithDisponibilityList(listDisponibilities, doctor1);
+        return doctor1;
     }
 
     private void setListDisponibilitiesWithDoctorSavedAndDoctorWithDisponibilityList(List<Disponibility> listDisponibilities, Doctor doctor1) {

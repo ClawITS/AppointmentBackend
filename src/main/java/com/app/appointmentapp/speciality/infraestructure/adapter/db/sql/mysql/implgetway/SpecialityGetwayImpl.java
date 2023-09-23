@@ -48,7 +48,12 @@ public class SpecialityGetwayImpl implements SpecialityFindAllGetway, Speciality
     @Override
     public Speciality findById(Long id) {
         Optional<SpecialityData> data= specialityRepository.findById(id);
-        return specialityMapper.toSpeciality(data.get());
+        if(data.isPresent()){
+            return specialityMapper.toSpeciality(data.get());
+        }else{
+            return null;
+        }
+
     }
     @Override
     public Speciality save(Speciality speciality) {

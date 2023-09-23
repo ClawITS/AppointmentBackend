@@ -1,6 +1,7 @@
 package com.app.appointmentapp.doctor.infraestructure.entry_point;
 import com.app.appointmentapp.commons.infraestructure.rest.dto.response.CustomResponse;
 import com.app.appointmentapp.commons.infraestructure.rest.entry_points.controller.GenericRestController;
+import com.app.appointmentapp.doctor.domain.dto.response.DoctorResponse;
 import com.app.appointmentapp.doctor.domain.exceptions.AcceptPatientRescheduleException;
 import com.app.appointmentapp.doctor.domain.exceptions.DoctorException;
 import com.app.appointmentapp.doctor.domain.model.Doctor;
@@ -33,8 +34,11 @@ public class DoctorController extends GenericRestController implements IDoctorCo
         if(bindingResult.hasErrors()){
             return bad(doctor,bindingResult.getFieldError().getDefaultMessage(), REQUEST_DOCTOR);
         }
-        return create(doctorProvider
-                        .getDoctorSaveUseCase().saveDoctor(doctor),DOCTOR_SAVED,
+        DoctorResponse doctorResponse = doctorProvider.getDoctorSaveUseCase().saveDoctor(doctor);
+        if(doctorResponse.getName() == null){
+            return bad(null, doctorResponse.getDescription(),REQUEST_DOCTOR);
+        }
+        return create(doctorResponse,DOCTOR_SAVED,
                 REQUEST_DOCTOR);
     }
 
