@@ -1,6 +1,7 @@
 package com.app.appointmentapp.patient.infraestructure.entry_point;
 
 import com.app.appointmentapp.commons.infraestructure.rest.dto.response.CustomResponse;
+import com.app.appointmentapp.patient.domain.exceptions.PatientException;
 import com.app.appointmentapp.patient.domain.model.Patient;
 import com.app.appointmentapp.patient.domain.requests.AcceptReschedulingRequest;
 import com.app.appointmentapp.patient.domain.requests.CancelReschedulingRequest;
@@ -11,19 +12,21 @@ import com.app.appointmentapp.patient.domain.responses.CancelReschedulingRespons
 import com.app.appointmentapp.patient.domain.responses.PatientRescheduleResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 public interface IPatientController {
     @GetMapping("/{id}")
-    ResponseEntity<Patient> findById(@PathVariable Long id);
+    ResponseEntity<CustomResponse> findById(@PathVariable Long id) throws PatientException;
 
     @PostMapping
-    ResponseEntity<CustomResponse> save(@RequestBody Patient patient);
+    ResponseEntity<CustomResponse> save(@RequestBody Patient patient, BindingResult bindingResult);
 
     @PostMapping("/acceptRescheduling")
-    ResponseEntity<AcceptReschedulingResponse> acceptRescheduling(@RequestBody AcceptReschedulingRequest acceptReschedulingRequest);
+    ResponseEntity<CustomResponse> acceptRescheduling(@RequestBody AcceptReschedulingRequest acceptReschedulingRequest,
+                                                                  BindingResult bindingResult);
 
     @GetMapping("/page/{numberPage}")
     ResponseEntity<Page<Patient>> getPatientPage(@PathVariable int numberPage);

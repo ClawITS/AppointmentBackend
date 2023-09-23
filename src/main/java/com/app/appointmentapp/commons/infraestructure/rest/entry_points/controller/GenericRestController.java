@@ -14,7 +14,7 @@ public class GenericRestController {
         customResponse.setCode(HttpStatus.CREATED.toString());
         customResponse.setMessage(message);
         customResponse.setResponse(obj);
-        return ResponseEntity.ok(customResponse);
+        return new ResponseEntity<>(customResponse, HttpStatus.CREATED);
     }
     protected ResponseEntity<CustomResponse> ok(Object obj, String message, String api ){
         CustomResponse customResponse = new CustomResponse();
@@ -22,7 +22,7 @@ public class GenericRestController {
         customResponse.setCode(HttpStatus.OK.toString());
         customResponse.setMessage(message);
         customResponse.setResponse(obj);
-        return ResponseEntity.ok(customResponse);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }
 
     protected ResponseEntity<CustomResponse> bad(Object obj,String message, String api ){
@@ -31,7 +31,7 @@ public class GenericRestController {
         customResponse.setCode(HttpStatus.BAD_REQUEST.toString());
         customResponse.setMessage(message);
         customResponse.setResponse(obj);
-        return ResponseEntity.ok(customResponse);
+        return new ResponseEntity<>(customResponse, HttpStatus.BAD_REQUEST);
     }
 
 

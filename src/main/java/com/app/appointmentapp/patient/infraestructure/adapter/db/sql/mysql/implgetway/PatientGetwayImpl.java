@@ -2,7 +2,7 @@ package com.app.appointmentapp.patient.infraestructure.adapter.db.sql.mysql.impl
 
 import com.app.appointmentapp.appointment.domain.getways.cruds.AppointmentSaveGetway;
 import com.app.appointmentapp.appointment.domain.model.Appointment;
-import com.app.appointmentapp.patient.domain.constants.PatientResponseMessages;
+import com.app.appointmentapp.patient.domain.constants.PatientResponseConstants;
 import com.app.appointmentapp.patient.domain.getways.business_services.AcceptReschedulingGetway;
 import com.app.appointmentapp.patient.domain.getways.business_services.CancelReschedulingGetway;
 import com.app.appointmentapp.patient.domain.getways.business_services.PatientRescheduleGetway;
@@ -61,7 +61,13 @@ public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGe
     @Override
     public Patient findById(Long id) {
         Optional<PatientData> data = patientRepository.findById(id);
-        return patientMapper.toPatient(data.get());
+        if(data.isPresent()){
+            return patientMapper.toPatient(data.get());
+        }
+        else{
+            return null;
+        }
+
     }
 
     @Override
@@ -71,18 +77,18 @@ public class PatientGetwayImpl implements PatientDeleteGetway, PatientFindByIdGe
 
     @Override
     public AcceptReschedulingResponse acceptRescheduling(AcceptReschedulingRequest acceptReschedulingRequest) {
-        return new AcceptReschedulingResponse(PatientResponseMessages.PATIENT_ACCEPT_RESCHEDULING);
+        return new AcceptReschedulingResponse(PatientResponseConstants.PATIENT_ACCEPT_RESCHEDULING);
     }
 
     @Override
     public CancelReschedulingResponse cancelRescheduling(CancelReschedulingRequest cancelReschedulingRequest) {
-        return new CancelReschedulingResponse(PatientResponseMessages.PATIENT_CANCEL_RESCHEDULING);
+        return new CancelReschedulingResponse(PatientResponseConstants.PATIENT_CANCEL_RESCHEDULING);
     }
 
     @Override
     public PatientRescheduleResponse patientRescheduleGetway(Appointment appointment) {
 
-        return new PatientRescheduleResponse(PatientResponseMessages.PATIENT_RESCHEDULING +
+        return new PatientRescheduleResponse(PatientResponseConstants.PATIENT_RESCHEDULING +
                 appointment.getDisponibility().getDoctor().getName());
     }
 

@@ -1,10 +1,10 @@
 package com.app.appointmentapp.patient.infraestructure.entry_point;
 
-import com.app.appointmentapp.appointment.domain.exceptions.AcceptReschedulingException;
 import com.app.appointmentapp.appointment.domain.exceptions.AppointmentException;
 import com.app.appointmentapp.appointment.domain.exceptions.CancelReschedulingException;
 import com.app.appointmentapp.commons.infraestructure.rest.dto.response.CustomResponse;
 import com.app.appointmentapp.commons.infraestructure.rest.entry_points.controller.GenericRestController;
+import com.app.appointmentapp.patient.domain.exceptions.PatientException;
 import com.app.appointmentapp.patient.domain.model.Patient;
 import com.app.appointmentapp.patient.domain.requests.AcceptReschedulingRequest;
 import com.app.appointmentapp.patient.domain.requests.CancelReschedulingRequest;
@@ -14,15 +14,19 @@ import com.app.appointmentapp.patient.domain.responses.AcceptReschedulingRespons
 import com.app.appointmentapp.patient.domain.responses.CancelReschedulingResponse;
 import com.app.appointmentapp.patient.domain.responses.PatientRescheduleResponse;
 import com.app.appointmentapp.patient.infraestructure.entry_point.provider.PatientProvider;
+import com.app.appointmentapp.patient.infraestructure.entry_point.validate.ValidatePatient;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.app.appointmentapp.patient.infraestructure.entry_point.constants.DoctorApiConstants.REQUEST_PATIENT;
-import static com.app.appointmentapp.patient.infraestructure.entry_point.constants.DoctorResponseConstants.PATIENT_SAVED;
+import static com.app.appointmentapp.doctor.infraestructure.entry_point.constants.DoctorApiConstants.REQUEST_DOCTOR;
+import static com.app.appointmentapp.patient.domain.constants.PatientResponseConstants.PATIENT_ACCEPT_RESCHEDULING;
+import static com.app.appointmentapp.patient.infraestructure.entry_point.constants.PatientApiConstants.REQUEST_PATIENT;
+import static com.app.appointmentapp.patient.infraestructure.entry_point.constants.PatientResponseConstants.PATIENT_SAVED;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -35,30 +39,37 @@ public class PatientController extends GenericRestController implements IPatient
     }
 
     @Override
-    public ResponseEntity<Patient> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(patientProvider
-                .getPatientFindByIdUseCase().findPatientById(id), HttpStatus.OK);
+    public ResponseEntity<CustomResponse> findById(@PathVariable Long id) {
+        try{
+            return ok(patientProvider
+                            .getPatientFindByIdUseCase().findPatientById(id), "patient finded",
+                    REQUEST_PATIENT);
+        }catch (PatientException e){
+            return bad(null, e.getMessage(),REQUEST_PATIENT);
+        }
     }
 
     @Override
-    public ResponseEntity<CustomResponse> save(@RequestBody Patient patient) {
+    public ResponseEntity<CustomResponse> save(@RequestBody Patient patient, BindingResult bindingResult) {
+        ValidatePatient.validatePatientRows(patient,bindingResult);
+        if(bindingResult.hasErrors()){
+            return bad(patient,bindingResult.getFieldError().getDefaultMessage(), REQUEST_DOCTOR);
+        }
         return create(patientProvider
                 .getPatientSaveUseCase().savePatient(patient),
                 PATIENT_SAVED, REQUEST_PATIENT);
     }
     @Override
-    public ResponseEntity<AcceptReschedulingResponse> acceptRescheduling(@RequestBody AcceptReschedulingRequest acceptReschedulingRequest){
-        try {
-            AcceptReschedulingException.invalidStateToRescheduling(acceptReschedulingRequest);
-            return new ResponseEntity<>(patientProvider
-                    .getAcceptReschedulingUseCase().acceptRescheduling(acceptReschedulingRequest),HttpStatus.OK);
-        }catch (AppointmentException e){
-            return ResponseEntity.badRequest().body(new AcceptReschedulingResponse(e.getMessage()));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new AcceptReschedulingResponse(e.getMessage()));
-        }
+    public ResponseEntity<CustomResponse> acceptRescheduling(@RequestBody AcceptReschedulingRequest acceptReschedulingRequest,
+                                                                         BindingResult bindingResult){
+     ValidatePatient.validatePatientAcceptRechedule(acceptReschedulingRequest,bindingResult);
+     if(bindingResult.hasErrors()){
+         return bad(acceptReschedulingRequest,bindingResult.getFieldError().getDefaultMessage(), REQUEST_DOCTOR);
 
+     }
+        return ok(patientProvider
+                .getAcceptReschedulingUseCase().acceptRescheduling(acceptReschedulingRequest),
+                PATIENT_ACCEPT_RESCHEDULING, REQUEST_PATIENT);
     }
 
     @Override

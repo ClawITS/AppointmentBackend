@@ -1,7 +1,7 @@
 package com.app.appointmentapp.patient.domain.constants;
 
-public class PatientResponseMessages {
-    private PatientResponseMessages() {
+public class PatientResponseConstants {
+    private PatientResponseConstants() {
     }
 
     public static final String PATIENT_ACCEPT_RESCHEDULING= "The rescheduling has been accepted by the patient";
